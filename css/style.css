@@ -16,7 +16,7 @@
 /* Vollkorn desde Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap");
 
-/* Calluna Sans local (agrega tus archivos .woff2 a /fonts/) */
+/* Calluna Sans local (agrega tus archivos .woff2 a /fonts/) *
 @font-face {
   font-family: "Calluna Sans";
   src: url("/fonts/CallunaSans-Light.woff2") format("woff2");
