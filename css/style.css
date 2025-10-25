@@ -1,0 +1,287 @@
+/* =========================================================
+   Identidad Visual Institucional
+   Títulos: Vollkorn (serif)
+   Textos: Calluna Sans (sans-serif)
+   Colores: Pantone 7519 C (#574319) y 116 C (#E1D200)
+   ========================================================= */
+
+/* === Tipografías === */
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+  --font-display: "Vollkorn", serif;
+  --font-text: "Nunito Sans", sans-serif;
+}
+
+/* Vollkorn desde Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&display=swap");
+
+/* Calluna Sans local (agrega tus archivos .woff2 a /fonts/) */
+@font-face {
+  font-family: "Calluna Sans";
+  src: url("/fonts/CallunaSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Calluna Sans";
+  src: url("/fonts/CallunaSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Calluna Sans";
+  src: url("/fonts/CallunaSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================================
+   Variables Globales
+   ========================================================= */
+:root {
+  --brand: #E1D200;         /* Pantone 116 C */
+  --brand-dark: #c4b400;    /* Hover más oscuro */
+  --brand-brown: #574319;   /* Pantone 7519 C */
+  --ink: #2c2415;           /* Texto principal */
+  --ink-light: #fffdf5;     /* Texto claro */
+  --muted: #7c7463;         /* Texto secundario */
+  --bg-soft: #faf8ee;       /* Fondo claro suave */
+  --border: #e4dfc8;        /* Bordes */
+
+  --font-display: "Vollkorn", serif;
+  --font-text: "Calluna Sans", sans-serif;
+
+  --fs-900: clamp(2.2rem, 2vw + 1.6rem, 3.2rem);
+  --fs-800: clamp(1.8rem, 1.6vw + 1.2rem, 2.4rem);
+  --fs-700: clamp(1.5rem, 1.2vw + 1rem, 2rem);
+  --fs-600: clamp(1.25rem, 0.8vw + 0.9rem, 1.5rem);
+  --fs-500: 1.125rem;
+  --fs-400: 1rem;
+  --fs-300: 0.9375rem;
+  --fs-200: 0.875rem;
+
+  --rounded: 1rem;
+  --shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-text);
+  color: var(--ink);
+  background: #fffdfa;
+  line-height: 1.6;
+  font-size: var(--fs-400);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; transition: 0.2s ease; }
+a:hover { opacity: 0.9; }
+
+.container { max-width: 1140px; }
+
+/* =========================================================
+   Tipografía
+   ========================================================= */
+h1, h2, h3, h4, h5, h6,
+.display-1, .display-2, .display-3, .display-4,
+.section-title, .brand-display, .tagline {
+  font-family: var(--font-display);
+  letter-spacing: .2px;
+}
+h1, .display-1 { font-size: var(--fs-900); line-height: 1.15; }
+h2, .display-2 { font-size: var(--fs-800); line-height: 1.2; }
+h3 { font-size: var(--fs-700); line-height: 1.25; }
+h4 { font-size: var(--fs-600); line-height: 1.3; }
+h5 { font-size: var(--fs-500); }
+h6 { font-size: var(--fs-400); }
+.lead { font-size: var(--fs-500); color: var(--muted); }
+
+/* =========================================================
+   Colores y fondos
+   ========================================================= */
+.text-dark-on-light, body, .section-light { color: var(--ink); }
+.text-light-on-dark, .section-dark { color: var(--ink-light); }
+
+.section-dark {
+  background-color: var(--brand-brown);
+  padding: 4rem 0;
+}
+
+/* =========================================================
+   Clases semánticas
+   ========================================================= */
+.tagline {
+  font-weight: 400;
+  font-size: var(--fs-700);
+  color: var(--ink);
+}
+.descriptivo {
+  font-family: var(--font-display);
+  font-size: var(--fs-600);
+  color: var(--ink);
+}
+.texto-informativo {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: var(--fs-400);
+  color: var(--ink);
+}
+.aviso { text-align: justify; text-indent: 30px; margin-bottom: 20px; }
+.legal, .small-legal {
+  font-family: var(--font-text);
+  font-weight: 300;
+  font-size: var(--fs-200);
+  color: var(--muted);
+}
+
+/* =========================================================
+   Navbar y Footer
+   ========================================================= */
+.navbar {
+  background: #E1D200!important;
+  border-bottom: 1px solid var(--border);
+}
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+}
+.nav-link {
+  font-weight: 500;
+  color: var(--ink) !important;
+  opacity: .9;
+}
+.nav-link.active, .nav-link:hover { opacity: 1; }
+
+footer {
+  background: #574319 !important;
+  border-top: 1px solid var(--border);
+  color: var(--ink-light);
+  padding: 2rem 0;
+}
+
+/* Iconos redes */
+.social-link {
+  display: inline-grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition: transform .15s ease, background-color .15s ease;
+}
+.social-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.1);
+}
+
+/* =========================================================
+   Botones
+   ========================================================= */
+.btn-primary {
+  background-color: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-brown);
+  border-radius: .75rem;
+  padding: .6rem 1.1rem;
+  font-weight: 700;
+  font-family: var(--font-text);
+}
+.btn-primary:hover {
+  background-color: var(--brand-dark);
+  border-color: var(--brand-dark);
+  color: var(--brand-brown);
+}
+.btn-outline-primary {
+  border-color: var(--brand);
+  color: var(--brand-brown);
+  border-radius: .75rem;
+  padding: .6rem 1.1rem;
+  font-weight: 700;
+  font-family: var(--font-text);
+}
+.btn-outline-primary:hover {
+  background-color: var(--brand);
+  color: var(--brand-brown);
+}
+
+/* =========================================================
+   Secciones y componentes
+   ========================================================= */
+.hero {
+  background: linear-gradient(180deg, var(--bg-soft), #fffdfa);
+}
+.section { padding-block: clamp(2.5rem, 3vw, 4.5rem); }
+.section-head { margin-bottom: 1.25rem; }
+.section-title { font-size: var(--fs-800); }
+.section-subtitle { color: var(--muted); font-size: var(--fs-300); }
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+  background: #fffefa;
+}
+.card-img-top {
+  border-top-left-radius: var(--rounded);
+  border-top-right-radius: var(--rounded);
+}
+.card-body h3, .card-body .h5 { font-family: var(--font-display); }
+
+.badge-soft {
+  background: var(--bg-soft);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .35rem .7rem;
+  font-size: var(--fs-200);
+}
+
+/* =========================================================
+   Formularios
+   ========================================================= */
+.form-label { font-weight: 700; font-family: var(--font-text); }
+.form-control, .form-select {
+  border-radius: .75rem;
+  border-color: var(--border);
+  background-color: #fffdf6;
+  font-family: var(--font-text);
+}
+.form-control:focus, .form-select:focus {
+  box-shadow: 0 0 0 .25rem rgba(225,210,0,.18);
+  border-color: var(--brand);
+}
+
+/* =========================================================
+   Utilidades
+   ========================================================= */
+.text-muted-legal { color: var(--muted) !important; }
+.rounded-xl { border-radius: var(--rounded) !important; }
+.shadow-soft { box-shadow: var(--shadow) !important; }
+.bg-soft { background: var(--bg-soft) !important; }
+.border-soft { border-color: var(--border) !important; }
+.carousel-img { height: 300px; object-fit: contain; }
+
+/* =========================================================
+   Responsivo
+   ========================================================= */
+@media (max-width: 991.98px) { .navbar .nav-link { padding-block: .5rem; } }
+@media (max-width: 575.98px) { .tagline { font-size: var(--fs-600); } }
+
+/* =========================================================
+   Página 404
+   ========================================================= */
+.page-404 {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}

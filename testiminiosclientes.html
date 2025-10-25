@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Testimonios — Alimentos con Principios</title>
+
+  <!-- Solo CSS, nada de JS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" />
+  <style>
+    /* Ajustes mínimos solo para esta página (opcional) */
+    .quote-mark { font-size: 2.5rem; line-height: 1; opacity:.25; }
+    .logo-bar img { filter: grayscale(100%); opacity:.85; transition: .2s; }
+    .logo-bar img:hover { filter: none; opacity:1; }
+    .quote-card { background:#fff; border:1px solid var(--border); border-radius: var(--rounded); box-shadow: var(--shadow); }
+    .kpi { display:flex; gap:.5rem; align-items:baseline; }
+    .kpi .num { font-weight:700; font-size:1.25rem; }
+    .rating i { font-style: normal; color:#d4aa00; } /* estrellas ascii */
+    .no-js-note{font-size:.875rem;color:var(--muted);}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR simple (sin colapsar) -->
+  <nav class="navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/etenlogo.jpg" alt="Alimentos con Principios" width="56" height="56" class="me-2 rounded">
+        <span>Alimentos con Principios</span>
+      </a>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">Quiénes Somos</a></li>
+        <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="nuestros_procesos.html">Procesos</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="testiminiosclientes.html">Testimonios</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="section bg-soft border-bottom border-soft">
+    <div class="container">
+      <h1 class="section-title mb-2">Lo que dicen nuestros clientes</h1>
+      <p class="lead m-0">Testimonios reales y resultados medibles de cafeterías, hoteles y tiendas locales.</p>
+    </div>
+  </header>
+
+  <!-- BARRA DE LOGOS -->
+  <section class="section pt-4 pb-3">
+    <div class="container logo-bar">
+      <p class="texto-informativo text-center mb-3">Con la confianza de:</p>
+      <div class="row row-cols-2 row-cols-md-5 g-3 align-items-center justify-content-center">
+        <div class="col text-center"><img src="img/logos/logo1.png" alt="Cliente 1" width="140" height="44" loading="lazy"></div>
+        <div class="col text-center"><img src="img/logos/logo2.png" alt="Cliente 2" width="140" height="44" loading="lazy"></div>
+        <div class="col text-center"><img src="img/logos/logo3.png" alt="Cliente 3" width="140" height="44" loading="lazy"></div>
+        <div class="col text-center"><img src="img/logos/logo4.png" alt="Cliente 4" width="140" height="44" loading="lazy"></div>
+        <div class="col text-center"><img src="img/logos/logo5.png" alt="Cliente 5" width="140" height="44" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO DE ESTUDIO (sin modal, sin JS) -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-7">
+          <article class="quote-card p-4 h-100" itemscope itemtype="https://schema.org/Review">
+            <span class="badge-soft d-inline-block mb-2">Caso de estudio</span>
+            <h2 class="h3 mb-2" itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization">
+              <span itemprop="name">Hotel Encino</span>: desayuno con origen responsable
+            </h2>
+            <p class="texto-informativo" itemprop="reviewBody">
+              Buscaban elevar la propuesta del buffet con pan de masa madre y mermeladas sin aditivos. En 8 semanas midieron satisfacción,
+              merma y ticket promedio con resultados consistentes.
+            </p>
+            <ul class="mb-4">
+              <li class="kpi"><span class="num">+31%</span> satisfacción (NPS)</li>
+              <li class="kpi"><span class="num">-18%</span> merma en panadería</li>
+              <li class="kpi"><span class="num">+12%</span> ticket promedio AM</li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+              <img src="img/logos/logo4.png" alt="Logo Hotel Encino" width="56" height="56" class="rounded">
+              <div>
+                <div class="small-legal"><strong itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Gerente A&B</span></strong> — Hotel Encino</div>
+                <div class="rating small-legal" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Calificación 5 de 5">
+                  <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5">
+                  ★★★★★
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-lg-5">
+          <div class="p-3 p-lg-4 bg-soft rounded-xl h-100">
+            <div class="quote-mark">“</div>
+            <p class="mb-2">El cambio fue inmediato: mejor sabor, ingredientes claros y clientes preguntando por el origen.</p>
+            <p class="small-legal m-0 text-muted">Resultados reportados abril–junio 2025. Metodología interna + POS.</p>
+            <hr class="my-3">
+            <!-- Video sin modal/JS: linkea a YouTube directamente -->
+            <a class="btn btn-outline-primary btn-sm" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">
+              Ver testimonio en video
+            </a>
+            <p class="no-js-note mt-2">* Abre en una pestaña nueva (sin ventanas emergentes ni scripts).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE TESTIMONIOS (duplica estas tarjetas) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head text-center">
+        <h2 class="section-title">Más historias reales</h2>
+        <p class="section-subtitle">Duplica una tarjeta por cada cliente y edita los campos.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- TESTIMONIO -->
+        <article class="col-md-6 col-lg-4" itemscope itemtype="https://schema.org/Review">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="img/logos/logo1.png" alt="Logo Cafetería La Nogalera" width="56" height="56" class="rounded">
+                <div>
+                  <h3 class="h6 m-0" itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">Cafetería La Nogalera</span>
+                  </h3>
+                  <span class="small-legal text-muted" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">María González</span> • Propietaria
+                  </span>
+                </div>
+              </div>
+              <p class="mb-3" itemprop="reviewBody">Nuestros desayunos mejoraron muchísimo. Panes integrales y mermeladas sin aditivos que los clientes notan.</p>
+              <ul class="small list-unstyled mb-3">
+                <li>• <strong>+24%</strong> ventas en desayuno</li>
+                <li>• <strong>-15%</strong> devoluciones por frescura</li>
+              </ul>
+              <div class="mb-3 rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Calificación 5 de 5">
+                <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5"> ★★★★★
+              </div>
+              <div class="mt-auto"><a href="#" class="btn btn-outline-primary btn-sm">Ver detalle</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- TESTIMONIO -->
+        <article class="col-md-6 col-lg-4" itemscope itemtype="https://schema.org/Review">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="img/logos/logo2.png" alt="Logo Tienda Origen Local" width="56" height="56" class="rounded">
+                <div>
+                  <h3 class="h6 m-0" itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">Tienda Origen Local</span>
+                  </h3>
+                  <span class="small-legal text-muted" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Ricardo Pérez</span> • Compras
+                  </span>
+                </div>
+              </div>
+              <p class="mb-3" itemprop="reviewBody">Se vende solo. Etiquetado claro, sabores consistentes y entregas puntuales.</p>
+              <ul class="small list-unstyled mb-3">
+                <li>• <strong>+18%</strong> rotación en anaquel</li>
+                <li>• <strong>+9%</strong> margen por categoría</li>
+              </ul>
+              <div class="mb-3 rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Calificación 4.5 de 5">
+                <meta itemprop="ratingValue" content="4.5"><meta itemprop="bestRating" content="5"> ★★★★☆
+              </div>
+              <div class="mt-auto"><a href="#" class="btn btn-outline-primary btn-sm">Ver detalle</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- TESTIMONIO -->
+        <article class="col-md-6 col-lg-4" itemscope itemtype="https://schema.org/Review">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="img/logos/logo3.png" alt="Logo Mercado Verde" width="56" height="56" class="rounded">
+                <div>
+                  <h3 class="h6 m-0" itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">Mercado Verde</span>
+                  </h3>
+                  <span class="small-legal text-muted" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Sofía Luna</span> • Coordinación
+                  </span>
+                </div>
+              </div>
+              <p class="mb-3" itemprop="reviewBody">Productos con trazabilidad. Es fácil comunicar el valor al cliente final.</p>
+              <ul class="small list-unstyled mb-3">
+                <li>• <strong>+22%</strong> satisfacción</li>
+                <li>• <strong>-10%</strong> merma mensual</li>
+              </ul>
+              <div class="mb-3 rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Calificación 5 de 5">
+                <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5"> ★★★★★
+              </div>
+              <div class="mt-auto"><a href="#" class="btn btn-outline-primary btn-sm">Ver detalle</a></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section section-dark text-center">
+    <div class="container">
+      <h2 class="mb-2">¿Listo para crear tu propia historia?</h2>
+      <p class="mb-4">Diseñemos juntos tu primera carta de productos con origen responsable.</p>
+      <a href="contact.html" class="btn btn-primary">Hablemos</a>
+    </div>
+  </section>
+
+  <!-- FOOTER (sin scripts) -->
+  <footer class="footer section-dark pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <img src="img/etenlogo.jpg" alt="Logo" width="100" height="100">
+            <span class="fw-semibold text-light-on-dark">Alimentos con Principios</span>
+          </div>
+          <p class="mb-3 text-light-on-dark">Alimentos honestos, locales y de temporada.</p>
+          <div class="d-flex gap-3">
+            <a class="social-link" href="#" aria-label="Facebook"><span class="text-light-on-dark">Fb</span></a>
+            <a class="social-link" href="#" aria-label="Instagram"><span class="text-light-on-dark">Ig</span></a>
+            <a class="social-link" href="#" aria-label="LinkedIn"><span class="text-light-on-dark">In</span></a>
+            <a class="social-link" href="#" aria-label="WhatsApp"><span class="text-light-on-dark">Wa</span></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-4">
+          <h6 class="text-light-on-dark mb-3">Enlaces rápidos</h6>
+          <ul class="list-unstyled m-0">
+            <li><a class="footer-link" href="about.html">Quiénes Somos</a></li>
+            <li><a class="footer-link" href="productos.html">Productos</a></li>
+            <li><a class="footer-link" href="nuestros_procesos.html">Nuestros Procesos</a></li>
+            <li><a class="footer-link" href="contact.html">Contacto</a></li>
+            <li><a class="footer-link" href="privacy_notice.html">Aviso de Privacidad</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4">
+          <h6 class="text-light-on-dark mb-3">Contacto</h6>
+          <ul class="list-unstyled m-0 text-light-on-dark">
+            <li>info@alimentosprincipios.com</li>
+            <li>(123) 456-7890</li>
+            <li>Guadalajara, México</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4 opacity-25">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <p class="m-0 legal text-light-on-dark">© 2025 Alimentos con Principios. Todos los derechos reservados.</p>
+        <a class="footer-link" href="#top" aria-label="Volver arriba">↑</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

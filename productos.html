@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos — Alimentos con Principios</title>
+
+  <!-- Solo CSS (GitHub Pages friendly) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    /* Ajustes mínimos específicos de esta página (opcionales) */
+    .product-badge { background: var(--brand); color: var(--brand-brown); border-radius: 999px; padding: .2rem .6rem; font-size: var(--fs-200); }
+    .price { font-weight: 700; }
+    .meta { font-size: var(--fs-200); color: var(--muted); }
+    .category-kicker { letter-spacing:.06em; text-transform:uppercase; font-size: var(--fs-300); color: var(--muted); }
+    .filters .btn { pointer-events:none; opacity:.7 } /* decorativo, sin JS */
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR (agrega bg-crema si la quieres clara) -->
+  <nav class="navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/etenlogo.jpg" alt="Alimentos con Principios" width="64" height="64" class="me-2 rounded">
+        <span>Alimentos con Principios</span>
+      </a>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">Quiénes Somos</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="nuestros_procesos.html">Procesos</a></li>
+        <li class="nav-item"><a class="nav-link" href="testiminiosclientes.html">Testimonios</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO + MIGAS -->
+  <header class="bg-soft py-4 border-bottom border-soft">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small mb-2">
+          <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Productos</li>
+        </ol>
+      </nav>
+      <h1 class="section-title mb-0">Nuestros Productos</h1>
+      <p class="section-subtitle mb-0">Ingredientes honestos, elaborados por familias productoras locales.</p>
+    </div>
+  </header>
+
+  <!-- FAMILIAS PRODUCTORAS -->
+  <section class="section">
+    <div class="container">
+      <h2 class="h3 text-center mb-4">Familias productoras</h2>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <img src="img/Logotipo_ReyPanadero[14182].gif" alt="Rey Panadero" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          <h3 class="h5 mt-3">Rey Panadero</h3>
+          <p class="texto-informativo mb-0">Pan de masa madre, fermentaciones lentas y granos seleccionados.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="img/etenlogo.jpg" alt="Eten" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          <h3 class="h5 mt-3">Eten</h3>
+          <p class="texto-informativo mb-0">Snacks nutritivos sin aditivos, endulzados de forma natural.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="img/Origenes_logo_principal.png" alt="Orígenes" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          <h3 class="h5 mt-3">Orígenes</h3>
+          <p class="texto-informativo mb-0">Harinas, mantequillas y mermeladas con trazabilidad clara.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- “FILTROS” SOLO VISUALES (SIN JS) -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="filters d-flex flex-wrap gap-2">
+        <span class="badge-soft">Todo</span>
+        <button class="btn btn-outline-primary btn-sm rounded-pill">Panes</button>
+        <button class="btn btn-outline-primary btn-sm rounded-pill">Snacks</button>
+        <button class="btn btn-outline-primary btn-sm rounded-pill">Mermeladas</button>
+        <button class="btn btn-outline-primary btn-sm rounded-pill">Sin aditivos</button>
+        <button class="btn btn-outline-primary btn-sm rounded-pill">Novedades</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO: PANES -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="d-flex align-items-baseline justify-content-between mb-3">
+        <div>
+          <div class="category-kicker">Categoría</div>
+          <h2 class="h4 m-0">Panes artesanales</h2>
+        </div>
+        <a href="#" class="muted-link">Ver todos</a>
+      </div>
+
+      <div class="row g-4">
+        <!-- CARD DE PRODUCTO (DUPLICA SEGÚN NECESITES) -->
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/pan_campo.jpg" alt="Pan de Campo" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h3 class="h6 m-0" itemprop="name">Pan de Campo</h3>
+                <span class="product-badge">Nuevo</span>
+              </div>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Masa madre, harina integral y fermentación lenta para una miga húmeda y corteza crujiente.</p>
+              <div class="meta mb-2">750 g • Sin aditivos</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">85</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/centeno.jpg" alt="Centeno 70%" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Centeno 70%</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Perfil ácido suave, alto en fibra y con notas de nuez.</p>
+              <div class="meta mb-2">680 g • Fibra alta</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">92</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/baguette.jpg" alt="Baguette clásica" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Baguette clásica</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Corteza fina, alveolos regulares y sabor balanceado.</p>
+              <div class="meta mb-2">2 × 180 g</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">75</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/brioche.jpg" alt="Brioche" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h3 class="h6 m-0" itemprop="name">Brioche</h3>
+                <span class="product-badge">Sin aditivos</span>
+              </div>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Miga suave y aromática con mantequilla de origen responsable.</p>
+              <div class="meta mb-2">550 g</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">98</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO: SNACKS -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="d-flex align-items-baseline justify-content-between mb-3">
+        <div>
+          <div class="category-kicker">Categoría</div>
+          <h2 class="h4 m-0">Snacks naturales</h2>
+        </div>
+        <a href="#" class="muted-link">Ver todos</a>
+      </div>
+
+      <div class="row g-4">
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/granola.jpg" alt="Granola de cacao" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Granola de cacao</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Avena, semillas, miel y cacao de origen responsable.</p>
+              <div class="meta mb-2">300 g • Endulzada con miel</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">75</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/barras.jpg" alt="Barras de avena" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Barras de avena</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Avena, frutos secos y dátil. Sin azúcares añadidos.</p>
+              <div class="meta mb-2">6 pzas • Sin aditivos</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">68</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/chips_manzana.jpg" alt="Chips de manzana" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Chips de manzana</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Deshidratadas a baja temperatura. Crujientes y naturales.</p>
+              <div class="meta mb-2">45 g • 1 ingrediente</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">42</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/mix_semillas.jpg" alt="Mix de semillas" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Mix de semillas</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Girasol, calabaza y ajonjolí tostados. Perfecto para ensaladas.</p>
+              <div class="meta mb-2">200 g • Proteína vegetal</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">58</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO: MERMELADAS -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="d-flex align-items-baseline justify-content-between mb-3">
+        <div>
+          <div class="category-kicker">Categoría</div>
+          <h2 class="h4 m-0">Mermeladas y untables</h2>
+        </div>
+        <a href="#" class="muted-link">Ver todos</a>
+      </div>
+
+      <div class="row g-4">
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/mermelada_fresa.jpg" alt="Mermelada de fresa" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Mermelada de fresa</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Cocción corta, fruta de temporada y dulzor equilibrado.</p>
+              <div class="meta mb-2">280 g • 60% fruta</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">65</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/mermelada_durazno.jpg" alt="Mermelada de durazno" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Mermelada de durazno</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Textura sedosa y perfume de fruta madura.</p>
+              <div class="meta mb-2">280 g • 60% fruta</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">65</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/untable_cacahuate.jpg" alt="Mantequilla de cacahuate" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Mantequilla de cacahuate</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Solo cacahuate tostado y una pizca de sal. Nada más.</p>
+              <div class="meta mb-2">300 g • 1 ingrediente</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">72</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
+          <div class="card h-100">
+            <img src="img/productos/untable_avellana.jpg" alt="Crema de avellana" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 m-0" itemprop="name">Crema de avellana</h3>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Avellana tostada, cacao y endulzante natural.</p>
+              <div class="meta mb-2">250 g • Sin aceite de palma</div>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <meta itemprop="priceCurrency" content="MXN">
+                  <span itemprop="price">96</span> MXN
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Nota ingredientes/alérgenos -->
+      <div class="small-legal text-muted mt-3">
+        * Consulta ingredientes y posibles alérgenos al solicitar tu pedido. Lotes sujetos a disponibilidad de temporada.
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section text-center">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-xl bg-soft shadow-soft">
+        <h2 class="h4 mb-2">¿Te ayudamos a armar tu pedido?</h2>
+        <p class="texto-informativo mb-3">Podemos sugerirte combinaciones por temporada y consumo estimado.</p>
+        <a href="contact.html" class="btn btn-primary">Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer section-dark pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <img src="img/etenlogo.jpg" alt="Logo" width="100" height="100">
+            <span class="fw-semibold text-light-on-dark">Alimentos con Principios</span>
+          </div>
+          <p class="mb-3 text-light-on-dark">Alimentos honestos, locales y de temporada.</p>
+          <div class="d-flex gap-3">
+            <a class="social-link" href="#" aria-label="Facebook"><span class="text-light-on-dark">Fb</span></a>
+            <a class="social-link" href="#" aria-label="Instagram"><span class="text-light-on-dark">Ig</span></a>
+            <a class="social-link" href="#" aria-label="LinkedIn"><span class="text-light-on-dark">In</span></a>
+            <a class="social-link" href="#" aria-label="WhatsApp"><span class="text-light-on-dark">Wa</span></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-4">
+          <h6 class="text-light-on-dark mb-3">Enlaces rápidos</h6>
+          <ul class="list-unstyled m-0">
+            <li><a class="footer-link" href="about.html">Quiénes Somos</a></li>
+            <li><a class="footer-link" href="productos.html">Productos</a></li>
+            <li><a class="footer-link" href="nuestros_procesos.html">Nuestros Procesos</a></li>
+            <li><a class="footer-link" href="testiminiosclientes.html">Testimonios</a></li>
+            <li><a class="footer-link" href="contact.html">Contacto</a></li>
+            <li><a class="footer-link" href="privacy_notice.html">Aviso de Privacidad</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4">
+          <h6 class="text-light-on-dark mb-3">Contacto</h6>
+          <ul class="list-unstyled m-0 text-light-on-dark">
+            <li>info@alimentosprincipios.com</li>
+            <li>(123) 456-7890</li>
+            <li>Guadalajara, México</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4 opacity-25">
+      <div class="text-center small-legal text-light-on-dark">© 2025 Alimentos con Principios. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
