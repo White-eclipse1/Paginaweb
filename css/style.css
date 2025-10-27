@@ -269,16 +269,104 @@ footer a:hover { color: var(--brand); }
   }
 }
 
+/* ====== Carrusel: texto 100% responsivo en móviles ====== */
+@media (max-width: 575.98px) {
+  #carouselHome .carousel-caption{
+    inset: auto 0 1.1rem 0;      /* coloca el caption abajo y centrado */
+    padding: 0 1rem;
+    text-align: center;
+  }
+  #carouselHome .carousel-caption h1{
+    font-size: clamp(1.15rem, 6.2vw, 1.6rem);
+    line-height: 1.2;
+    margin-bottom: .5rem;
+  }
+  #carouselHome .carousel-caption p{
+    display: none;               /* oculta el párrafo en pantallas muy chicas */
+  }
+  #carouselHome .carousel-caption .btn{
+    padding: .5rem .9rem;
+    font-size: .9rem;
+    border-radius: .75rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #carouselHome .carousel-caption{
+    padding: 0 1.25rem;
+    text-align: center;
+  }
+  #carouselHome .carousel-caption h1{
+    font-size: clamp(1.25rem, 4.5vw, 2rem);
+    line-height: 1.2;
+  }
+  #carouselHome .carousel-caption p{
+    font-size: .95rem;
+    max-width: 85%;
+    margin: 0 auto .8rem;
+  }
+}
+
 
 /* =========================================================
    Responsivo
    ========================================================= */
 @media (max-width: 991.98px) { .navbar .nav-link { padding-block: .5rem; } }
 @media (max-width: 575.98px) { .tagline { font-size: var(--fs-600); } }
+/* ===== Productos Destacados: ajuste compacto en móviles ===== */
+@media (max-width: 575.98px) {
+  /* 2 tarjetas por fila sin cambiar el HTML (col-md-4) */
+  .row.g-4 > .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 
+  /* Tarjeta más compacta */
+  .card.h-100 {
+    border-radius: 12px;
+  }
+
+  /* Imagen menos alta y recortada con buena composición */
+  .card-img-top {
+    height: 150px;          /* antes ocupaba toda la proporción original */
+    object-fit: cover;      /* recorte elegante sin deformar */
+  }
+
+  /* Tipos y espaciados reducidos */
+  .card-body {
+    padding: .75rem .75rem 1rem;
+  }
+  .card-title {
+    font-size: .95rem;
+    margin-bottom: .35rem;
+  }
+  .card-text {
+    font-size: .8rem;
+    margin-bottom: .6rem;
+  }
+  .btn.btn-outline-success,
+  .btn.btn-success {
+    padding: .35rem .6rem;
+    font-size: .8rem;
+    border-radius: .6rem;
+  }
+}
+
+/* Tablets chicas (también 2 por fila, un poco más altas) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .row.g-4 > .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+}
 /* =========================================================
    Página 404
    ========================================================= */
 .page-404 {
   min-height: 60vh; display: grid; place-items: center; text-align: center;
 }
+
