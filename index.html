@@ -42,35 +42,66 @@
 
   <main class="flex-grow-1">
 
-    <!-- CARRUSEL (4 slides + 4 indicadores) -->
-    <div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    
+    <!-- HERO SLIDER / CARRUSEL MEJORADO -->
+<div id="carouselHome" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="3"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <!-- SLIDE 1 -->
+    <div class="carousel-item active position-relative">
+      <img src="img/etenlocal.jpg" class="d-block w-100 img-fluid" alt="Pan artesanal y alimentos frescos">
+      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
+        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
+        <p class="lead mb-4">Ingredientes naturales, procesos honestos y un toque de amor en cada plato.</p>
+        
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/etenlocal.jpg" class="d-block w-100" alt="Nuestro local y vitrina de productos">
-        </div>
-        <div class="carousel-item">
-          <img src="img/Planta-AlmadePan.jpg" class="d-block w-100" alt="Productos frescos y naturales">
-        </div>
-        <div class="carousel-item">
-          <img src="img/slide-3a1.jpg" class="d-block w-100" alt="Ingredientes de calidad">
-        </div>
-        <div class="carousel-item">
-          <img src="img/img5.jpg" class="d-block w-100" alt="Proceso cuidadoso de elaboración">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev" aria-label="Anterior">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next" aria-label="Siguiente">
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
+
+    <!-- SLIDE 2 -->
+    <div class="carousel-item position-relative">
+      <img src="img/Planta-AlmadePan.jpg" class="d-block w-100 img-fluid" alt="Elaboración artesanal">
+      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light ">
+        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
+        <p class="lead mb-4">Apoyamos productores locales y cuidamos cada detalle del proceso.</p>
+        
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="carousel-item position-relative">
+      <img src="img/slide-3a1.jpg" class="d-block w-100 img-fluid" alt="Ingredientes frescos">
+      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
+        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
+        <p class="lead mb-4">Seleccionamos solo ingredientes reales, sin conservadores.</p>
+        
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="carousel-item position-relative">
+      <img src="img/img5.jpg" class="d-block w-100 img-fluid" alt="Cocina saludable">
+      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
+        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
+        <p class="lead mb-4">Cada producto refleja nuestra pasión por la comida consciente.</p>
+        
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
 
     <!-- SECCIÓN PRINCIPAL / CONTEXTO -->
     <section class="py-5 text-center ">

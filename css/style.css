@@ -110,7 +110,7 @@ h6 { font-size: var(--fs-400); }
    Navbar y Footer
    ========================================================= */
 .navbar {
-  background: var(--white) !important;        /* fondo blanco */
+  background: #f0e8cb !important;        /* fondo blanco */
   border-bottom: 1px solid var(--border);
 }
 .navbar-brand {
@@ -129,7 +129,7 @@ h6 { font-size: var(--fs-400); }
 .nav-link:hover { border-bottom-color: var(--brand); }
 
 footer {
-  background: var(--brand-brown) !important;  /* fondo marrón-oscuro */
+  background: #504237 !important;  /* fondo marrón-oscuro */
   border-top: 1px solid var(--border);
   color: var(--ink-light);
   padding: 2rem 0;
@@ -233,6 +233,42 @@ footer a:hover { color: var(--brand); }
 .carousel-img { height: 300px; object-fit: contain; }
 .muted-link { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 .muted-link:hover { color: var(--brown-dark); }
+/* =========================================================
+   Carrusel
+   ========================================================= */
+
+.carousel-item img {
+  max-height: 500px;
+  width: 100%;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+
+.carousel-caption {
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.8);
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.carousel-caption h1 {
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+
+.carousel-caption p {
+  max-width: 700px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* =========================================================
    Responsivo
