@@ -1,22 +1,43 @@
-<!doctype html><html><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Auth Callback</title>
-</head><body><script>
-(function(){
-  function g(n,u){u=u||location.href;n=n.replace(/[[\]]/g,'\\$&');
-    var r=new RegExp('[#&?]'+n+'(=([^&#]*)|&|#|$)'),m=r.exec(u);
-    if(!m)return null;if(!m[2])return '';return decodeURIComponent(m[2].replace(/\+/g,' '));}
-  var token=g('token')||g('access_token');
-  if(!token){location.replace('/admin/');return;}
-  try{
-    var p={token:token};
-    localStorage.setItem('netlify-cms-auth', JSON.stringify(p));
-    localStorage.setItem('decap-cms-auth', JSON.stringify(p));
-    if(window.opener && !window.opener.closed){
-      window.opener.postMessage('authorization:github:success','*');
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Auth Callback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<script>
+  (function () {
+    function getParamFrom(str) {
+      const params = {};
+      (str || '').replace(/^[#?]/, '').split('&').forEach(part => {
+        if (!part) return;
+        const [k, v] = part.split('=');
+        params[decodeURIComponent(k)] = decodeURIComponent(v || '');
+      });
+      return params;
     }
-  }catch(e){}
-  try{window.close();}catch(e){}
-  location.replace('/admin/');
-})();
-</script></body></html>
+
+    const hashParams = getParamFrom(window.location.hash);
+    const queryParams = getParamFrom(window.location.search);
+    const token = hashParams['access_token'] || hashParams['token'] || queryParams['access_token'] || queryParams['token'];
+
+    if (token) {
+      try {
+        const payload = JSON.stringify({ token });
+        localStorage.setItem('netlify-cms-auth', payload);
+        localStorage.setItem('decap-cms-auth', payload);
+      } catch (e) {}
+      try {
+        if (window.opener && typeof window.opener.postMessage === 'function') {
+          window.opener.postMessage('authorization:github:success', '*');
+        }
+      } catch (e) {}
+    }
+
+    try { window.close(); } catch (e) {}
+    window.location.replace('/admin/');
+  })();
+</script>
+</body>
+</html>

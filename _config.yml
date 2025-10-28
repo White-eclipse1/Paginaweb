@@ -1,6 +1,6 @@
-title: Pagina web pan
-timezone: America/Mexico_City
-markdown: kramdown
+title: "Demo Jekyll + Decap"
+url: "AZURE_URL"
+baseurl: ""
 
 collections:
   updates:
@@ -11,9 +11,22 @@ collections:
     permalink: /jobs/:title/
 
 defaults:
-  - scope: { path: "", type: "updates" }
-    values: { layout: update }
-  - scope: { path: "", type: "jobs" }
-    values: { layout: job }
+  - scope:
+      path: ""
+      type: "updates"
+    values:
+      layout: "update"
+  - scope:
+      path: ""
+      type: "jobs"
+    values:
+      layout: "job"
 
-theme: null
+markdown: kramdown
+kramdown:
+  input: GFM
+
+exclude:
+  - admin/decap-cms.js
+  - admin/index.html
+  - admin/callback.html

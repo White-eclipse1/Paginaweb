@@ -1,62 +1,86 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <title>Admin</title>
-  </head>
-  <body>
-    <script>
-      // Evita auto-init, vamos a inicializar con config inline
-      window.CMS_MANUAL_INIT = true;
+<head>
+  <meta charset="utf-8" />
+  <title>Admin — Decap CMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 2rem; }
+    .hint { color: #555; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Panel de administración</h1>
+  <p class="hint">Decap CMS con configuración inline y bundle local (sin CDN).</p>
 
-      // 🔒 Configuración inline (sin depender de /admin/config.yml)
-      window.CMS_CONFIG = {
-        backend: {
-          name: "github",
-          repo: "White-eclipse1/Paginaweb",
-          branch: "main",
-          auth_type: "implicit",
-          app_id: "Ov23liNhnitHY6sQueYb",
-          base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-          auth_endpoint: "/admin/callback.html"
+  <script>
+    // Requerido: inicialización manual y configuración inline (NO config.yml).
+    window.CMS_MANUAL_INIT = true;
+
+    // Reemplaza los PLACEHOLDERS:
+    // AZURE_URL, GITHUB_OWNER, GITHUB_REPO, GITHUB_OAUTH_CLIENT_ID
+    window.CMS_CONFIG = {
+      backend: {
+        name: "github",
+        repo: "GITHUB_OWNER/GITHUB_REPO",
+        branch: "main",
+        auth_type: "implicit",
+        app_id: "GITHUB_OAUTH_CLIENT_ID",
+        base_url: "AZURE_URL",
+        auth_endpoint: "/admin/callback.html"
+      },
+      media_folder: "assets/uploads",
+      public_folder: "/assets/uploads",
+      locale: "es",
+      slug: { encoding: "unicode", clean_accents: true },
+      collections: [
+        {
+          name: "updates",
+          label: "Updates (Noticias/Lanzamientos)",
+          label_singular: "Update",
+          folder: "_updates",
+          create: true,
+          slug: "{{slug}}",
+          editor: { preview: true },
+          fields: [
+            { label: "Título", name: "title", widget: "string" },
+            { label: "Fecha", name: "date", widget: "datetime" },
+            { label: "Tipo", name: "kind", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
+            { label: "Resumen", name: "excerpt", widget: "text", required: false },
+            { label: "Cover (URL)", name: "cover", widget: "string", required: false },
+            { label: "Precio (texto)", name: "price", widget: "string", required: false },
+            { label: "Contenido", name: "body", widget: "markdown" }
+          ]
         },
-        media_folder: "assets/uploads",
-        public_folder: "/assets/uploads",
-        collections: [
-          {
-            name: "updates",
-            label: "Actualizaciones",
-            folder: "_updates",
-            create: true,
-            slug: "{{slug}}",
-            fields: [
-              { label: "Título", name: "title", widget: "string" },
-              { label: "Fecha",  name: "date",  widget: "datetime" },
-              { label: "Contenido", name: "body", widget: "markdown" }
-            ]
-          },
-          {
-            name: "jobs",
-            label: "Bolsa de trabajo",
-            folder: "_jobs",
-            create: true,
-            slug: "{{slug}}",
-            fields: [
-              { label: "Puesto", name: "title", widget: "string" },
-              { label: "Fecha",  name: "date",  widget: "datetime" },
-              { label: "Descripción", name: "body", widget: "markdown" }
-            ]
-          }
-        ]
-      };
-    </script>
+        {
+          name: "jobs",
+          label: "Jobs (Bolsa de trabajo)",
+          label_singular: "Job",
+          folder: "_jobs",
+          create: true,
+          slug: "{{slug}}",
+          editor: { preview: true },
+          fields: [
+            { label: "Título", name: "title", widget: "string" },
+            { label: "Fecha", name: "date", widget: "datetime" },
+            { label: "Ubicación", name: "location", widget: "string", required: false },
+            { label: "Tipo de contrato", name: "contract_type", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas","Freelance"] },
+            { label: "Salario (texto)", name: "salary", widget: "string", required: false },
+            { label: "Fecha límite", name: "deadline", widget: "datetime", required: false },
+            { label: "Link para aplicar", name: "apply_link", widget: "string", required: false },
+            { label: "Email para aplicar", name: "apply_email", widget: "string", required: false },
+            { label: "Resumen", name: "excerpt", widget: "text", required: false },
+            { label: "Descripción", name: "body", widget: "markdown" }
+          ]
+        }
+      ]
+    };
+  </script>
 
-    <!-- Bundle local (ya en tu repo) -->
-    <script src="./decap-cms.js"></script>
-    <script>
-      // Inicia Decap con la config inline (NO usa api.netlify.com)
-      window.CMS.init({ config: window.CMS_CONFIG });
-    </script>
-  </body>
+  <!-- Bundle local de Decap CMS (SIN CDN) -->
+  <script src="./decap-cms.js"></script>
+  <script>
+    CMS.init({ config: window.CMS_CONFIG });
+  </script>
+</body>
 </html>
