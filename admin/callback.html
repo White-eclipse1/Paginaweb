@@ -1,51 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>Auth Callback</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <title>Autenticación completada</title>
 </head>
 <body>
-<script>
-(function () {
-  function getParamFrom(str) {
-    const params = {};
-    (str || '').replace(/^[#?]/, '').split('&').forEach(part => {
-      if (!part) return;
-      const [k, v] = part.split('=');
-      params[decodeURIComponent(k)] = decodeURIComponent(v || '');
-    });
-    return params;
-  }
-  const hashParams = getParamFrom(location.hash);
-  const queryParams = getParamFrom(location.search);
-  const token =
-    hashParams['access_token'] || hashParams['token'] ||
-    queryParams['access_token'] || queryParams['token'];
+  <script>
+    (function() {
+      function getParamFrom(str) {
+        const params = {};
+        (str || '').replace(/^[#?]/, '').split('&').forEach(p => {
+          if (!p) return;
+          const [k, v] = p.split('=');
+          params[decodeURIComponent(k)] = decodeURIComponent(v || '');
+        });
+        return params;
+      }
 
-  // DEBUG: pinta en pantalla lo que llegó
-  document.body.innerHTML =
-    "<pre>" + JSON.stringify({ hashParams, queryParams, token }, null, 2) + "</pre>";
+      const hashParams = getParamFrom(location.hash);
+      const queryParams = getParamFrom(location.search);
+      const token =
+        hashParams['access_token'] || hashParams['token'] ||
+        queryParams['access_token'] || queryParams['token'];
 
-  if (!token) return; // deja visible el debug si no hay token
+      if (token) {
+        const payload = JSON.stringify({ token });
+        localStorage.setItem('netlify-cms-auth', payload);
+        localStorage.setItem('decap-cms-auth', payload);
 
-  try {
-    const payload = JSON.stringify({ token });
-    localStorage.setItem('netlify-cms-auth', payload);
-    localStorage.setItem('decap-cms-auth', payload);
-  } catch (e) {}
+        try {
+          if (window.opener && typeof window.opener.postMessage === 'function') {
+            window.opener.postMessage('authorization:github:success', '*');
+          }
+        } catch (e) {}
 
-  try {
-    if (window.opener && typeof window.opener.postMessage === 'function') {
-      window.opener.postMessage('authorization:github:success', '*');
-    }
-  } catch (e) {}
-
-  // comenta estas 2 líneas mientras debugeas
-  // try { window.close(); } catch (e) {}
-  // location.replace('/admin/');
-})();
-</script>
-
+        try { window.close(); } catch (e) {}
+        location.replace('/admin/');
+      } else {
+        document.body.innerHTML = "<p>Error: No se recibió token de autenticación.</p>";
+      }
+    })();
+  </script>
 </body>
 </html>
