@@ -1,6 +1,3 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/admin/*"]
-  }
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/admin/*"] }
 }
