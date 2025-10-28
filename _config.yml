@@ -1,0 +1,19 @@
+title: Pagina web pan
+timezone: America/Mexico_City
+markdown: kramdown
+
+collections:
+  updates:
+    output: true
+    permalink: /updates/:title/
+  jobs:
+    output: true
+    permalink: /jobs/:title/
+
+defaults:
+  - scope: { path: "", type: "updates" }
+    values: { layout: update }
+  - scope: { path: "", type: "jobs" }
+    values: { layout: job }
+
+theme: null

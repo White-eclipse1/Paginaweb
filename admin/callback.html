@@ -1,0 +1,9 @@
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+</head><body><script>
+function g(n,u){if(!u)u=location.href;n=n.replace(/[\[\]]/g,'\\$&');
+var r=new RegExp('[?&]'+n+'(=([^&#]*)|&|#|$)'),res=r.exec(u);
+if(!res)return null;if(!res[2])return '';return decodeURIComponent(res[2].replace(/\+/g,' '));}
+var t=g('token');if(t){localStorage.setItem('netlify-cms-auth',JSON.stringify({token:t}));}
+location.replace('/admin/');
+</script></body></html>
