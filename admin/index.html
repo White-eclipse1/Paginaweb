@@ -6,6 +6,57 @@
     <title>Admin</title>
   </head>
   <body>
+    <script>
+      // Evita auto-init, vamos a inicializar con config inline
+      window.CMS_MANUAL_INIT = true;
+
+      // 🔒 Configuración inline (sin depender de /admin/config.yml)
+      window.CMS_CONFIG = {
+        backend: {
+          name: "github",
+          repo: "White-eclipse1/Paginaweb",
+          branch: "main",
+          auth_type: "implicit",
+          app_id: "Ov23liNhnitHY6sQueYb",
+          base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
+          auth_endpoint: "/admin/callback.html"
+        },
+        media_folder: "assets/uploads",
+        public_folder: "/assets/uploads",
+        collections: [
+          {
+            name: "updates",
+            label: "Actualizaciones",
+            folder: "_updates",
+            create: true,
+            slug: "{{slug}}",
+            fields: [
+              { label: "Título", name: "title", widget: "string" },
+              { label: "Fecha",  name: "date",  widget: "datetime" },
+              { label: "Contenido", name: "body", widget: "markdown" }
+            ]
+          },
+          {
+            name: "jobs",
+            label: "Bolsa de trabajo",
+            folder: "_jobs",
+            create: true,
+            slug: "{{slug}}",
+            fields: [
+              { label: "Puesto", name: "title", widget: "string" },
+              { label: "Fecha",  name: "date",  widget: "datetime" },
+              { label: "Descripción", name: "body", widget: "markdown" }
+            ]
+          }
+        ]
+      };
+    </script>
+
+    <!-- Bundle local (ya en tu repo) -->
     <script src="./decap-cms.js"></script>
+    <script>
+      // Inicia Decap con la config inline (NO usa api.netlify.com)
+      window.CMS.init({ config: window.CMS_CONFIG });
+    </script>
   </body>
 </html>
