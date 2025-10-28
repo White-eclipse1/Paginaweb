@@ -26,7 +26,4 @@ markdown: kramdown
 kramdown:
   input: GFM
 
-exclude:
-  - admin/decap-cms.js
-  - admin/index.html
-  - admin/callback.html
+
