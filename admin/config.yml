@@ -3,7 +3,9 @@ backend:
   repo: White-eclipse1/Paginaweb
   branch: main
   auth_type: implicit
-  app_id: Ov23liNhnitHY6sQueYb   # tu Client ID de GitHub
+  app_id: Ov23liNhnitHY6sQueYb         # <-- tu Client ID
+  base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net
+  auth_endpoint: /admin/callback.html
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
@@ -28,5 +30,3 @@ collections:
       - { label: "Puesto", name: "title", widget: "string" }
       - { label: "Fecha",  name: "date",  widget: "datetime" }
       - { label: "Descripción", name: "body", widget: "markdown" }
-
-
