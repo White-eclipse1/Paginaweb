@@ -4,7 +4,7 @@ backend:
   branch: main
   base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net
   auth_type: implicit
-  app_id: Ov23liNhnitHY6sQueYb                         # pondrás el Client ID después
+  app_id: "Ov23liNhnitHY6sQueYb"                         # pondrás el Client ID después
   auth_endpoint: /admin/callback.html
 
 media_folder: "assets/uploads"
