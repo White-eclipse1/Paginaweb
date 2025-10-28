@@ -14,25 +14,20 @@
   <p class="hint">Decap CMS con configuración inline y bundle local (sin CDN).</p>
 
   <script>
-    // Requerido: inicialización manual y configuración inline (NO config.yml).
-    window.CMS_MANUAL_INIT = true;
+  window.CMS_MANUAL_INIT = true;
 
-    // Reemplaza los PLACEHOLDERS:
-    // AZURE_URL, GITHUB_OWNER, GITHUB_REPO, GITHUB_OAUTH_CLIENT_ID
-    window.CMS_CONFIG = {
-  backend: {
-    name: "github",
-    repo: "White-eclipse1/Paginaweb",
-    branch: "main",
-    auth_type: "implicit",
-    app_id: "Ov23liNhnitHY6sQueYb",
-    base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-    auth_endpoint: "/admin/callback.html"
-  },
-  media_folder: "assets/uploads",
-  public_folder: "/assets/uploads",
-  locale: "es",
-  slug: { encoding: "unicode", clean_accents: true },
+  window.CMS_CONFIG = {
+    backend: {
+      name: "github",
+      repo: "White-eclipse1/Paginaweb",
+      branch: "main",
+      auth_type: "proxy",
+      base_url: "/api/decap"   // <- Nuestros endpoints de OAuth
+    },
+    media_folder: "assets/uploads",
+    public_folder: "/assets/uploads",
+    locale: "es",
+    slug: { encoding: "unicode", clean_accents: true },
       collections: [
         {
           name: "updates",
