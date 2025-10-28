@@ -7,37 +7,45 @@
 </head>
 <body>
 <script>
-  (function () {
-    function getParamFrom(str) {
-      const params = {};
-      (str || '').replace(/^[#?]/, '').split('&').forEach(part => {
-        if (!part) return;
-        const [k, v] = part.split('=');
-        params[decodeURIComponent(k)] = decodeURIComponent(v || '');
-      });
-      return params;
+(function () {
+  function getParamFrom(str) {
+    const params = {};
+    (str || '').replace(/^[#?]/, '').split('&').forEach(part => {
+      if (!part) return;
+      const [k, v] = part.split('=');
+      params[decodeURIComponent(k)] = decodeURIComponent(v || '');
+    });
+    return params;
+  }
+  const hashParams = getParamFrom(location.hash);
+  const queryParams = getParamFrom(location.search);
+  const token =
+    hashParams['access_token'] || hashParams['token'] ||
+    queryParams['access_token'] || queryParams['token'];
+
+  // DEBUG: pinta en pantalla lo que llegó
+  document.body.innerHTML =
+    "<pre>" + JSON.stringify({ hashParams, queryParams, token }, null, 2) + "</pre>";
+
+  if (!token) return; // deja visible el debug si no hay token
+
+  try {
+    const payload = JSON.stringify({ token });
+    localStorage.setItem('netlify-cms-auth', payload);
+    localStorage.setItem('decap-cms-auth', payload);
+  } catch (e) {}
+
+  try {
+    if (window.opener && typeof window.opener.postMessage === 'function') {
+      window.opener.postMessage('authorization:github:success', '*');
     }
+  } catch (e) {}
 
-    const hashParams = getParamFrom(window.location.hash);
-    const queryParams = getParamFrom(window.location.search);
-    const token = hashParams['access_token'] || hashParams['token'] || queryParams['access_token'] || queryParams['token'];
-
-    if (token) {
-      try {
-        const payload = JSON.stringify({ token });
-        localStorage.setItem('netlify-cms-auth', payload);
-        localStorage.setItem('decap-cms-auth', payload);
-      } catch (e) {}
-      try {
-        if (window.opener && typeof window.opener.postMessage === 'function') {
-          window.opener.postMessage('authorization:github:success', '*');
-        }
-      } catch (e) {}
-    }
-
-    try { window.close(); } catch (e) {}
-    window.location.replace('/admin/');
-  })();
+  // comenta estas 2 líneas mientras debugeas
+  // try { window.close(); } catch (e) {}
+  // location.replace('/admin/');
+})();
 </script>
+
 </body>
 </html>
