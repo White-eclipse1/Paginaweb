@@ -1,5 +1,46 @@
-<!doctype html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin</title>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-</head><body></body></html>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Admin</title>
+    <style>
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+      #cms-error{position:fixed;inset:0;background:#111;color:#fff;padding:16px;display:none;white-space:pre-wrap;overflow:auto}
+      #cms-error b{color:#ffb3b3}
+    </style>
+  </head>
+  <body>
+    <div id="cms-error"></div>
+
+    <!-- CDN principal -->
+    <script src="https://unpkg.com/decap-cms@3.4.1/dist/decap-cms.js"></script>
+    <!-- Fallback si unpkg falla -->
+    <script>
+      (function ensureCMS(){
+        var loaded = !!(window.CMS && typeof window.CMS.init === "function");
+        if(!loaded){
+          var s = document.createElement('script');
+          s.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.4.1/dist/decap-cms.js";
+          s.onload = initCMS; s.onerror = showErr.bind(null, "No se pudo cargar decap-cms desde los CDNs");
+          document.head.appendChild(s);
+        } else { initCMS(); }
+      })();
+
+      function initCMS(){
+        try{
+          window.CMS.init();
+        }catch(e){ showErr("Error al iniciar CMS.init():\n\n" + (e && e.stack ? e.stack : e)); }
+      }
+      function showErr(msg){
+        var el = document.getElementById('cms-error');
+        el.style.display='block';
+        el.innerHTML = "<b>Decap CMS error</b>\n\n" + msg;
+        console.error(msg);
+      }
+      // Captura de errores globales (para verlos en pantalla)
+      window.addEventListener('error', e => showErr(String(e.error || e.message || e)));
+      window.addEventListener('unhandledrejection', e => showErr("Unhandled promise rejection:\n\n" + String(e.reason || e)));
+    </script>
+  </body>
+</html>

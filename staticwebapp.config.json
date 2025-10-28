@@ -1,13 +1,3 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/admin/*", "/updates/*", "/jobs/*"]
-  },
-  "routes": [
-    { "route": "/admin/*", "headers": { "Cache-Control": "no-store" } }
-  ],
-  "mimeTypes": { ".md": "text/markdown" },
-  "responseOverrides": {
-    "404": { "rewrite": "/index.html", "statusCode": 404 }
-  }
+  "navigationFallback": { "rewrite": "/index.html" }
 }

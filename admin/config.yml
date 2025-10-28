@@ -1,10 +1,10 @@
 backend:
   name: github
-  repo: White-eclipse1/Paginaweb      # ← CAMBIA al dueño/repo reales
+  repo: White-eclipse1/Paginaweb     # <-- tu repo
   branch: main
-  base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net/productos.html  # ← CAMBIA
+  base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net
   auth_type: implicit
-  app_id: Ov23liNhnitHY6sQueYb                # ← CAMBIA
+  app_id: ""                         # pondrás el Client ID después
   auth_endpoint: /admin/callback.html
 
 media_folder: "assets/uploads"
@@ -17,15 +17,9 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Título", name: "title", widget: "string"}
-      - {label: "Fecha", name: "date", widget: "datetime"}
-      - {label: "Autor", name: "author", widget: "string", required: false}
-      - {label: "Tipo (Noticia/Lanzamiento)", name: "kind", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia"}
-      - {label: "Portada", name: "cover", widget: "image", required: false}
-      - {label: "Precio (si aplica)", name: "price", widget: "string", required: false}
-      - {label: "Extracto", name: "excerpt", widget: "text"}
-      - {label: "Contenido", name: "body", widget: "markdown"}
-      - {label: "Etiquetas", name: "tags", widget: "list", required: false}
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha",  name: "date",  widget: "datetime" }
+      - { label: "Contenido", name: "body", widget: "markdown" }
 
   - name: "jobs"
     label: "Bolsa de trabajo"
@@ -33,14 +27,6 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Puesto", name: "title", widget: "string"}
-      - {label: "Fecha de publicación", name: "date", widget: "datetime"}
-      - {label: "Ubicación", name: "location", widget: "string", required: false}
-      - {label: "Tipo de contrato", name: "contract_type", widget: "select", options: ["Tiempo completo","Medio tiempo","Temporal","Prácticas","Freelance"], required: false}
-      - {label: "Salario", name: "salary", widget: "string", required: false}
-      - {label: "Fecha de cierre", name: "deadline", widget: "datetime", required: false}
-      - {label: "Link para postular", name: "apply_link", widget: "string", required: false}
-      - {label: "Email para postular", name: "apply_email", widget: "string", required: false}
-      - {label: "Resumen (tarjeta)", name: "excerpt", widget: "text"}
-      - {label: "Descripción", name: "body", widget: "markdown"}
-      - {label: "Etiquetas", name: "tags", widget: "list", required: false}
+      - { label: "Puesto", name: "title", widget: "string" }
+      - { label: "Fecha",  name: "date",  widget: "datetime" }
+      - { label: "Descripción", name: "body", widget: "markdown" }
