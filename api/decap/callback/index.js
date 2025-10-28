@@ -31,10 +31,8 @@ function exchangeCodeForToken({ client_id, client_secret, code, redirect_uri }) 
         try {
           const json = JSON.parse(data);
           if (json.access_token) resolve(json.access_token);
-          else reject(new Error("No access_token in response: " + data));
-        } catch (e) {
-          reject(e);
-        }
+          else reject(new Error("No access_token: " + data));
+        } catch (e) { reject(e); }
       });
     });
     req.on("error", reject);
@@ -49,13 +47,9 @@ module.exports = async function (context, req) {
     const state = (req.query && req.query.state) || "";
     const savedState = getCookie(req, "decap_state");
 
-    if (!code) {
-      context.res = { status: 400, body: "Missing code" };
-      return;
-    }
+    if (!code) { context.res = { status: 400, body: "Missing code" }; return; }
     if (!state || !savedState || state !== savedState) {
-      context.res = { status: 400, body: "Invalid state" };
-      return;
+      context.res = { status: 400, body: "Invalid state" }; return;
     }
 
     const token = await exchangeCodeForToken({
@@ -65,11 +59,9 @@ module.exports = async function (context, req) {
       redirect_uri: process.env.GITHUB_REDIRECT_URI
     });
 
-    // Redirigimos al callback del admin con el token en el fragmento (#)
-    const adminCallback = "/admin/callback.html#access_token=" + encodeURIComponent(token);
     context.res = {
       status: 302,
-      headers: { Location: adminCallback }
+      headers: { Location: "/admin/callback.html#access_token=" + encodeURIComponent(token) }
     };
   } catch (e) {
     context.res = { status: 500, body: "OAuth error: " + e.message };
