@@ -1,9 +1,53 @@
-<!doctype html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-</head><body><script>
-function g(n,u){if(!u)u=location.href;n=n.replace(/[\[\]]/g,'\\$&');
-var r=new RegExp('[?&]'+n+'(=([^&#]*)|&|#|$)'),res=r.exec(u);
-if(!res)return null;if(!res[2])return '';return decodeURIComponent(res[2].replace(/\+/g,' '));}
-var t=g('token');if(t){localStorage.setItem('netlify-cms-auth',JSON.stringify({token:t}));}
-location.replace('/admin/');
-</script></body></html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Auth Callback</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        function getParam(name, url) {
+          url = url || window.location.href;
+          name = name.replace(/[[\]]/g, '\\$&');
+          var regex = new RegExp('[#&?]' + name + '(=([^&#]*)|&|#|$)');
+          var results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Decap (GitHub implicit) puede regresar ?token=... o #access_token=...
+        var token = getParam('token') || getParam('access_token');
+        if (!token) {
+          // Si no viene token, redirige al admin para que muestre el error
+          window.location.replace('/admin/');
+          return;
+        }
+
+        // Guarda en localStorage (claves que Decap lee)
+        try {
+          var payload = { token: token };
+          // Clave clásica usada por Netlify/Decap
+          localStorage.setItem('netlify-cms-auth', JSON.stringify(payload));
+          // Copia adicional por compatibilidad
+          localStorage.setItem('decap-cms-auth', JSON.stringify(payload));
+        } catch (e) {
+          console.error('No se pudo escribir en localStorage:', e);
+        }
+
+        // Intenta avisar a la ventana que abrió el popup
+        try {
+          if (window.opener && !window.opener.closed) {
+            window.opener.postMessage('authorization:github:success', '*');
+          }
+        } catch (e) {}
+
+        // Cierra el popup si es popup; si no, regresa al /admin
+        try { window.close(); } catch (e) {}
+        window.location.replace('/admin/');
+      })();
+    </script>
+  </body>
+</html>
