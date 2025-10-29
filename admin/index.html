@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
   <style>
-    /* NO importes tu style.css aquí */
-    html,body { margin:0; height:100%; background:#fff; }
-    #nc-root { min-height:100vh; }
-    /* Anti-conflicto: asegura visibilidad dentro del admin */
-    #nc-root, #nc-root > * {
-      display:block !important;
-      min-height:100vh !important;
-      opacity:1 !important;
-      visibility:visible !important;
-      position:relative !important;
-      z-index:1 !important;
-    }
-  </style>
+  html, body { margin: 0; height: 100%; overflow: auto !important; background: #fff; }
+  #nc-root, #nc-root > * {
+    min-height: 100vh !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  /* Neutraliza estilos globales dentro del admin */
+  #nc-root *, #nc-root *::before, #nc-root *::after {
+    all: revert;
+    box-sizing: border-box;
+  }
+</style>
+
 </head>
 <body>
   <div id="nc-root"></div>
@@ -59,15 +62,21 @@
         }
       ]
     };
-  </script>
+ <div id="nc-root"></div>
 
-  <script src="./decap-cms.js?v=3.5.0"></script>
-  <script>
-    (function boot(){
-      if (typeof CMS === "undefined") return setTimeout(boot, 50);
-      CMS.init({ config: window.CMS_CONFIG });
-    })();
-  </script>
+<script>
+  window.CMS_MANUAL_INIT = true;
+  window.CMS_CONFIG = { /* ...tu config con proxy /api/decap... */ };
+</script>
+
+<script src="./decap-cms.js?v=3.5."></script>
+<script>
+  (function boot(){
+    if (typeof CMS === "undefined") return setTimeout(boot, 50);
+    CMS.init({ config: window.CMS_CONFIG });
+  })();
+</script>
+
 </body>
 </html>
 
