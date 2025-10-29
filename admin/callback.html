@@ -3,10 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <title>Autenticación completada</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    .message {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
+  <div class="message">
+    <div class="spinner"></div>
+    <p id="status">Procesando autenticación...</p>
+  </div>
+
   <script>
     (function() {
+      const status = document.getElementById('status');
+      
       function getParamFrom(str) {
         const params = {};
         (str || '').replace(/^[#?]/, '').split('&').forEach(p => {
@@ -17,27 +55,73 @@
         return params;
       }
 
+      // Intentar obtener token del hash o query string
       const hashParams = getParamFrom(location.hash);
       const queryParams = getParamFrom(location.search);
       const token =
         hashParams['access_token'] || hashParams['token'] ||
         queryParams['access_token'] || queryParams['token'];
 
-      if (token) {
-        const payload = JSON.stringify({ token });
-        localStorage.setItem('netlify-cms-auth', payload);
-        localStorage.setItem('decap-cms-auth', payload);
+      console.log('Token encontrado:', token ? 'Sí' : 'No');
+      console.log('Hash:', location.hash);
+      console.log('Query:', location.search);
 
+      if (token) {
+        status.textContent = 'Autenticación exitosa. Redirigiendo...';
+        
+        const payload = JSON.stringify({ token });
+        
+        // Guardar en localStorage
+        try {
+          localStorage.setItem('netlify-cms-auth', payload);
+          localStorage.setItem('decap-cms-auth', payload);
+          console.log('Token guardado en localStorage');
+        } catch (e) {
+          console.error('Error guardando token:', e);
+        }
+
+        // Notificar a la ventana padre (Decap CMS)
         try {
           if (window.opener && typeof window.opener.postMessage === 'function') {
-            window.opener.postMessage('authorization:github:success', '*');
+            // Formato esperado por Decap CMS
+            window.opener.postMessage(
+              'authorization:github:success:{"token":"' + token + '","provider":"github"}', 
+              window.location.origin
+            );
+            console.log('Mensaje enviado a window.opener');
           }
-        } catch (e) {}
+        } catch (e) {
+          console.error('Error enviando postMessage:', e);
+        }
 
-        try { window.close(); } catch (e) {}
-        location.replace('/admin/');
+        // Intentar cerrar la ventana después de un breve delay
+        setTimeout(() => {
+          try { 
+            window.close(); 
+          } catch (e) {
+            console.log('No se pudo cerrar automáticamente');
+          }
+          
+          // Si no se cerró, redirigir a /admin/
+          if (!window.closed) {
+            status.textContent = 'Redirigiendo al panel de administración...';
+            setTimeout(() => {
+              location.replace('/admin/');
+            }, 500);
+          }
+        }, 1000);
       } else {
-        document.body.innerHTML = "<p>Error: No se recibió token de autenticación.</p>";
+        status.textContent = 'Error: No se recibió token de autenticación.';
+        document.querySelector('.spinner').style.display = 'none';
+        console.error('No se encontró token en URL');
+        
+        // Mostrar info de debug
+        setTimeout(() => {
+          status.innerHTML = 'Error: No se recibió token de autenticación.<br><br>' +
+            '<small>Hash: ' + (location.hash || 'vacío') + '<br>' +
+            'Query: ' + (location.search || 'vacío') + '</small><br><br>' +
+            '<a href="/admin/" style="color: #3498db;">Volver a intentar</a>';
+        }, 1000);
       }
     })();
   </script>
