@@ -71,13 +71,15 @@
       ]
     };
 
-    // Inicializa el CMS
-    document.addEventListener("DOMContentLoaded", () => {
-      CMS.init({ config: window.CMS_CONFIG });
-    });
+    
   </script>
+<script src="./decap-cms.js"></script>
+<script>
+  // Inicializa Decap una vez cargado el bundle
+  document.addEventListener("DOMContentLoaded", function() {
+    CMS.init({ config: window.CMS_CONFIG });
+  });
+</script>
 
-  <!-- Carga local del bundle -->
-  <script src="./decap-cms.js"></script>
 </body>
 </html>
