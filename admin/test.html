@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Decap Test</title>
+  <style>
+    html,body { margin:0; height:100%; }
+    #nc-root { min-height:100vh; }
+  </style>
+</head>
+<body>
+  <div id="nc-root"></div>
+
+  <script>
+    window.CMS_MANUAL_INIT = true;
+    window.CMS_CONFIG = {
+      backend: { name:"github", repo:"White-eclipse1/Paginaweb", branch:"main", auth_type:"proxy", base_url:"/api/decap" },
+      media_folder: "assets/uploads",
+      public_folder: "/assets/uploads",
+      locale: "es",
+      collections: [
+        { name:"updates", label:"Noticias / Lanzamientos", folder:"_updates", create:true, slug:"{{slug}}",
+          fields:[ {name:"title",label:"Título",widget:"string"},
+                   {name:"date",label:"Fecha",widget:"datetime"},
+                   {name:"body",label:"Contenido",widget:"markdown"} ] },
+        { name:"jobs", label:"Bolsa de trabajo", folder:"_jobs", create:true, slug:"{{slug}}",
+          fields:[ {name:"title",label:"Título del puesto",widget:"string"},
+                   {name:"date",label:"Fecha",widget:"datetime"},
+                   {name:"body",label:"Detalles",widget:"markdown"} ] }
+      ]
+    };
+  </script>
+
+  <script src="decap-cms.js"></script>
+  <script>
+    (function boot(){
+      if (typeof CMS === "undefined") return setTimeout(boot, 50);
+      CMS.init({ config: window.CMS_CONFIG });
+    })();
+  </script>
+</body>
+</html>
