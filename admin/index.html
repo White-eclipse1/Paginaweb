@@ -11,92 +11,261 @@
     #nc-root *,#nc-root *::before,#nc-root *::after{all:revert;box-sizing:border-box}
     #nc-root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   </style>
-
-  <script>
-    console.log('🔧 Configurando Decap CMS...');
-    window.CMS_MANUAL_INIT = true;
-
-    // Configuración usandGitHub OAuth directo (método PKCE)
-    // Este es el método más confiable para GitHub
-    window.CMS_CONFIG = {
-      backend: {
-        name: "github",
-        repo: "White-eclipse1/Paginaweb",
-        branch: "main",
-        auth_type: "pkce",
-        app_id: "Ov23lINnhitHY6sQueYb"
-      },
-      media_folder: "assets/uploads",
-      public_folder: "/assets/uploads",
-      locale: "es",
-      slug: { encoding: "unicode", clean_accents: true },
-      collections: [
-        {
-          name: "updates",
-          label: "Noticias / Lanzamientos",
-          folder: "_updates",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { name: "title", label: "Título", widget: "string" },
-            { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
-            { name: "excerpt", label: "Resumen", widget: "text", required: false },
-            { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
-            { name: "price", label: "Precio (texto)", widget: "string", required: false },
-            { name: "body", label: "Contenido", widget: "markdown" }
-          ]
-        },
-        {
-          name: "jobs",
-          label: "Bolsa de trabajo",
-          folder: "_jobs",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { name: "title", label: "Título del puesto", widget: "string" },
-            { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "location", label: "Ubicación", widget: "string", required: false },
-            { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas","Freelance"] },
-            { name: "salary", label: "Salario (texto)", widget: "string", required: false },
-            { name: "deadline", label: "Fecha límite", widget: "datetime", required: false },
-            { name: "apply_link", label: "Enlace para aplicar", widget: "string", required: false },
-            { name: "apply_email", label: "Correo para aplicar", widget: "string", required: false },
-            { name: "excerpt", label: "Descripción breve", widget: "text", required: false },
-            { name: "body", label: "Detalles del puesto", widget: "markdown" }
-          ]
-        }
-      ]
-    };
-    console.log('✅ Configuración lista');
-  </script>
 </head>
 <body>
   <div id="nc-root"></div>
 
-  <script src="./decap-cms.js?v=3.5.0"></script>
+  <script src="https://unpkg.com/decap-cms@^3.5.0/dist/decap-cms.js"></script>
 
   <script>
-    (function boot(){
-      console.log('🚀 Intentando inicializar Decap CMS...');
-      
-      if (typeof CMS === "undefined") {
-        console.log('⏳ CMS aún no está disponible, reintentando...');
-        return setTimeout(boot, 50);
-      }
-      
-      console.log('✅ CMS disponible, inicializando con método PKCE...');
-      
-      try {
+    console.log('🔧 Configurando Decap CMS con backend personalizado...');
+    
+    (function() {
+      // Esperar a que Decap CMS se cargue
+      function waitForCMS() {
+        if (typeof CMS === 'undefined' || !CMS.registerBackend) {
+          return setTimeout(waitForCMS, 100);
+        }
+        
+        console.log('✅ Decap CMS cargado');
+        
+        // Crear un backend personalizado que use nuestro token
+        class CustomGitHubBackend {
+          constructor(config, options = {}) {
+            this.config = config;
+            this.options = options;
+            this.token = null;
+            
+            // Intentar obtener token guardado
+            const saved = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
+            if (saved) {
+              try {
+                const data = JSON.parse(saved);
+                this.token = data.token;
+                console.log('🔑 Token recuperado del localStorage');
+              } catch (e) {
+                console.error('Error parseando token:', e);
+              }
+            }
+          }
+          
+          isGitBackend() {
+            return true;
+          }
+          
+          async status() {
+            console.log('📡 Verificando status...');
+            if (this.token) {
+              return { auth: { status: true }, api: { status: true, statusPage: '' } };
+            }
+            return { auth: { status: false }, api: { status: true, statusPage: '' } };
+          }
+          
+          authComponent() {
+            console.log('🔐 Mostrando componente de autenticación');
+            return CMS.components.AuthenticationPage;
+          }
+          
+          async authenticate(credentials) {
+            console.log('🚀 Iniciando autenticación...');
+            return new Promise((resolve, reject) => {
+              // Abrir ventana de OAuth
+              const width = 600;
+              const height = 700;
+              const left = window.innerWidth / 2 - width / 2;
+              const top = window.innerHeight / 2 - height / 2;
+              
+              const authUrl = `${window.location.origin}/api/decap/auth`;
+              const popup = window.open(
+                authUrl,
+                'decap-auth',
+                `width=${width},height=${height},left=${left},top=${top}`
+              );
+              
+              // Escuchar mensaje de vuelta
+              const messageHandler = (event) => {
+                if (event.origin !== window.location.origin) return;
+                
+                if (typeof event.data === 'string' && event.data.includes('authorization:github:success')) {
+                  console.log('✅ Autenticación exitosa recibida');
+                  window.removeEventListener('message', messageHandler);
+                  
+                  try {
+                    const match = event.data.match(/authorization:github:success:(.+)/);
+                    if (match && match[1]) {
+                      const authData = JSON.parse(match[1]);
+                      this.token = authData.token;
+                      
+                      // Guardar para futuras sesiones
+                      const payload = JSON.stringify({ token: authData.token, provider: 'github' });
+                      localStorage.setItem('decap-cms-user', payload);
+                      localStorage.setItem('netlify-cms-user', payload);
+                      
+                      console.log('💾 Token guardado');
+                      resolve({ token: this.token });
+                    }
+                  } catch (err) {
+                    console.error('Error procesando autenticación:', err);
+                    reject(err);
+                  }
+                }
+              };
+              
+              window.addEventListener('message', messageHandler);
+              
+              // Timeout de 5 minutos
+              setTimeout(() => {
+                window.removeEventListener('message', messageHandler);
+                if (popup && !popup.closed) popup.close();
+                reject(new Error('Timeout de autenticación'));
+              }, 300000);
+            });
+          }
+          
+          async logout() {
+            console.log('👋 Cerrando sesión');
+            this.token = null;
+            localStorage.removeItem('decap-cms-user');
+            localStorage.removeItem('netlify-cms-user');
+            return null;
+          }
+          
+          getToken() {
+            return Promise.resolve(this.token);
+          }
+          
+          async request(path, options = {}) {
+            if (!this.token) {
+              throw new Error('No token available');
+            }
+            
+            const headers = {
+              'Authorization': `token ${this.token}`,
+              'Content-Type': 'application/json',
+              ...options.headers
+            };
+            
+            const url = `https://api.github.com${path}`;
+            console.log('📡 Request:', options.method || 'GET', url);
+            
+            const response = await fetch(url, {
+              ...options,
+              headers
+            });
+            
+            if (!response.ok) {
+              throw new Error(`GitHub API error: ${response.status}`);
+            }
+            
+            return response.json();
+          }
+          
+          // Métodos requeridos por Decap
+          async entriesByFolder(collection, extension) {
+            const path = collection.get('folder');
+            const response = await this.request(`/repos/White-eclipse1/Paginaweb/contents/${path}`);
+            return response.filter(file => file.name.endsWith(extension));
+          }
+          
+          async entriesByFiles(collection) {
+            const files = collection.get('files');
+            return Promise.all(files.map(file => this.request(`/repos/White-eclipse1/Paginaweb/contents/${file.file}`)));
+          }
+          
+          async getEntry(collection, slug, path) {
+            return this.request(`/repos/White-eclipse1/Paginaweb/contents/${path}`);
+          }
+          
+          async persistEntry(entry, options) {
+            const path = entry.path;
+            const content = btoa(unescape(encodeURIComponent(entry.raw)));
+            
+            return this.request(`/repos/White-eclipse1/Paginaweb/contents/${path}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                message: options.commitMessage || `Update ${path}`,
+                content: content,
+                branch: 'main',
+                sha: entry.sha
+              })
+            });
+          }
+          
+          async deleteEntry(collection, slug, path) {
+            const file = await this.request(`/repos/White-eclipse1/Paginaweb/contents/${path}`);
+            return this.request(`/repos/White-eclipse1/Paginaweb/contents/${path}`, {
+              method: 'DELETE',
+              body: JSON.stringify({
+                message: `Delete ${path}`,
+                sha: file.sha,
+                branch: 'main'
+              })
+            });
+          }
+        }
+        
+        // Registrar el backend personalizado
+        CMS.registerBackend('custom-github', CustomGitHubBackend);
+        console.log('✅ Backend personalizado registrado');
+        
+        // Inicializar con nuestra configuración
         CMS.init({
-          config: window.CMS_CONFIG,
-          load_config_file: false
+          config: {
+            backend: {
+              name: 'custom-github',
+              repo: 'White-eclipse1/Paginaweb',
+              branch: 'main'
+            },
+            media_folder: "assets/uploads",
+            public_folder: "/assets/uploads",
+            locale: "es",
+            slug: { encoding: "unicode", clean_accents: true },
+            collections: [
+              {
+                name: "updates",
+                label: "Noticias / Lanzamientos",
+                folder: "_updates",
+                create: true,
+                slug: "{{slug}}",
+                extension: "md",
+                fields: [
+                  { name: "title", label: "Título", widget: "string" },
+                  { name: "date", label: "Fecha", widget: "datetime" },
+                  { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
+                  { name: "excerpt", label: "Resumen", widget: "text", required: false },
+                  { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
+                  { name: "price", label: "Precio (texto)", widget: "string", required: false },
+                  { name: "body", label: "Contenido", widget: "markdown" }
+                ]
+              },
+              {
+                name: "jobs",
+                label: "Bolsa de trabajo",
+                folder: "_jobs",
+                create: true,
+                slug: "{{slug}}",
+                extension: "md",
+                fields: [
+                  { name: "title", label: "Título del puesto", widget: "string" },
+                  { name: "date", label: "Fecha", widget: "datetime" },
+                  { name: "location", label: "Ubicación", widget: "string", required: false },
+                  { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas","Freelance"] },
+                  { name: "salary", label: "Salario (texto)", widget: "string", required: false },
+                  { name: "deadline", label: "Fecha límite", widget: "datetime", required: false },
+                  { name: "apply_link", label: "Enlace para aplicar", widget: "string", required: false },
+                  { name: "apply_email", label: "Correo para aplicar", widget: "string", required: false },
+                  { name: "excerpt", label: "Descripción breve", widget: "text", required: false },
+                  { name: "body", label: "Detalles del puesto", widget: "markdown" }
+                ]
+              }
+            ]
+          }
         });
-        console.log('✅ Decap CMS inicializado correctamente');
-        console.log('ℹ️ Usando autenticación PKCE (más segura y sin servidor)');
-      } catch (error) {
-        console.error('❌ Error al inicializar Decap CMS:', error);
+        
+        console.log('✅ Decap CMS inicializado con backend personalizado');
       }
+      
+      waitForCMS();
     })();
   </script>
 </body>

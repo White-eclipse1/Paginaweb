@@ -92,48 +92,24 @@
         // Enviar mensaje a la ventana padre
         if (window.opener) {
           try {
-            // Formato que espera Decap CMS para OAuth externo
-            const authData = {
+            // Formato que espera nuestro backend personalizado
+            const message = 'authorization:github:success:' + JSON.stringify({
               provider: 'github',
               token: token
-            };
+            });
             
-            // Enviar en múltiples formatos para compatibilidad
-            window.opener.postMessage(
-              'authorization:github:success:' + JSON.stringify(authData),
-              '*'
-            );
+            window.opener.postMessage(message, window.location.origin);
+            console.log('✅ Mensaje enviado a ventana padre');
             
-            window.opener.postMessage(
-              {
-                type: 'authorization',
-                provider: 'github', 
-                status: 'success',
-                token: token
-              },
-              '*'
-            );
-
-            console.log('✅ Mensajes enviados a ventana padre');
+            // Cerrar popup después de enviar el mensaje
+            setTimeout(() => {
+              window.close();
+            }, 1000);
           } catch (e) {
             console.error('❌ Error enviando postMessage:', e);
+            // Si falla, redirigir
+            window.location.href = '/admin/';
           }
-
-          // Intentar cerrar después de un delay
-          setTimeout(() => {
-            status.textContent = '¡Listo! Redirigiendo...';
-            
-            // En lugar de cerrar, redirigir directamente al admin
-            // Esto asegura que Decap lea el token fresco del localStorage
-            window.location.href = '/admin/#/collections/updates';
-            
-            // También intentar cerrar por si es popup
-            try {
-              window.close();
-            } catch (e) {
-              // Si no se puede cerrar, la redirección ya funcionará
-            }
-          }, 800);
         } else {
           // No hay ventana padre, redirigir al admin
           status.textContent = 'Redirigiendo...';
