@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+window.CMS_CONFIG = {
+      backend: {
+        name: "github",
+        repo: "White-eclipse1/Paginaweb",
+        branch: "main",
+        base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
+        auth_endpoint: "api/decap/auth"
+      },<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
@@ -24,10 +31,10 @@
         name: "github",
         repo: "White-eclipse1/Paginaweb",
         branch: "main",
-        base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-        auth_endpoint: "api/decap/auth",
-        // Importante: indicar que usamos implicit flow para OAuth externo
-        use_graphql: true
+        // Usar autenticación directa de GitHub (OAuth App)
+        // Esto requiere que el Client ID sea público, pero es el enfoque recomendado
+        auth_type: "pkce",
+        app_id: "Ov23lINnhitHY6sQueYb"  // Tu GITHUB_CLIENT_ID
       },
       media_folder: "assets/uploads",
       public_folder: "/assets/uploads",
@@ -173,6 +180,19 @@
       });
       
       try {
+        // Registrar un authenticator personalizado ANTES de inicializar
+        const savedAuth = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
+        
+        if (savedAuth) {
+          const authData = JSON.parse(savedAuth);
+          if (authData.token) {
+            console.log('🔐 Configurando authenticator con token existente');
+            
+            // Crear un backend authenticator falso que devuelva el token guardado
+            window.CMS_CONFIG.backend.getToken = () => Promise.resolve(authData.token);
+          }
+        }
+        
         CMS.init({
           config: window.CMS_CONFIG,
           load_config_file: false
