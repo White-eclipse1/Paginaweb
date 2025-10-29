@@ -67,12 +67,24 @@
       if (token) {
         status.textContent = 'Autenticación exitosa. Completando proceso...';
         
-        // Guardar en localStorage (para Decap CMS)
-        const payload = JSON.stringify({ token: token });
+        // Guardar en localStorage en el formato EXACTO que espera Decap CMS
+        const authPayload = {
+          token: token,
+          provider: 'github'
+        };
+        
+        const payloadString = JSON.stringify(authPayload);
+        
         try {
-          localStorage.setItem('netlify-cms-user', payload);
-          localStorage.setItem('decap-cms-user', payload);
-          console.log('✅ Token guardado en localStorage');
+          // Guardar en ambos formatos para compatibilidad
+          localStorage.setItem('netlify-cms-user', payloadString);
+          localStorage.setItem('decap-cms-user', payloadString);
+          
+          // También guardar en el formato legacy
+          localStorage.setItem('netlify-cms-auth', payloadString);
+          localStorage.setItem('decap-cms-auth', payloadString);
+          
+          console.log('✅ Token guardado en localStorage:', payloadString.substring(0, 50) + '...');
         } catch (e) {
           console.error('❌ Error guardando token:', e);
         }
@@ -109,14 +121,19 @@
 
           // Intentar cerrar después de un delay
           setTimeout(() => {
-            status.textContent = '¡Listo! Cerrando ventana...';
+            status.textContent = '¡Listo! Redirigiendo...';
+            
+            // En lugar de cerrar, redirigir directamente al admin
+            // Esto asegura que Decap lea el token fresco del localStorage
+            window.location.href = '/admin/#/collections/updates';
+            
+            // También intentar cerrar por si es popup
             try {
               window.close();
             } catch (e) {
-              console.log('No se pudo cerrar automáticamente');
-              status.textContent = 'Puedes cerrar esta ventana manualmente.';
+              // Si no se puede cerrar, la redirección ya funcionará
             }
-          }, 1500);
+          }, 800);
         } else {
           // No hay ventana padre, redirigir al admin
           status.textContent = 'Redirigiendo...';
