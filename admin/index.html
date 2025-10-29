@@ -16,6 +16,7 @@
 
   <!-- IMPORTANTÍSIMO: config inline ANTES del bundle -->
   <script>
+    console.log('🔧 Configurando Decap CMS...');
     window.CMS_MANUAL_INIT = true;
 
     window.CMS_CONFIG = {
@@ -23,8 +24,8 @@
         name: "github",
         repo: "White-eclipse1/Paginaweb",
         branch: "main",
-        auth_type: "proxy",
-        base_url: "/api/decap"
+        base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
+        auth_endpoint: "api/decap/auth"
       },
       media_folder: "assets/uploads",
       public_folder: "/assets/uploads",
@@ -68,6 +69,7 @@
         }
       ]
     };
+    console.log('✅ Configuración lista:', window.CMS_CONFIG);
   </script>
 </head>
 <body>
@@ -79,12 +81,32 @@
   <!-- Init manual: desactiva lectura de config.yml -->
   <script>
     (function boot(){
-      if (typeof CMS === "undefined") return setTimeout(boot, 50);
-      console.log("Inicializando Decap CMS manualmente…");
-      CMS.init({
-        config: window.CMS_CONFIG,
-        load_config_file: false   // <-- clave para evitar /admin/config.yml
+      console.log('🚀 Intentando inicializar Decap CMS...');
+      
+      if (typeof CMS === "undefined") {
+        console.log('⏳ CMS aún no está disponible, reintentando...');
+        return setTimeout(boot, 50);
+      }
+      
+      console.log('✅ CMS disponible, inicializando...');
+      
+      // Escuchar eventos de autenticación
+      window.addEventListener('message', function(e) {
+        console.log('📨 Mensaje recibido:', e.data);
+        if (typeof e.data === 'string' && e.data.includes('authorization:github:success')) {
+          console.log('✅ Autenticación exitosa detectada');
+        }
       });
+      
+      try {
+        CMS.init({
+          config: window.CMS_CONFIG,
+          load_config_file: false
+        });
+        console.log('✅ Decap CMS inicializado correctamente');
+      } catch (error) {
+        console.error('❌ Error al inicializar Decap CMS:', error);
+      }
     })();
   </script>
 </body>
