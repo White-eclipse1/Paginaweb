@@ -5,7 +5,7 @@
   <title>Autenticación completada</title>
   <style>
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,32 +20,19 @@
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #3498db;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1rem;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
   <div class="message">
-    <div class="spinner"></div>
-    <p id="status">Procesando autenticación...</p>
+    <h2>✓ Autenticación exitosa</h2>
+    <p id="status">Completando proceso...</p>
   </div>
 
   <script>
     (function() {
       const status = document.getElementById('status');
       
-      function getParamFrom(str) {
+      function getParams(str) {
         const params = {};
         (str || '').replace(/^[#?]/, '').split('&').forEach(p => {
           if (!p) return;
@@ -55,73 +42,63 @@
         return params;
       }
 
-      // Intentar obtener token del hash o query string
-      const hashParams = getParamFrom(location.hash);
-      const queryParams = getParamFrom(location.search);
-      const token =
-        hashParams['access_token'] || hashParams['token'] ||
-        queryParams['access_token'] || queryParams['token'];
+      const hashParams = getParams(location.hash);
+      const queryParams = getParams(location.search);
+      const token = hashParams.token || hashParams.access_token || 
+                    queryParams.token || queryParams.access_token;
 
-      console.log('Token encontrado:', token ? 'Sí (' + token.substring(0, 10) + '...)' : 'No');
+      console.log('Callback ejecutándose...');
+      console.log('Token encontrado:', !!token);
 
-      if (token) {
-        status.textContent = 'Autenticación exitosa. Completando proceso...';
+      if (!token) {
+        status.textContent = 'Error: No se recibió token';
+        console.error('No hay token en URL');
+        return;
+      }
+
+      // Guardar token en formato que Decap espera
+      const authData = JSON.stringify({
+        provider: 'github',
+        token: token
+      });
+
+      try {
+        localStorage.setItem('netlify-cms-user', authData);
+        console.log('Token guardado en localStorage');
+      } catch (e) {
+        console.error('Error guardando token:', e);
+      }
+
+      // Si hay ventana padre (popup), enviar mensaje
+      if (window.opener) {
+        console.log('Enviando mensaje a ventana padre...');
         
-        // Guardar en localStorage en el formato EXACTO que espera Decap CMS
-        const authPayload = {
-          token: token,
-          provider: 'github'
-        };
-        
-        const payloadString = JSON.stringify(authPayload);
+        // Mensaje en el formato que Decap CMS espera
+        const message = `authorization:github:success:${authData}`;
         
         try {
-          // Guardar en ambos formatos para compatibilidad
-          localStorage.setItem('netlify-cms-user', payloadString);
-          localStorage.setItem('decap-cms-user', payloadString);
-          
-          // También guardar en el formato legacy
-          localStorage.setItem('netlify-cms-auth', payloadString);
-          localStorage.setItem('decap-cms-auth', payloadString);
-          
-          console.log('✅ Token guardado en localStorage:', payloadString.substring(0, 50) + '...');
+          window.opener.postMessage(message, window.location.origin);
+          console.log('Mensaje enviado');
         } catch (e) {
-          console.error('❌ Error guardando token:', e);
+          console.error('Error enviando mensaje:', e);
         }
 
-        // Enviar mensaje a la ventana padre
-        if (window.opener) {
+        status.textContent = 'Cerrando ventana...';
+        
+        setTimeout(() => {
           try {
-            // Formato que espera nuestro backend personalizado
-            const message = 'authorization:github:success:' + JSON.stringify({
-              provider: 'github',
-              token: token
-            });
-            
-            window.opener.postMessage(message, window.location.origin);
-            console.log('✅ Mensaje enviado a ventana padre');
-            
-            // Cerrar popup después de enviar el mensaje
-            setTimeout(() => {
-              window.close();
-            }, 1000);
+            window.close();
           } catch (e) {
-            console.error('❌ Error enviando postMessage:', e);
-            // Si falla, redirigir
+            console.log('No se pudo cerrar, redirigiendo...');
             window.location.href = '/admin/';
           }
-        } else {
-          // No hay ventana padre, redirigir al admin
-          status.textContent = 'Redirigiendo...';
-          setTimeout(() => {
-            window.location.replace('/admin/');
-          }, 1000);
-        }
+        }, 500);
       } else {
-        document.querySelector('.spinner').style.display = 'none';
-        status.innerHTML = '❌ Error: No se recibió token de autenticación.<br><br>' +
-          '<a href="/admin/" style="color: #3498db; text-decoration: none;">← Volver a intentar</a>';
-        console.error('❌ No se encontró token en URL');
+        // No es popup, redirigir directamente
+        status.textContent = 'Redirigiendo...';
+        setTimeout(() => {
+          window.location.href = '/admin/';
+        }, 500);
       }
     })();
   </script>

@@ -9,6 +9,30 @@
   <script src="https://unpkg.com/decap-cms@^3.5.0/dist/decap-cms.js"></script>
   
   <script>
+    // Interceptar mensajes de autenticación ANTES de inicializar CMS
+    window.addEventListener('message', function(e) {
+      console.log('Mensaje recibido:', e.data);
+      
+      if (typeof e.data === 'string' && e.data.includes('authorization:github:success')) {
+        console.log('✓ Autenticación detectada, recargando...');
+        
+        // Extraer y guardar el token
+        try {
+          const match = e.data.match(/authorization:github:success:(.+)/);
+          if (match && match[1]) {
+            const authData = match[1];
+            localStorage.setItem('netlify-cms-user', authData);
+            console.log('Token guardado, recargando página...');
+            
+            // Recargar para que Decap detecte la sesión
+            setTimeout(() => window.location.reload(), 100);
+          }
+        } catch (err) {
+          console.error('Error procesando token:', err);
+        }
+      }
+    });
+
     // Configuración simple con backend GitHub + proxy OAuth
     CMS.init({
       config: {
@@ -61,6 +85,8 @@
         ]
       }
     });
+    
+    console.log('Decap CMS inicializado');
   </script>
 </body>
 </html>
