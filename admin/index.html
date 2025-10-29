@@ -4,11 +4,17 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
+  <script>
+    // Prevenir que Decap intente cargar config.yml
+    window.CMS_MANUAL_INIT = true;
+  </script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.5.0/dist/decap-cms.js"></script>
   
   <script>
+    console.log('Inicializando Decap CMS...');
+    
     // Interceptar mensajes de autenticación ANTES de inicializar CMS
     window.addEventListener('message', function(e) {
       console.log('Mensaje recibido:', e.data);
@@ -33,61 +39,70 @@
       }
     });
 
-    // Configuración simple con backend GitHub + proxy OAuth
-    CMS.init({
-      load_config_file: false,  // ¡IMPORTANTE! No intentar cargar config.yml
-      config: {
-        backend: {
-          name: 'github',
-          repo: 'White-eclipse1/Paginaweb',
-          branch: 'main',
-          base_url: 'https://jolly-sand-06d352c0f.3.azurestaticapps.net',
-          auth_endpoint: 'api/decap/auth'
-        },
-        media_folder: 'assets/uploads',
-        public_folder: '/assets/uploads',
-        locale: 'es',
-        collections: [
-          {
-            name: 'updates',
-            label: 'Noticias / Lanzamientos',
-            folder: '_updates',
-            create: true,
-            slug: '{{slug}}',
-            fields: [
-              { name: 'title', label: 'Título', widget: 'string' },
-              { name: 'date', label: 'Fecha', widget: 'datetime' },
-              { name: 'kind', label: 'Tipo', widget: 'select', options: ['Noticia', 'Lanzamiento'], default: 'Noticia' },
-              { name: 'excerpt', label: 'Resumen', widget: 'text', required: false },
-              { name: 'cover', label: 'Imagen (URL)', widget: 'string', required: false },
-              { name: 'price', label: 'Precio (texto)', widget: 'string', required: false },
-              { name: 'body', label: 'Contenido', widget: 'markdown' }
-            ]
-          },
-          {
-            name: 'jobs',
-            label: 'Bolsa de trabajo',
-            folder: '_jobs',
-            create: true,
-            slug: '{{slug}}',
-            fields: [
-              { name: 'title', label: 'Título del puesto', widget: 'string' },
-              { name: 'date', label: 'Fecha', widget: 'datetime' },
-              { name: 'location', label: 'Ubicación', widget: 'string', required: false },
-              { name: 'contract_type', label: 'Tipo de contrato', widget: 'select', options: ['Tiempo completo', 'Medio tiempo', 'Prácticas', 'Freelance'] },
-              { name: 'salary', label: 'Salario (texto)', widget: 'string', required: false },
-              { name: 'deadline', label: 'Fecha límite', widget: 'datetime', required: false },
-              { name: 'apply_link', label: 'Enlace para aplicar', widget: 'string', required: false },
-              { name: 'apply_email', label: 'Correo para aplicar', widget: 'string', required: false },
-              { name: 'excerpt', label: 'Descripción breve', widget: 'text', required: false },
-              { name: 'body', label: 'Detalles del puesto', widget: 'markdown' }
-            ]
-          }
-        ]
+    // Esperar a que CMS esté disponible
+    (function initCMS() {
+      if (typeof CMS === 'undefined') {
+        return setTimeout(initCMS, 100);
       }
-    });
-    
-    console.log('Decap CMS inicializado');
+
+      console.log('CMS disponible, inicializando...');
+
+      // Configuración con backend GitHub + proxy OAuth
+      CMS.init({
+        load_config_file: false,
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'White-eclipse1/Paginaweb',
+            branch: 'main',
+            base_url: 'https://jolly-sand-06d352c0f.3.azurestaticapps.net',
+            auth_endpoint: 'api/decap/auth'
+          },
+          media_folder: 'assets/uploads',
+          public_folder: '/assets/uploads',
+          locale: 'es',
+          collections: [
+            {
+              name: 'updates',
+              label: 'Noticias / Lanzamientos',
+              folder: '_updates',
+              create: true,
+              slug: '{{slug}}',
+              fields: [
+                { name: 'title', label: 'Título', widget: 'string' },
+                { name: 'date', label: 'Fecha', widget: 'datetime' },
+                { name: 'kind', label: 'Tipo', widget: 'select', options: ['Noticia', 'Lanzamiento'], default: 'Noticia' },
+                { name: 'excerpt', label: 'Resumen', widget: 'text', required: false },
+                { name: 'cover', label: 'Imagen (URL)', widget: 'string', required: false },
+                { name: 'price', label: 'Precio (texto)', widget: 'string', required: false },
+                { name: 'body', label: 'Contenido', widget: 'markdown' }
+              ]
+            },
+            {
+              name: 'jobs',
+              label: 'Bolsa de trabajo',
+              folder: '_jobs',
+              create: true,
+              slug: '{{slug}}',
+              fields: [
+                { name: 'title', label: 'Título del puesto', widget: 'string' },
+                { name: 'date', label: 'Fecha', widget: 'datetime' },
+                { name: 'location', label: 'Ubicación', widget: 'string', required: false },
+                { name: 'contract_type', label: 'Tipo de contrato', widget: 'select', options: ['Tiempo completo', 'Medio tiempo', 'Prácticas', 'Freelance'] },
+                { name: 'salary', label: 'Salario (texto)', widget: 'string', required: false },
+                { name: 'deadline', label: 'Fecha límite', widget: 'datetime', required: false },
+                { name: 'apply_link', label: 'Enlace para aplicar', widget: 'string', required: false },
+                { name: 'apply_email', label: 'Correo para aplicar', widget: 'string', required: false },
+                { name: 'excerpt', label: 'Descripción breve', widget: 'text', required: false },
+                { name: 'body', label: 'Detalles del puesto', widget: 'markdown' }
+              ]
+            }
+          ]
+        }
+      });
+      
+      console.log('Decap CMS inicializado');
+    })();
   </script>
 </body>
 </html>
