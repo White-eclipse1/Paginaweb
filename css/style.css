@@ -17,7 +17,7 @@
   --brown-dark: #4A2F1A;   /* títulos / navegación / footer fondo */
   --brown-mid:  #836249;   /* acentos, bordes, texto secundario */
   --beige:      #F7F2E8;   /* fondos de secciones grandes */
-  --white:      #FFFFFF;   /* fondo general */
+  --white:      var(--bg-soft) !important;   /* fondo general */
   --orange:     #D18C4B;   /* botones / CTA */
   --orange-dk:  #BF7D42;   /* hover CTA (ligeramente más oscuro) */
 
@@ -110,7 +110,7 @@ h6 { font-size: var(--fs-400); }
    Navbar y Footer
    ========================================================= */
 .navbar {
-  background: #f0e8cb !important;        /* fondo blanco */
+  background: #f0e8cb !important;        
   border-bottom: 1px solid var(--border);
 }
 .navbar-brand {
@@ -206,7 +206,7 @@ footer a:hover { color: var(--brand); }
 }
 
 /* Cajas y separadores */
-.bg-soft { background: var(--bg-soft) !important; }
+.bg-soft { background: #f0e8cb !important; }
 .border-soft { border-color: var(--border) !important; }
 
 /* =========================================================

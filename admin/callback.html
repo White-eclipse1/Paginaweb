@@ -50,7 +50,7 @@
         (str || '').replace(/^[#?]/, '').split('&').forEach(p => {
           if (!p) return;
           const [k, v] = p.split('=');
-          params[decodeURIComponent(k)] = decodeURIComponent(v || '');
+          if (k) params[decodeURIComponent(k)] = decodeURIComponent(v || '');
         });
         return params;
       }
@@ -62,66 +62,73 @@
         hashParams['access_token'] || hashParams['token'] ||
         queryParams['access_token'] || queryParams['token'];
 
-      console.log('Token encontrado:', token ? 'Sí' : 'No');
-      console.log('Hash:', location.hash);
-      console.log('Query:', location.search);
+      console.log('Token encontrado:', token ? 'Sí (' + token.substring(0, 10) + '...)' : 'No');
 
       if (token) {
-        status.textContent = 'Autenticación exitosa. Redirigiendo...';
+        status.textContent = 'Autenticación exitosa. Completando proceso...';
         
-        const payload = JSON.stringify({ token });
-        
-        // Guardar en localStorage
+        // Guardar en localStorage (para Decap CMS)
+        const payload = JSON.stringify({ token: token });
         try {
-          localStorage.setItem('netlify-cms-auth', payload);
-          localStorage.setItem('decap-cms-auth', payload);
-          console.log('Token guardado en localStorage');
+          localStorage.setItem('netlify-cms-user', payload);
+          localStorage.setItem('decap-cms-user', payload);
+          console.log('✅ Token guardado en localStorage');
         } catch (e) {
-          console.error('Error guardando token:', e);
+          console.error('❌ Error guardando token:', e);
         }
 
-        // Notificar a la ventana padre (Decap CMS)
-        try {
-          if (window.opener && typeof window.opener.postMessage === 'function') {
-            // Formato esperado por Decap CMS
+        // Enviar mensaje a la ventana padre
+        if (window.opener) {
+          try {
+            // Formato que espera Decap CMS para OAuth externo
+            const authData = {
+              provider: 'github',
+              token: token
+            };
+            
+            // Enviar en múltiples formatos para compatibilidad
             window.opener.postMessage(
-              'authorization:github:success:{"token":"' + token + '","provider":"github"}', 
-              window.location.origin
+              'authorization:github:success:' + JSON.stringify(authData),
+              '*'
             );
-            console.log('Mensaje enviado a window.opener');
-          }
-        } catch (e) {
-          console.error('Error enviando postMessage:', e);
-        }
+            
+            window.opener.postMessage(
+              {
+                type: 'authorization',
+                provider: 'github', 
+                status: 'success',
+                token: token
+              },
+              '*'
+            );
 
-        // Intentar cerrar la ventana después de un breve delay
-        setTimeout(() => {
-          try { 
-            window.close(); 
+            console.log('✅ Mensajes enviados a ventana padre');
           } catch (e) {
-            console.log('No se pudo cerrar automáticamente');
+            console.error('❌ Error enviando postMessage:', e);
           }
-          
-          // Si no se cerró, redirigir a /admin/
-          if (!window.closed) {
-            status.textContent = 'Redirigiendo al panel de administración...';
-            setTimeout(() => {
-              location.replace('/admin/');
-            }, 500);
-          }
-        }, 1000);
+
+          // Intentar cerrar después de un delay
+          setTimeout(() => {
+            status.textContent = '¡Listo! Cerrando ventana...';
+            try {
+              window.close();
+            } catch (e) {
+              console.log('No se pudo cerrar automáticamente');
+              status.textContent = 'Puedes cerrar esta ventana manualmente.';
+            }
+          }, 1500);
+        } else {
+          // No hay ventana padre, redirigir al admin
+          status.textContent = 'Redirigiendo...';
+          setTimeout(() => {
+            window.location.replace('/admin/');
+          }, 1000);
+        }
       } else {
-        status.textContent = 'Error: No se recibió token de autenticación.';
         document.querySelector('.spinner').style.display = 'none';
-        console.error('No se encontró token en URL');
-        
-        // Mostrar info de debug
-        setTimeout(() => {
-          status.innerHTML = 'Error: No se recibió token de autenticación.<br><br>' +
-            '<small>Hash: ' + (location.hash || 'vacío') + '<br>' +
-            'Query: ' + (location.search || 'vacío') + '</small><br><br>' +
-            '<a href="/admin/" style="color: #3498db;">Volver a intentar</a>';
-        }, 1000);
+        status.innerHTML = '❌ Error: No se recibió token de autenticación.<br><br>' +
+          '<a href="/admin/" style="color: #3498db; text-decoration: none;">← Volver a intentar</a>';
+        console.error('❌ No se encontró token en URL');
       }
     })();
   </script>

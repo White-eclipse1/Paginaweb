@@ -90,11 +90,47 @@
       
       console.log('✅ CMS disponible, inicializando...');
       
-      // Escuchar eventos de autenticación
+      // Escuchar eventos de autenticación y reenviarlos a Decap
       window.addEventListener('message', function(e) {
         console.log('📨 Mensaje recibido:', e.data);
+        
+        // Extraer token si viene en formato string
         if (typeof e.data === 'string' && e.data.includes('authorization:github:success')) {
-          console.log('✅ Autenticación exitosa detectada');
+          console.log('✅ Autenticación exitosa detectada (formato string)');
+          try {
+            const match = e.data.match(/authorization:github:success:(.+)/);
+            if (match && match[1]) {
+              const authData = JSON.parse(match[1]);
+              console.log('Token extraído:', authData.token.substring(0, 10) + '...');
+              
+              // Guardar en localStorage para que Decap lo encuentre
+              localStorage.setItem('netlify-cms-user', JSON.stringify(authData));
+              localStorage.setItem('decap-cms-user', JSON.stringify(authData));
+              
+              // Recargar la página para que Decap detecte la sesión
+              setTimeout(() => {
+                console.log('🔄 Recargando página...');
+                window.location.reload();
+              }, 500);
+            }
+          } catch (err) {
+            console.error('Error procesando token:', err);
+          }
+        }
+        
+        // También manejar formato objeto
+        if (typeof e.data === 'object' && e.data.type === 'authorization' && e.data.token) {
+          console.log('✅ Autenticación exitosa detectada (formato objeto)');
+          const authData = {
+            provider: e.data.provider,
+            token: e.data.token
+          };
+          localStorage.setItem('netlify-cms-user', JSON.stringify(authData));
+          localStorage.setItem('decap-cms-user', JSON.stringify(authData));
+          setTimeout(() => {
+            console.log('🔄 Recargando página...');
+            window.location.reload();
+          }, 500);
         }
       });
       
