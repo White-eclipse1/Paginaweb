@@ -71,28 +71,34 @@
 
       // Si hay ventana padre (popup), enviar mensaje
       if (window.opener) {
-        console.log('Enviando mensaje a ventana padre...');
+        console.log('Hay ventana padre (opener)');
+        console.log('window.location.origin:', window.location.origin);
         
         // Mensaje en el formato que Decap CMS espera
         const message = `authorization:github:success:${authData}`;
+        console.log('Enviando mensaje:', message);
         
         try {
+          // Enviar a múltiples orígenes por si acaso
           window.opener.postMessage(message, window.location.origin);
-          console.log('Mensaje enviado');
+          window.opener.postMessage(message, '*');
+          console.log('Mensajes enviados');
         } catch (e) {
           console.error('Error enviando mensaje:', e);
         }
 
-        status.textContent = 'Cerrando ventana...';
+        status.textContent = 'Autenticación completada. Cerrando...';
         
         setTimeout(() => {
+          console.log('Intentando cerrar ventana...');
           try {
             window.close();
+            console.log('Ventana cerrada');
           } catch (e) {
             console.log('No se pudo cerrar, redirigiendo...');
             window.location.href = '/admin/';
           }
-        }, 500);
+        }, 1000);
       } else {
         // No es popup, redirigir directamente
         status.textContent = 'Redirigiendo...';

@@ -1,3 +1,18 @@
 {
-  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/admin/*"] }
+  "navigationFallback": { 
+    "rewrite": "/index.html", 
+    "exclude": ["/admin/*", "/api/*"] 
+  },
+  "routes": [
+    {
+      "route": "/admin/config.yml",
+      "headers": {
+        "Content-Type": "text/yaml; charset=utf-8"
+      }
+    }
+  ],
+  "mimeTypes": {
+    ".yml": "text/yaml",
+    ".yaml": "text/yaml"
+  }
 }
