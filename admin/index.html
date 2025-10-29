@@ -3,27 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin — Decap CMS (TEST)</title>
+  <title>Panel de administración | Decap CMS</title>
+
   <style>
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f3f4f6}
-    #nc-root{min-height:100vh}
-    .wrap{padding:16px}
-    .hint{color:#6b7280}
-    .dbg{background:#111;color:#0f0;padding:8px;margin:0;font-family:ui-monospace,Consolas,monospace;font-size:12px;white-space:pre-wrap}
+    :root { color-scheme: light dark; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .wrap {
+      padding: 1.5rem;
+    }
+
+    .hint {
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    /* Fuerza visibilidad del CMS */
+    #nc-root, #nc-root > * {
+      min-height: 100vh !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .nc-app {
+      min-height: 100vh !important;
+      display: block !important;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Panel de administración (TEST)</h1>
-    <p class="hint">Decap sin CDN, init manual. Si no ves la UI, revisa la consola (F12).</p>
+    <h1>Panel de administración</h1>
+    <p class="hint">Decap CMS con configuración inline y bundle local (v3.5.0, sin CDN).</p>
   </div>
 
-  <!-- Contenedor explícito -->
+  <!-- Contenedor raíz donde se montará la UI -->
   <div id="nc-root"></div>
 
+  <!-- Configuración inline -->
   <script>
-    // 1) Config e init manual
     window.CMS_MANUAL_INIT = true;
+
     window.CMS_CONFIG = {
       backend: {
         name: "github",
@@ -36,17 +61,20 @@
       public_folder: "/assets/uploads",
       locale: "es",
       slug: { encoding: "unicode", clean_accents: true },
+
       collections: [
         {
           name: "updates",
           label: "Noticias / Lanzamientos",
+          label_singular: "Publicación",
           folder: "_updates",
           create: true,
           slug: "{{slug}}",
+          editor: { preview: true },
           fields: [
             { name: "title", label: "Título", widget: "string" },
             { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"] },
+            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
             { name: "excerpt", label: "Resumen", widget: "text", required: false },
             { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
             { name: "price", label: "Precio (texto)", widget: "string", required: false },
@@ -56,9 +84,11 @@
         {
           name: "jobs",
           label: "Bolsa de trabajo",
+          label_singular: "Vacante",
           folder: "_jobs",
           create: true,
           slug: "{{slug}}",
+          editor: { preview: true },
           fields: [
             { name: "title", label: "Título del puesto", widget: "string" },
             { name: "date", label: "Fecha", widget: "datetime" },
@@ -74,47 +104,26 @@
         }
       ]
     };
-
-    // Logger simple
-    function log(msg){ console.log("[ADMIN TEST]", msg); }
-
-    // 2) Guardrail: si el contenedor no existe, créalo
-    if(!document.getElementById("nc-root")){
-      log("Creando #nc-root manualmente");
-      document.body.insertAdjacentHTML("beforeend", '<div id="nc-root"></div>');
-    }
   </script>
 
-  <!-- 3) Bundle local (sin type=module / sin defer) -->
-  <script src="./decap-cms.js"></script>
+  <!-- Bundle local (asegúrate que exista en /admin/decap-cms.js) -->
+  <script src="./decap-cms.js?v=3.5.0"></script>
 
-  <!-- 4) Init obligado y con reintento -->
+  <!-- Inicialización manual -->
   <script>
-    (function boot() {
+    (function initDecap() {
       if (typeof CMS === "undefined") {
-        log("CMS aún no está definido; reintentando…");
-        return setTimeout(boot, 0);
+        console.warn("CMS aún no está definido, reintentando...");
+        return setTimeout(initDecap, 100);
       }
-      log("CMS detectado. Inicializando…");
-      try {
-        CMS.init({ config: window.CMS_CONFIG });
-        // Valida que el UI monte algo en #nc-root
-        setTimeout(function(){
-          const mounted = document.querySelector('#nc-root *');
-          if (!mounted) {
-            log("UI no montó. Forzando render sobre #nc-root…");
-            // A veces ayuda recrear el contenedor y reinicializar
-            const n = document.getElementById('nc-root');
-            n.replaceWith(n.cloneNode(false));
-            CMS.init({ config: window.CMS_CONFIG });
-          } else {
-            log("UI montada correctamente.");
-          }
-        }, 300);
-      } catch (e) {
-        log("Error en CMS.init: " + (e && e.message));
-        console.error(e);
+
+      // Garantiza que el contenedor existe
+      if (!document.getElementById("nc-root")) {
+        document.body.insertAdjacentHTML("beforeend", '<div id="nc-root"></div>');
       }
+
+      console.log("Inicializando Decap CMS manualmente...");
+      CMS.init({ config: window.CMS_CONFIG });
     })();
   </script>
 </body>
