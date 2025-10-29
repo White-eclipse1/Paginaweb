@@ -1,14 +1,17 @@
 module.exports = async function (context, req) {
   const clientId = process.env.GITHUB_CLIENT_ID;
   const redirectUri = process.env.GITHUB_REDIRECT_URI; // https://.../api/decap/callback
-  const scope = process.env.GITHUB_SCOPE || (req.query && req.query.scope) || "repo,user:email";
-
+  const scope =
+    process.env.GITHUB_SCOPE ||
+    (req.query && req.query.scope) ||
+    "repo,user:email";
 
   if (!clientId || !redirectUri) {
     context.res = { status: 500, body: "Missing env vars" };
     return;
   }
 
+  // CSRF state cookie
   const state = Math.random().toString(36).slice(2);
   const cookie = `decap_state=${state}; Path=/; HttpOnly; SameSite=Lax; Secure`;
 

@@ -1,6 +1,5 @@
-title: "Demo Jekyll + Decap"
-url: "AZURE_URL"
-baseurl: ""
+title: "SWA + Jekyll + Decap"
+url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net"
 
 collections:
   updates:
@@ -11,16 +10,10 @@ collections:
     permalink: /jobs/:title/
 
 defaults:
-  - scope:
-      path: ""
-      type: "updates"
-    values:
-      layout: "update"
-  - scope:
-      path: ""
-      type: "jobs"
-    values:
-      layout: "job"
+  - scope: { path: "_updates", type: "updates" }
+    values: { layout: update }
+  - scope: { path: "_jobs", type: "jobs" }
+    values: { layout: job }
 
 markdown: kramdown
 kramdown:

@@ -26,7 +26,7 @@ function exchangeCodeForToken({ client_id, client_secret, code, redirect_uri }) 
   return new Promise((resolve, reject) => {
     const req = https.request(options, res => {
       let data = "";
-      res.on("data", chunk => (data += chunk));
+      res.on("data", c => (data += c));
       res.on("end", () => {
         try {
           const json = JSON.parse(data);

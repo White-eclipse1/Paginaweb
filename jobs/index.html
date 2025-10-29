@@ -1,89 +1,51 @@
 ---
 layout: null
+title: Bolsa de trabajo
 ---
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Bolsa de trabajo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main class="container py-5">
-    <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
-      <input id="search" class="form-control" style="max-width:420px" type="search" placeholder="Buscar por título o resumen...">
-      <input id="locFilter" class="form-control" placeholder="Ubicación (ej. CDMX)" style="max-width:220px" />
-      <select id="typeFilter" class="form-select" style="max-width:220px">
-        <option value="">Contrato: Todos</option>
-        <option>Tiempo completo</option>
-        <option>Medio tiempo</option>
-        <option>Prácticas</option>
-        <option>Freelance</option>
-      </select>
-    </div>
+  <main class="container">
+    <h1>Bolsa de trabajo</h1>
 
-    <div id="list" class="row g-4">
+    <input id="q" type="search" placeholder="Buscar..." />
+    <input id="loc" type="search" placeholder="Ubicación..." />
+
+    <div id="list">
       {% assign items = site.jobs | sort: "date" | reverse %}
-      {% for job in items %}
-      <div class="col-md-6 job-item"
-           data-title="{{ job.title | escape }}"
-           data-excerpt="{{ job.excerpt | escape }}"
-           data-location="{{ job.location | escape }}"
-           data-contract="{{ job.contract_type | escape }}">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-info-subtle text-info-emphasis">{{ job.contract_type }}</span>
-              <small class="text-muted">{{ job.date | date: "%Y-%m-%d" }}</small>
-            </div>
-            <h3 class="h5 card-title">{{ job.title }}</h3>
-            {% if job.salary %}<div class="mb-2"><span class="badge bg-secondary">Salario: {{ job.salary }}</span></div>{% endif %}
-            {% if job.location %}<p class="mb-1"><strong>Ubicación:</strong> {{ job.location }}</p>{% endif %}
-            {% if job.deadline %}<p class="mb-1"><strong>Cierra:</strong> {{ job.deadline | date: "%Y-%m-%d" }}</p>{% endif %}
-            <p class="card-text">{{ job.excerpt }}</p>
-            <a href="{{ job.url }}" class="btn btn-primary btn-sm">Ver más</a>
-          </div>
-        </div>
-      </div>
+      {% for it in items %}
+      <article class="card" data-title="{{ it.title | downcase }}" data-excerpt="{{ it.excerpt | downcase }}" data-location="{{ it.location | downcase }}">
+        <h2><a href="{{ it.url }}">{{ it.title }}</a></h2>
+        <small>{{ it.date | date: "%d/%m/%Y" }}{% if it.contract_type %} — {{ it.contract_type }}{% endif %}</small>
+        {% if it.location %}<p><strong>Ubicación:</strong> {{ it.location }}</p>{% endif %}
+        {% if it.excerpt %}<p>{{ it.excerpt }}</p>{% endif %}
+        <p><a href="{{ it.url }}">Ver más</a></p>
+      </article>
       {% endfor %}
     </div>
-
-    <p class="text-muted mt-4 small">Total: <span id="count">{{ items | size }}</span></p>
   </main>
 
   <script>
-    (function () {
-      const q = document.getElementById('search');
-      const loc = document.getElementById('locFilter');
-      const type = document.getElementById('typeFilter');
-      const cards = Array.from(document.querySelectorAll('.job-item'));
-      const count = document.getElementById('count');
-
-      function apply() {
-        const text = (q.value || '').toLowerCase();
-        const l = (loc.value || '').toLowerCase();
-        const t = type.value;
-        let visible = 0;
-        cards.forEach(c => {
-          const title = c.dataset.title.toLowerCase();
-          const excerpt = c.dataset.excerpt.toLowerCase();
-          const cl = (c.dataset.location || '').toLowerCase();
-          const ct = c.dataset.contract;
-          const matchText = !text || title.includes(text) || excerpt.includes(text);
-          const matchLoc = !l || cl.includes(l);
-          const matchType = !t || ct === t;
-          const show = matchText && matchLoc && matchType;
-          c.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-        count.textContent = visible;
-      }
-      q.addEventListener('input', apply);
-      loc.addEventListener('input', apply);
-      type.addEventListener('change', apply);
-    })();
+    const q = document.getElementById('q');
+    const loc = document.getElementById('loc');
+    const cards = [...document.querySelectorAll('#list .card')];
+    function apply(){
+      const s = (q.value||'').toLowerCase();
+      const l = (loc.value||'').toLowerCase();
+      cards.forEach(c=>{
+        const okS = !s || c.dataset.title.includes(s) || c.dataset.excerpt.includes(s);
+        const okL = !l || (c.dataset.location||'').includes(l);
+        c.style.display = (okS && okL) ? '' : 'none';
+      });
+    }
+    q.addEventListener('input', apply);
+    loc.addEventListener('input', apply);
   </script>
 </body>
 </html>
