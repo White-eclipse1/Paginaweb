@@ -1,40 +1,30 @@
-window.CMS_CONFIG = {
-      backend: {
-        name: "github",
-        repo: "White-eclipse1/Paginaweb",
-        branch: "main",
-        base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-        auth_endpoint: "api/decap/auth"
-      },<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
 
-  <!-- Anti-conflicto CSS (sin importar tu style.css del sitio) -->
   <style>
     html,body{margin:0;height:100%;background:#fff;overflow:auto!important}
     #nc-root,#nc-root>*{min-height:100vh!important;display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;z-index:1!important}
-    /* neutraliza estilos heredados solo dentro del admin */
     #nc-root *,#nc-root *::before,#nc-root *::after{all:revert;box-sizing:border-box}
     #nc-root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   </style>
 
-  <!-- IMPORTANTÍSIMO: config inline ANTES del bundle -->
   <script>
     console.log('🔧 Configurando Decap CMS...');
     window.CMS_MANUAL_INIT = true;
 
+    // Configuración usando GitHub OAuth directo (método PKCE)
+    // Este es el método más confiable para GitHub
     window.CMS_CONFIG = {
       backend: {
         name: "github",
         repo: "White-eclipse1/Paginaweb",
         branch: "main",
-        // Usar autenticación directa de GitHub (OAuth App)
-        // Esto requiere que el Client ID sea público, pero es el enfoque recomendado
         auth_type: "pkce",
-        app_id: "Ov23lINnhitHY6sQueYb"  // Tu GITHUB_CLIENT_ID
+        app_id: "Ov23lINnhitHY6sQueYb"
       },
       media_folder: "assets/uploads",
       public_folder: "/assets/uploads",
@@ -78,16 +68,14 @@ window.CMS_CONFIG = {
         }
       ]
     };
-    console.log('✅ Configuración lista:', window.CMS_CONFIG);
+    console.log('✅ Configuración lista');
   </script>
 </head>
 <body>
   <div id="nc-root"></div>
 
-  <!-- Bundle local (3.5.0) -->
   <script src="./decap-cms.js?v=3.5.0"></script>
 
-  <!-- Init manual: desactiva lectura de config.yml -->
   <script>
     (function boot(){
       console.log('🚀 Intentando inicializar Decap CMS...');
@@ -97,120 +85,15 @@ window.CMS_CONFIG = {
         return setTimeout(boot, 50);
       }
       
-      console.log('✅ CMS disponible, inicializando...');
-      
-      // Verificar si ya hay sesión guardada ANTES de inicializar
-      const savedAuth = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
-      if (savedAuth) {
-        console.log('🔑 Sesión encontrada en localStorage');
-        try {
-          const authData = JSON.parse(savedAuth);
-          console.log('Token presente:', authData.token ? authData.token.substring(0, 20) + '...' : 'No');
-          
-          // Inyectar el token en el backend de Decap ANTES de inicializar
-          if (authData.token && window.CMS_CONFIG) {
-            window.CMS_CONFIG.backend.token = authData.token;
-            console.log('✅ Token inyectado en configuración del backend');
-          }
-        } catch (e) {
-          console.error('Error parseando auth data:', e);
-        }
-      } else {
-        console.log('⚠️ No hay sesión guardada en localStorage');
-      }
-      
-      // Escuchar eventos de autenticación y reenviarlos a Decap
-      window.addEventListener('message', function(e) {
-        console.log('📨 Mensaje recibido:', e.data);
-        
-        // Extraer token si viene en formato string
-        if (typeof e.data === 'string' && e.data.includes('authorization:github:success')) {
-          console.log('✅ Autenticación exitosa detectada (formato string)');
-          try {
-            const match = e.data.match(/authorization:github:success:(.+)/);
-            if (match && match[1]) {
-              const authData = JSON.parse(match[1]);
-              console.log('Token extraído:', authData.token.substring(0, 10) + '...');
-              
-              // Guardar en localStorage para que Decap lo encuentre
-              const authPayload = {
-                token: authData.token,
-                provider: 'github'
-              };
-              const payloadString = JSON.stringify(authPayload);
-              
-              localStorage.setItem('netlify-cms-user', payloadString);
-              localStorage.setItem('decap-cms-user', payloadString);
-              localStorage.setItem('netlify-cms-auth', payloadString);
-              localStorage.setItem('decap-cms-auth', payloadString);
-              
-              console.log('💾 Datos guardados en localStorage');
-              
-              // Recargar la página para que Decap detecte la sesión
-              setTimeout(() => {
-                console.log('🔄 Recargando página...');
-                window.location.reload();
-              }, 500);
-            }
-          } catch (err) {
-            console.error('Error procesando token:', err);
-          }
-        }
-        
-        // También manejar formato objeto
-        if (typeof e.data === 'object' && e.data.type === 'authorization' && e.data.token) {
-          console.log('✅ Autenticación exitosa detectada (formato objeto)');
-          const authPayload = {
-            token: e.data.token,
-            provider: e.data.provider || 'github'
-          };
-          const payloadString = JSON.stringify(authPayload);
-          
-          localStorage.setItem('netlify-cms-user', payloadString);
-          localStorage.setItem('decap-cms-user', payloadString);
-          localStorage.setItem('netlify-cms-auth', payloadString);
-          localStorage.setItem('decap-cms-auth', payloadString);
-          
-          console.log('💾 Datos guardados en localStorage');
-          setTimeout(() => {
-            console.log('🔄 Recargando página...');
-            window.location.reload();
-          }, 500);
-        }
-      });
+      console.log('✅ CMS disponible, inicializando con método PKCE...');
       
       try {
-        // Registrar un authenticator personalizado ANTES de inicializar
-        const savedAuth = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
-        
-        if (savedAuth) {
-          const authData = JSON.parse(savedAuth);
-          if (authData.token) {
-            console.log('🔐 Configurando authenticator con token existente');
-            
-            // Crear un backend authenticator falso que devuelva el token guardado
-            window.CMS_CONFIG.backend.getToken = () => Promise.resolve(authData.token);
-          }
-        }
-        
         CMS.init({
           config: window.CMS_CONFIG,
           load_config_file: false
         });
         console.log('✅ Decap CMS inicializado correctamente');
-        
-        // Verificar estado después de inicializar
-        setTimeout(() => {
-          console.log('🔍 Verificando estado de autenticación...');
-          const authCheck = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
-          console.log('Auth después de init:', authCheck ? 'Presente' : 'Ausente');
-          
-          // Si hay token pero no se cargó el CMS, forzar recarga
-          if (authCheck && document.querySelector('[data-slate-editor]') === null) {
-            console.log('⚠️ Token presente pero CMS no cargó, forzando recarga...');
-            setTimeout(() => window.location.reload(), 1000);
-          }
-        }, 2000);
+        console.log('ℹ️ Usando autenticación PKCE (más segura y sin servidor)');
       } catch (error) {
         console.error('❌ Error al inicializar Decap CMS:', error);
       }
