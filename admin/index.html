@@ -13,75 +13,81 @@
     #nc-root *,#nc-root *::before,#nc-root *::after{all:revert;box-sizing:border-box}
     #nc-root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   </style>
-
-  <!-- Config inline ANTES del bundle -->
-  <script>
-    window.CMS_MANUAL_INIT = true;
-
-    window.CMS_CONFIG = {
-      backend: {
-        name: "github",
-        repo: "White-eclipse1/Paginaweb",
-        branch: "main",
-        auth_type: "proxy",
-        base_url: "/api/decap"
-      },
-      media_folder: "assets/uploads",
-      public_folder: "/assets/uploads",
-      locale: "es",
-      slug: { encoding: "unicode", clean_accents: true },
-      collections: [
-        {
-          name: "updates",
-          label: "Noticias / Lanzamientos",
-          folder: "_updates",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { name: "title", label: "Título", widget: "string" },
-            { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
-            { name: "excerpt", label: "Resumen", widget: "text", required: false },
-            { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
-            { name: "price", label: "Precio (texto)", widget: "string", required: false },
-            { name: "body", label: "Contenido", widget: "markdown" }
-          ]
-        },
-        {
-          name: "jobs",
-          label: "Bolsa de trabajo",
-          folder: "_jobs",
-          create: true,
-          slug: "{{slug}}",
-          fields: [
-            { name: "title", label: "Título del puesto", widget: "string" },
-            { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "location", label: "Ubicación", widget: "string", required: false },
-            { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas","Freelance"] },
-            { name: "salary", label: "Salario (texto)", widget: "string", required: false },
-            { name: "deadline", label: "Fecha límite", widget: "datetime", required: false },
-            { name: "apply_link", label: "Enlace para aplicar", widget: "string", required: false },
-            { name: "apply_email", label: "Correo para aplicar", widget: "string", required: false },
-            { name: "excerpt", label: "Descripción breve", widget: "text", required: false },
-            { name: "body", label: "Detalles del puesto", widget: "markdown" }
-          ]
-        }
-      ]
-    };
-  </script>
-</head>
-<body>
   <div id="nc-root"></div>
 
-  <!-- Bundle local (Decap 3.5.0 o 3.4.1+) -->
-  <script src="./decap-cms.js?v=3.5.0"></script>
+<script>
+  // 1) Config inline
+  window.CMS_MANUAL_INIT = true;
+  window.CMS_CONFIG = {
+    backend: { name:"github", repo:"White-eclipse1/Paginaweb", branch:"main", auth_type:"proxy", base_url:"/api/decap" },
+    media_folder: "assets/uploads",
+    public_folder: "/assets/uploads",
+    locale: "es",
+    slug: { encoding: "unicode", clean_accents: true },
+    collections: [
+      {
+        name:"updates", label:"Noticias / Lanzamientos", folder:"_updates", create:true, slug:"{{slug}}",
+        fields:[
+          {name:"title",label:"Título",widget:"string"},
+          {name:"date",label:"Fecha",widget:"datetime"},
+          {name:"kind",label:"Tipo",widget:"select",options:["Noticia","Lanzamiento"],default:"Noticia"},
+          {name:"excerpt",label:"Resumen",widget:"text",required:false},
+          {name:"cover",label:"Imagen (URL)",widget:"string",required:false},
+          {name:"price",label:"Precio (texto)",widget:"string",required:false},
+          {name:"body",label:"Contenido",widget:"markdown"}
+        ]
+      },
+      {
+        name:"jobs", label:"Bolsa de trabajo", folder:"_jobs", create:true, slug:"{{slug}}",
+        fields:[
+          {name:"title",label:"Título del puesto",widget:"string"},
+          {name:"date",label:"Fecha",widget:"datetime"},
+          {name:"location",label:"Ubicación",widget:"string",required:false},
+          {name:"contract_type",label:"Tipo de contrato",widget:"select",options:["Tiempo completo","Medio tiempo","Prácticas","Freelance"]},
+          {name:"salary",label:"Salario (texto)",widget:"string",required:false},
+          {name:"deadline",label:"Fecha límite",widget:"datetime",required:false},
+          {name:"apply_link",label:"Enlace para aplicar",widget:"string",required:false},
+          {name:"apply_email",label:"Correo para aplicar",widget:"string",required:false},
+          {name:"excerpt",label:"Descripción breve",widget:"text",required:false},
+          {name:"body",label:"Detalles del puesto",widget:"markdown"}
+        ]
+      }
+    ]
+  };
 
-  <!-- Init manual y desactiva lectura de config.yml -->
-  <script>
-    (function boot(){
-      if (typeof CMS === "undefined") return setTimeout(boot, 50);
-      CMS.init({ config: window.CMS_CONFIG, load_config_file: false });
-    })();
-  </script>
+  // 2) Si vuelve del popup, Decap manda este postMessage.
+  //    Forzamos reload para que el panel detecte el token.
+  window.addEventListener("message", (e) => {
+    if (e && e.data === "authorization:github:success") {
+      // pequeño delay para asegurar que callback.html ya guardó el token
+      setTimeout(() => location.reload(), 100);
+    }
+  });
+
+  // 3) Diagnóstico: loguea el token si existe
+  (function logToken(){
+    try {
+      const a = localStorage.getItem('decap-cms-auth') || localStorage.getItem('netlify-cms-auth');
+      if (a) { console.log("Token OK en localStorage"); }
+      else { console.log("Sin token aún"); }
+    } catch (_) {}
+  })();
+</script>
+
+<!-- 4) Bundle local -->
+<script src="./decap-cms.js?v=3.5.0"></script>
+
+<!-- 5) Inicialización manual (después del bundle) -->
+<script>
+  (function boot(){
+    if (typeof CMS === "undefined") return setTimeout(boot, 50);
+    console.log("Inicializando Decap CMS manualmente...");
+    // MUY IMPORTANTE: evita leer config.yml
+    CMS.init({ config: window.CMS_CONFIG, load_config_file: false });
+  })();
+</script>
+
+  
+
 </body>
 </html>
