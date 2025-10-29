@@ -5,22 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
   <style>
-  html, body { margin: 0; height: 100%; overflow: auto !important; background: #fff; }
-  #nc-root, #nc-root > * {
-    min-height: 100vh !important;
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative !important;
-    z-index: 1 !important;
-  }
-  /* Neutraliza estilos globales dentro del admin */
-  #nc-root *, #nc-root *::before, #nc-root *::after {
-    all: revert;
-    box-sizing: border-box;
-  }
-</style>
-
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: auto !important;
+      background: #fff;
+    }
+    #nc-root, #nc-root > * {
+      min-height: 100vh !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: relative !important;
+      z-index: 1 !important;
+    }
+    /* Neutraliza estilos globales dentro del admin */
+    #nc-root *, #nc-root *::before, #nc-root *::after {
+      all: revert;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
   <div id="nc-root"></div>
@@ -28,55 +32,63 @@
   <script>
     window.CMS_MANUAL_INIT = true;
     window.CMS_CONFIG = {
-      backend: { name:"github", repo:"White-eclipse1/Paginaweb", branch:"main", auth_type:"proxy", base_url:"/api/decap" },
+      backend: {
+        name: "github",
+        repo: "White-eclipse1/Paginaweb",
+        branch: "main",
+        auth_type: "proxy",
+        base_url: "/api/decap"
+      },
       media_folder: "assets/uploads",
       public_folder: "/assets/uploads",
       locale: "es",
       collections: [
         {
-          name:"updates", label:"Noticias / Lanzamientos", folder:"_updates", create:true, slug:"{{slug}}",
-          fields:[
-            {name:"title",label:"Título",widget:"string"},
-            {name:"date",label:"Fecha",widget:"datetime"},
-            {name:"kind",label:"Tipo",widget:"select",options:["Noticia","Lanzamiento"],default:"Noticia"},
-            {name:"excerpt",label:"Resumen",widget:"text",required:false},
-            {name:"cover",label:"Imagen (URL)",widget:"string",required:false},
-            {name:"price",label:"Precio (texto)",widget:"string",required:false},
-            {name:"body",label:"Contenido",widget:"markdown"}
+          name: "updates",
+          label: "Noticias / Lanzamientos",
+          folder: "_updates",
+          create: true,
+          slug: "{{slug}}",
+          fields: [
+            { name: "title", label: "Título", widget: "string" },
+            { name: "date", label: "Fecha", widget: "datetime" },
+            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia", "Lanzamiento"], default: "Noticia" },
+            { name: "excerpt", label: "Resumen", widget: "text", required: false },
+            { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
+            { name: "price", label: "Precio (texto)", widget: "string", required: false },
+            { name: "body", label: "Contenido", widget: "markdown" }
           ]
         },
         {
-          name:"jobs", label:"Bolsa de trabajo", folder:"_jobs", create:true, slug:"{{slug}}",
-          fields:[
-            {name:"title",label:"Título del puesto",widget:"string"},
-            {name:"date",label:"Fecha",widget:"datetime"},
-            {name:"location",label:"Ubicación",widget:"string",required:false},
-            {name:"contract_type",label:"Tipo de contrato",widget:"select",options:["Tiempo completo","Medio tiempo","Prácticas","Freelance"]},
-            {name:"salary",label:"Salario (texto)",widget:"string",required:false},
-            {name:"deadline",label:"Fecha límite",widget:"datetime",required:false},
-            {name:"apply_link",label:"Enlace para aplicar",widget:"string",required:false},
-            {name:"apply_email",label:"Correo para aplicar",widget:"string",required:false},
-            {name:"excerpt",label:"Descripción breve",widget:"text",required:false},
-            {name:"body",label:"Detalles del puesto",widget:"markdown"}
+          name: "jobs",
+          label: "Bolsa de trabajo",
+          folder: "_jobs",
+          create: true,
+          slug: "{{slug}}",
+          fields: [
+            { name: "title", label: "Título del puesto", widget: "string" },
+            { name: "date", label: "Fecha", widget: "datetime" },
+            { name: "location", label: "Ubicación", widget: "string", required: false },
+            { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo", "Medio tiempo", "Prácticas", "Freelance"] },
+            { name: "salary", label: "Salario (texto)", widget: "string", required: false },
+            { name: "deadline", label: "Fecha límite", widget: "datetime", required: false },
+            { name: "apply_link", label: "Enlace para aplicar", widget: "string", required: false },
+            { name: "apply_email", label: "Correo para aplicar", widget: "string", required: false },
+            { name: "excerpt", label: "Descripción breve", widget: "text", required: false },
+            { name: "body", label: "Detalles del puesto", widget: "markdown" }
           ]
         }
       ]
     };
- <div id="nc-root"></div>
+  </script>
 
-<script>
-  window.CMS_MANUAL_INIT = true;
-  window.CMS_CONFIG = { /* ...tu config con proxy /api/decap... */ };
-</script>
-
-<script src="./decap-cms.js?v=3.5."></script>
-<script>
-  (function boot(){
-    if (typeof CMS === "undefined") return setTimeout(boot, 50);
-    CMS.init({ config: window.CMS_CONFIG });
-  })();
-</script>
-
+  <script src="./decap-cms.js?v=3.5.0"></script>
+  <script>
+    (function boot() {
+      if (typeof CMS === "undefined") return setTimeout(boot, 50);
+      CMS.init({ config: window.CMS_CONFIG });
+    })();
+  </script>
 </body>
 </html>
 
