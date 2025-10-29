@@ -35,6 +35,7 @@
 
     // Configuración simple con backend GitHub + proxy OAuth
     CMS.init({
+      load_config_file: false,  // ¡IMPORTANTE! No intentar cargar config.yml
       config: {
         backend: {
           name: 'github',
