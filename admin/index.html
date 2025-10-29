@@ -4,33 +4,20 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      overflow: auto !important;
-      background: #fff;
-    }
-    #nc-root, #nc-root > * {
-      min-height: 100vh !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      position: relative !important;
-      z-index: 1 !important;
-    }
-    /* Neutraliza estilos globales dentro del admin */
-    #nc-root *, #nc-root *::before, #nc-root *::after {
-      all: revert;
-      box-sizing: border-box;
-    }
-  </style>
-</head>
-<body>
-  <div id="nc-root"></div>
 
+  <!-- Anti-conflicto CSS (sin importar tu style.css del sitio) -->
+  <style>
+    html,body{margin:0;height:100%;background:#fff;overflow:auto!important}
+    #nc-root,#nc-root>*{min-height:100vh!important;display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;z-index:1!important}
+    /* neutraliza estilos heredados solo dentro del admin */
+    #nc-root *,#nc-root *::before,#nc-root *::after{all:revert;box-sizing:border-box}
+    #nc-root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  </style>
+
+  <!-- IMPORTANTÍSIMO: config inline ANTES del bundle -->
   <script>
     window.CMS_MANUAL_INIT = true;
+
     window.CMS_CONFIG = {
       backend: {
         name: "github",
@@ -42,6 +29,7 @@
       media_folder: "assets/uploads",
       public_folder: "/assets/uploads",
       locale: "es",
+      slug: { encoding: "unicode", clean_accents: true },
       collections: [
         {
           name: "updates",
@@ -52,7 +40,7 @@
           fields: [
             { name: "title", label: "Título", widget: "string" },
             { name: "date", label: "Fecha", widget: "datetime" },
-            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia", "Lanzamiento"], default: "Noticia" },
+            { name: "kind", label: "Tipo", widget: "select", options: ["Noticia","Lanzamiento"], default: "Noticia" },
             { name: "excerpt", label: "Resumen", widget: "text", required: false },
             { name: "cover", label: "Imagen (URL)", widget: "string", required: false },
             { name: "price", label: "Precio (texto)", widget: "string", required: false },
@@ -69,7 +57,7 @@
             { name: "title", label: "Título del puesto", widget: "string" },
             { name: "date", label: "Fecha", widget: "datetime" },
             { name: "location", label: "Ubicación", widget: "string", required: false },
-            { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo", "Medio tiempo", "Prácticas", "Freelance"] },
+            { name: "contract_type", label: "Tipo de contrato", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas","Freelance"] },
             { name: "salary", label: "Salario (texto)", widget: "string", required: false },
             { name: "deadline", label: "Fecha límite", widget: "datetime", required: false },
             { name: "apply_link", label: "Enlace para aplicar", widget: "string", required: false },
@@ -81,14 +69,23 @@
       ]
     };
   </script>
+</head>
+<body>
+  <div id="nc-root"></div>
 
+  <!-- Bundle local (3.5.0) -->
   <script src="./decap-cms.js?v=3.5.0"></script>
+
+  <!-- Init manual: desactiva lectura de config.yml -->
   <script>
-    (function boot() {
+    (function boot(){
       if (typeof CMS === "undefined") return setTimeout(boot, 50);
-      CMS.init({ config: window.CMS_CONFIG });
+      console.log("Inicializando Decap CMS manualmente…");
+      CMS.init({
+        config: window.CMS_CONFIG,
+        load_config_file: false   // <-- clave para evitar /admin/config.yml
+      });
     })();
   </script>
 </body>
 </html>
-
