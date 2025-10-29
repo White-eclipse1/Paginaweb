@@ -4,13 +4,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin — Decap CMS</title>
-
-  <style>
-    html,body{margin:0;height:100%;background:#fff;overflow:auto!important}
-    #nc-root,#nc-root>*{min-height:100vh!important;display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;z-index:1!important}
-    #nc-root *,#nc-root *::before,#nc-root *::after{all:revert;box-sizing:border-box}
-    #nc-root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  </style>
 </head>
 <body>
   <div id="nc-root"></div>
@@ -18,13 +11,13 @@
 <script>
   window.CMS_MANUAL_INIT = true;
   
+  // CONFIGURACIÓN SIMPLE: Solo necesitas tu token de GitHub
   window.CMS_CONFIG = {
     backend: {
       name: "github",
       repo: "White-eclipse1/Paginaweb",
-      branch: "main",
-      base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-      auth_endpoint: "api/decap/auth"
+      branch: "main"
+      // No necesita OAuth - usarás un token personal
     },
     media_folder: "assets/uploads",
     public_folder: "/assets/uploads",
@@ -68,12 +61,6 @@
       }
     ]
   };
-
-  window.addEventListener("message", function(e) {
-    if (e.data === "authorization:github:success") {
-      setTimeout(() => location.reload(), 200);
-    }
-  });
 </script>
 
 <script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js"></script>
