@@ -16,9 +16,6 @@
   <div id="nc-root"></div>
 
 <script>
-  console.log('[Admin] Iniciando configuración...');
-  
-  // Configuración manual
   window.CMS_MANUAL_INIT = true;
   
   window.CMS_CONFIG = {
@@ -26,17 +23,13 @@
       name: "github",
       repo: "White-eclipse1/Paginaweb",
       branch: "main",
-      auth_type: "implicit",
       base_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
-      auth_endpoint: "/api/decap/auth"
+      auth_endpoint: "api/decap/auth"
     },
     media_folder: "assets/uploads",
     public_folder: "/assets/uploads",
     locale: "es",
-    slug: {
-      encoding: "unicode",
-      clean_accents: true
-    },
+    slug: { encoding: "unicode", clean_accents: true },
     collections: [
       {
         name: "updates",
@@ -76,65 +69,19 @@
     ]
   };
 
-  // Escuchar mensaje del popup de callback
-  window.addEventListener("message", function(event) {
-    console.log('[Admin] Mensaje recibido:', event.data);
-    
-    if (event.data === "authorization:github:success") {
-      console.log('[Admin] ✓ Autenticación exitosa, recargando...');
-      
-      // Pequeño delay para asegurar que el token está guardado
-      setTimeout(function() {
-        window.location.reload();
-      }, 200);
+  window.addEventListener("message", function(e) {
+    if (e.data === "authorization:github:success") {
+      setTimeout(() => location.reload(), 200);
     }
   });
-
-  // Diagnóstico de token
-  (function checkAuth() {
-    try {
-      const decapAuth = localStorage.getItem('decap-cms-auth');
-      const netlifyAuth = localStorage.getItem('netlify-cms-auth');
-      
-      if (decapAuth || netlifyAuth) {
-        console.log('[Admin] ✓ Token encontrado en localStorage');
-        const auth = JSON.parse(decapAuth || netlifyAuth);
-        if (auth.token) {
-          console.log('[Admin] ✓ Token válido presente');
-        } else {
-          console.warn('[Admin] ⚠ Token inválido');
-        }
-      } else {
-        console.log('[Admin] ℹ Sin autenticación aún');
-      }
-    } catch (e) {
-      console.error('[Admin] Error verificando auth:', e);
-    }
-  })();
 </script>
 
-<!-- Bundle de Decap CMS -->
-<script src="./decap-cms.js?v=3.5.0"></script>
+<script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js"></script>
 
-<!-- Inicialización -->
 <script>
-  (function initCMS() {
-    if (typeof CMS === "undefined") {
-      console.log('[Admin] Esperando bundle de Decap...');
-      return setTimeout(initCMS, 100);
-    }
-    
-    console.log('[Admin] ✓ Bundle cargado, inicializando CMS...');
-    
-    try {
-      CMS.init({
-        config: window.CMS_CONFIG,
-        load_config_file: false
-      });
-      console.log('[Admin] ✓ CMS inicializado correctamente');
-    } catch (error) {
-      console.error('[Admin] ❌ Error al inicializar CMS:', error);
-    }
+  (function init() {
+    if (typeof CMS === "undefined") return setTimeout(init, 100);
+    CMS.init({ config: window.CMS_CONFIG, load_config_file: false });
   })();
 </script>
 
