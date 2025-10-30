@@ -1,6 +1,6 @@
 # TinaCMS
 node_modules/
-.tina/__generated__/
+
 package-lock.json
 
 # Jekyll
