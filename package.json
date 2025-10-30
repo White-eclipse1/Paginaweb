@@ -1,0 +1,13 @@
+{
+  "name": "paginaweb-tinacms",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tinacms dev -c \"bundle exec jekyll serve\"",
+    "build": "tinacms build && bundle exec jekyll build",
+    "tina:build": "tinacms build"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.5.30",
+    "tinacms": "^1.5.30"
+  }
+}
