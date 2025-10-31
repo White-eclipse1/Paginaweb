@@ -1,11 +1,12 @@
 import { defineConfig } from "tinacms";
 
-// Configuración de TinaCMS
 export default defineConfig({
   branch: "main",
-  clientId: process.env.TINA_CLIENT_ID || null,
-  token: process.env.TINA_TOKEN || null,
-
+  
+  // Credenciales de Tina Cloud
+  clientId: "db2784db-7466-4322-bc77-da4c99fcc8b9",
+  token: "e299e600cea47438faa0005536f273a9bb211193",
+  
   build: {
     outputFolder: "admin",
     publicFolder: ".",
@@ -44,7 +45,6 @@ export default defineConfig({
             name: "kind",
             label: "Tipo",
             options: ["Noticia", "Lanzamiento"],
-            required: true,
           },
           {
             type: "string",
@@ -106,7 +106,6 @@ export default defineConfig({
               "Prácticas",
               "Freelance",
             ],
-            required: true,
           },
           {
             type: "string",
