@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: TU_USUARIO/TU_REPO      # p.ej. White-eclipse1/Paginaweb
+  branch: main                  # o la rama que uses
+  # auth_endpoint: /api/oauth   # lo usarás si montas tu propio OAuth
+
+locale: 'es'
+media_folder: "img/uploads"     # Archivos subidos van a /img/uploads en el repo
+public_folder: "/img/uploads"
+
+site_url: "https://TU_DOMINIO"  # URL de Azure Static Web Apps
+
+editorial_workflow: false
+
+collections:
+  # OFERTAS -> un único JSON con una lista
+  - name: "ofertas"
+    label: "Ofertas de trabajo"
+    format: "json"
+    files:
+      - file: "data/ofertas.json"
+        label: "Listado de ofertas"
+        name: "ofertas_json"
+        fields:
+          - label: "Ofertas"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.puesto}} — {{fields.ubicacion}}"
+            fields:
+              - { label: "Puesto", name: "puesto", widget: "string" }
+              - { label: "Descripción", name: "descripcion", widget: "text" }
+              - { label: "Ubicación", name: "ubicacion", widget: "string" }
+              - { label: "Tipo", name: "tipo", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas"] }
+              - { label: "Sueldo (opcional)", name: "sueldo", widget: "string", required: false }
+              - { label: "Contacto/Email", name: "contacto", widget: "string" }
+              - { label: "Publicación (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false }
+
+  # NOTICIAS -> otro JSON con una lista
+  - name: "noticias"
+    label: "Noticias"
+    format: "json"
+    files:
+      - file: "data/noticias.json"
+        label: "Listado de noticias"
+        name: "noticias_json"
+        fields:
+          - label: "Noticias"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Extracto", name: "extracto", widget: "text" }
+              - { label: "Cuerpo (HTML o texto)", name: "cuerpo", widget: "text" }
+              - { label: "Fecha (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false }
+              - { label: "Link externo (opcional)", name: "link", widget: "string", required: false }
+            
+backend:
+  name: github
+  repo: White-eclipse1/Paginaweb
+  branch: main
+  auth_endpoint: /api/oauth    # ruta pública de tu Function
