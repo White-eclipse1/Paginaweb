@@ -1,14 +1,14 @@
 backend:
   name: github
-  repo: TU_USUARIO/TU_REPO      # p.ej. White-eclipse1/Paginaweb
+  repo: White-eclipse1/Paginaweb      # p.ej. White-eclipse1/Paginaweb
   branch: main                  # o la rama que uses
-  # auth_endpoint: /api/oauth   # lo usarás si montas tu propio OAuth
+  auth_endpoint: /api/oauth   # lo usarás si montas tu propio OAuth
 
 locale: 'es'
 media_folder: "img/uploads"     # Archivos subidos van a /img/uploads en el repo
 public_folder: "/img/uploads"
 
-site_url: "https://TU_DOMINIO"  # URL de Azure Static Web Apps
+site_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net/"  # URL de Azure Static Web Apps
 
 editorial_workflow: false
 
