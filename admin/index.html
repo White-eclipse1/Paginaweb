@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Administración | Decap CMS</title>
 
-    <!-- Fuerza modo manual y desactiva config externa -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-      window.CMS_CONFIG_PATH = false; // evita buscar /admin/config.yml o /config.yml
-    </script>
-
-    <!-- Carga SOLO Decap CMS. Nada de Netlify Identity. -->
+    <!-- Forzamos modo manual -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
     <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
   </head>
   <body>
     <script>
-      // Config 100% inline
       CMS.init({
+        // 👇 ESTA LÍNEA ES LA CLAVE PARA QUE NO PIDA /config.yml
+        load_config_file: false,
+
         config: {
           locale: "es",
           site_url: "https://jolly-sand-06d352c0f.3.azurestaticapps.net",
@@ -25,11 +22,7 @@
             name: "github",
             repo: "White-eclipse1/Paginaweb",
             branch: "main",
-            // usa el endpoint que YA tengas funcionando:
-            // si tu /api/oauth redirige a GitHub, deja ese:
-            auth_endpoint: "/api/oauth"
-            // SI creaste /api/oauth/authorize, entonces usa esa ruta:
-            // auth_endpoint: "/api/oauth/authorize"
+            auth_endpoint: "/api/oauth"        // o "/api/oauth/authorize" si así lo dejaste
           },
           media_folder: "img/uploads",
           public_folder: "/img/uploads",
@@ -39,57 +32,49 @@
               name: "ofertas",
               label: "Ofertas de trabajo",
               format: "json",
-              files: [
-                {
-                  file: "data/ofertas.json",
-                  label: "Listado de ofertas",
-                  name: "ofertas_json",
+              files: [{
+                file: "data/ofertas.json",
+                label: "Listado de ofertas",
+                name: "ofertas_json",
+                fields: [{
+                  label: "Ofertas",
+                  name: "items",
+                  widget: "list",
                   fields: [
-                    {
-                      label: "Ofertas",
-                      name: "items",
-                      widget: "list",
-                      fields: [
-                        { label: "Puesto", name: "puesto", widget: "string" },
-                        { label: "Descripción", name: "descripcion", widget: "text" },
-                        { label: "Ubicación", name: "ubicacion", widget: "string" },
-                        { label: "Tipo", name: "tipo", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas"] },
-                        { label: "Sueldo (opcional)", name: "sueldo", widget: "string", required: false },
-                        { label: "Contacto/Email", name: "contacto", widget: "string" },
-                        { label: "Publicación (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false },
-                        { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false }
-                      ]
-                    }
+                    { label: "Puesto", name: "puesto", widget: "string" },
+                    { label: "Descripción", name: "descripcion", widget: "text" },
+                    { label: "Ubicación", name: "ubicacion", widget: "string" },
+                    { label: "Tipo", name: "tipo", widget: "select", options: ["Tiempo completo","Medio tiempo","Prácticas"] },
+                    { label: "Sueldo (opcional)", name: "sueldo", widget: "string", required: false },
+                    { label: "Contacto/Email", name: "contacto", widget: "string" },
+                    { label: "Publicación (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false },
+                    { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false }
                   ]
-                }
-              ]
+                }]
+              }]
             },
             {
               name: "noticias",
               label: "Noticias",
               format: "json",
-              files: [
-                {
-                  file: "data/noticias.json",
-                  label: "Listado de noticias",
-                  name: "noticias_json",
+              files: [{
+                file: "data/noticias.json",
+                label: "Listado de noticias",
+                name: "noticias_json",
+                fields: [{
+                  label: "Noticias",
+                  name: "items",
+                  widget: "list",
                   fields: [
-                    {
-                      label: "Noticias",
-                      name: "items",
-                      widget: "list",
-                      fields: [
-                        { label: "Título", name: "titulo", widget: "string" },
-                        { label: "Extracto", name: "extracto", widget: "text" },
-                        { label: "Cuerpo (HTML o texto)", name: "cuerpo", widget: "text" },
-                        { label: "Fecha (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false },
-                        { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false },
-                        { label: "Link externo (opcional)", name: "link", widget: "string", required: false }
-                      ]
-                    }
+                    { label: "Título", name: "titulo", widget: "string" },
+                    { label: "Extracto", name: "extracto", widget: "text" },
+                    { label: "Cuerpo (HTML o texto)", name: "cuerpo", widget: "text" },
+                    { label: "Fecha (YYYY-MM-DD)", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false },
+                    { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false },
+                    { label: "Link externo (opcional)", name: "link", widget: "string", required: false }
                   ]
-                }
-              ]
+                }]
+              }]
             }
           ]
         }
