@@ -4,12 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Administración | Decap CMS</title>
-    <script>window.CMS_MANUAL_INIT = true;</script>
+
+    <!-- Fuerza modo manual y desactiva config externa -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+      window.CMS_CONFIG_PATH = false; // evita buscar /admin/config.yml o /config.yml
+    </script>
+
+    <!-- Carga SOLO Decap CMS. Nada de Netlify Identity. -->
     <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
   </head>
   <body>
     <script>
-      // Inicialización manual: evitamos leer admin/config.yml
+      // Config 100% inline
       CMS.init({
         config: {
           locale: "es",
@@ -18,7 +25,11 @@
             name: "github",
             repo: "White-eclipse1/Paginaweb",
             branch: "main",
-            auth_endpoint: "/api/oauth/authorize" 
+            // usa el endpoint que YA tengas funcionando:
+            // si tu /api/oauth redirige a GitHub, deja ese:
+            auth_endpoint: "/api/oauth"
+            // SI creaste /api/oauth/authorize, entonces usa esa ruta:
+            // auth_endpoint: "/api/oauth/authorize"
           },
           media_folder: "img/uploads",
           public_folder: "/img/uploads",
