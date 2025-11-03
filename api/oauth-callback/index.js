@@ -28,7 +28,7 @@ module.exports = async function (context, req) {
       })
     });
     const data = await resp.json();
-    // Devuelve en el formato que Decap espera (JSON con access_token, etc)
+    // Devuelve en el formato que Decap espera (JSON con access_token, etc.)
     context.res = { headers: { "Content-Type": "application/json" }, body: data };
   } catch (e) {
     context.res = { status: 500, body: { error: e.message } };
