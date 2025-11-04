@@ -1,0 +1,7 @@
+{
+  "mimeTypes": {
+    ".yml": "text/yaml",
+    ".yaml": "text/yaml"
+  }
+}
+ 
