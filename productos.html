@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alimentos con Principios | Tienda de productos naturales</title>
+  <title>Alimentos con Principios | Productos por Familia</title>
   <link rel="icon" href="img/Origenes_logo_principal.png" type="image/x-icon">
 
   <!-- Solo CSS (GitHub Pages friendly) -->
@@ -10,21 +10,37 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <style>
-    /* Ajustes mínimos específicos de esta página (opcionales) */
     .product-badge { background: var(--brand); color: var(--brand-brown); border-radius: 999px; padding: .2rem .6rem; font-size: var(--fs-200); }
     .price { font-weight: 700; }
     .meta { font-size: var(--fs-200); color: var(--muted); }
     .category-kicker { letter-spacing:.06em; text-transform:uppercase; font-size: var(--fs-300); color: var(--muted); }
-    .filters .btn { pointer-events:none; opacity:.7 } /* decorativo, sin JS */
+    .shadow-soft { box-shadow: 0 6px 24px rgba(0,0,0,.06); }
+    .rounded-xl { border-radius: 1rem; }
+    .familias-logos img { transition: transform .15s ease; }
+    .familias-logos img:hover { transform: scale(1.03); }
+    html { scroll-behavior: smooth; }
+    /* Que las anclas no queden ocultas por la navbar sticky */
+[id^="familia-"],
+#familia-rey-panadero,
+#familia-eten,
+#familia-origenes {
+  scroll-margin-top: 96px; /* ajusta según la altura real de tu navbar */
+}
+[id^="familia-"] {
+  scroll-margin-top: 100px; /* evita que el navbar tape la cabecera */
+}
+
+
   </style>
 </head>
-<body>
+<body id="top">
 
+  <!-- NAVBAR (sin cambios de diseño) -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height ="120" class="me-2">
-        
+      <!-- Logo principal: se queda igual apuntando a Home -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="Inicio">
+        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height="120" class="me-2">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -43,57 +59,55 @@
     </div>
   </nav>
 
-  <!-- FAMILIAS PRODUCTORAS -->
+  <!-- FAMILIAS PRODUCTORAS (LOGOS -> anclas de sección) -->
   <section class="section">
     <div class="container">
       <h2 class="h3 text-center mb-4">Familias productoras</h2>
-      <div class="row g-4 text-center">
+      <p class="texto-informativo text-center mb-4">Explora los productos de cada familia y su especialidad.</p>
+      <div class="row g-4 text-center familias-logos">
         <div class="col-md-4">
-          <img src="img/Logotipo_ReyPanadero[14182].gif" alt="Rey Panadero" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
-          <h3 class="h5 mt-3">Rey Panadero</h3>
-          <p class="texto-informativo mb-0">Pan de masa madre, fermentaciones lentas y granos seleccionados.</p>
+          <a href="#familia-rey-panadero" class="d-inline-block" aria-label="Ir a Rey Panadero">
+            <img src="img/Logotipo_ReyPanadero[14182].gif" alt="Rey Panadero" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          </a>
+          <h3 class="h6 mt-3 mb-1">Rey Panadero</h3>
+          <p class="texto-informativo mb-0">Panes de masa madre y fermentaciones lentas.</p>
         </div>
         <div class="col-md-4">
-          <img src="img/etenlogo.jpg" alt="Eten" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
-          <h3 class="h5 mt-3">Eten</h3>
-          <p class="texto-informativo mb-0">Snacks nutritivos sin aditivos, endulzados de forma natural.</p>
+          <a href="#familia-eten" class="d-inline-block" aria-label="Ir a Eten">
+            <img src="img/etenlogo.jpg" alt="Eten" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          </a>
+          <h3 class="h6 mt-3 mb-1">Eten</h3>
+          <p class="texto-informativo mb-0">Snacks nutritivos y sin aditivos.</p>
         </div>
         <div class="col-md-4">
-          <img src="img/Origenes_logo_principal.png" alt="Orígenes" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
-          <h3 class="h5 mt-3">Orígenes</h3>
-          <p class="texto-informativo mb-0">Harinas, mantequillas y mermeladas con trazabilidad clara.</p>
+          <a href="#familia-origenes" class="d-inline-block" aria-label="Ir a Orígenes">
+            <img src="img/Origenes_logo_principal.png" alt="Orígenes" width="270" height="180" loading="lazy" class="mx-auto d-block rounded-xl shadow-soft">
+          </a>
+          <h3 class="h6 mt-3 mb-1">Orígenes</h3>
+          <p class="texto-informativo mb-0">Mermeladas, harinas y untables con trazabilidad.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- “FILTROS” SOLO VISUALES (SIN JS) -->
-  <section class="section pt-0">
-    <div class="container">
-      <div class="filters d-flex flex-wrap gap-2">
-        <span class="badge-soft">Todo</span>
-        <button class="btn btn-outline-primary btn-sm rounded-pill">Panes</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill">Snacks</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill">Mermeladas</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill">Sin aditivos</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill">Novedades</button>
-      </div>
-    </div>
-  </section>
+  <!-- NOTA: quitamos las "categorías" por tipo (panes/snacks/mermeladas) y agrupamos por FAMILIA -->
 
-  <!-- CATÁLOGO: PANES -->
-  <section class="section pt-0">
+  <!-- FAMILIA: REY PANADERO -->
+  <section class="section pt-0" id="familia-rey-panadero" aria-labelledby="titulo-rey-panadero">
     <div class="container">
       <div class="d-flex align-items-baseline justify-content-between mb-3">
         <div>
-          <div class="category-kicker">Categoría</div>
-          <h2 class="h4 m-0">Panes artesanales</h2>
+          <div class="category-kicker">Familia</div>
+          <h2 class="h4 m-0 d-flex align-items-center gap-2" id="titulo-rey-panadero">
+            <img src="img/Logotipo_ReyPanadero[14182].gif" alt="" width="36" height="24" class="rounded" />
+            Rey Panadero
+          </h2>
         </div>
-        <a href="#" class="muted-link">Ver todos</a>
+        <a href="#familia-rey-panadero" class="muted-link">Ver todos</a>
       </div>
 
       <div class="row g-4">
-        <!-- CARD DE PRODUCTO (DUPLICA SEGÚN NECESITES) -->
+        <!-- Productos (re-ubicados aquí desde tu catálogo original) -->
         <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
           <div class="card h-100">
             <img src="img/productos/pan_campo.jpg" alt="Pan de Campo" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
@@ -102,12 +116,11 @@
                 <h3 class="h6 m-0" itemprop="name">Pan de Campo</h3>
                 <span class="product-badge">Nuevo</span>
               </div>
-              <p class="texto-informativo mt-2 mb-2" itemprop="description">Masa madre, harina integral y fermentación lenta para una miga húmeda y corteza crujiente.</p>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Masa madre, harina integral y fermentación lenta.</p>
               <div class="meta mb-2">750 g • Sin aditivos</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">85</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">85</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -120,12 +133,11 @@
             <img src="img/productos/centeno.jpg" alt="Centeno 70%" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
             <div class="card-body d-flex flex-column">
               <h3 class="h6 m-0" itemprop="name">Centeno 70%</h3>
-              <p class="texto-informativo mt-2 mb-2" itemprop="description">Perfil ácido suave, alto en fibra y con notas de nuez.</p>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Perfil ácido suave, alto en fibra, notas a nuez.</p>
               <div class="meta mb-2">680 g • Fibra alta</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">92</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">92</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -138,12 +150,11 @@
             <img src="img/productos/baguette.jpg" alt="Baguette clásica" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
             <div class="card-body d-flex flex-column">
               <h3 class="h6 m-0" itemprop="name">Baguette clásica</h3>
-              <p class="texto-informativo mt-2 mb-2" itemprop="description">Corteza fina, alveolos regulares y sabor balanceado.</p>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Corteza fina, alveolos regulares, sabor balanceado.</p>
               <div class="meta mb-2">2 × 180 g</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">75</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">75</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -163,8 +174,7 @@
               <div class="meta mb-2">550 g</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">98</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">98</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -175,18 +185,22 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO: SNACKS -->
-  <section class="section pt-0">
+  <!-- FAMILIA: ETEN -->
+  <section class="section pt-0" id="familia-eten" aria-labelledby="titulo-eten">
     <div class="container">
       <div class="d-flex align-items-baseline justify-content-between mb-3">
         <div>
-          <div class="category-kicker">Categoría</div>
-          <h2 class="h4 m-0">Snacks naturales</h2>
+          <div class="category-kicker">Familia</div>
+          <h2 class="h4 m-0 d-flex align-items-center gap-2" id="titulo-eten">
+            <img src="img/etenlogo.jpg" alt="" width="36" height="24" class="rounded" />
+            Eten
+          </h2>
         </div>
-        <a href="#" class="muted-link">Ver todos</a>
+        <a href="#familia-eten" class="muted-link">Ver todos</a>
       </div>
 
       <div class="row g-4">
+        <!-- Re-ubicado desde "Snacks" -->
         <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
           <div class="card h-100">
             <img src="img/productos/granola.jpg" alt="Granola de cacao" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
@@ -196,8 +210,7 @@
               <div class="meta mb-2">300 g • Endulzada con miel</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">75</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">75</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -214,8 +227,7 @@
               <div class="meta mb-2">6 pzas • Sin aditivos</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">68</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">68</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -232,8 +244,7 @@
               <div class="meta mb-2">45 g • 1 ingrediente</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">42</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">42</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -246,12 +257,11 @@
             <img src="img/productos/mix_semillas.jpg" alt="Mix de semillas" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
             <div class="card-body d-flex flex-column">
               <h3 class="h6 m-0" itemprop="name">Mix de semillas</h3>
-              <p class="texto-informativo mt-2 mb-2" itemprop="description">Girasol, calabaza y ajonjolí tostados. Perfecto para ensaladas.</p>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Girasol, calabaza y ajonjolí tostados.</p>
               <div class="meta mb-2">200 g • Proteína vegetal</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">58</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">58</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -262,18 +272,22 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO: MERMELADAS -->
-  <section class="section pt-0">
+  <!-- FAMILIA: ORÍGENES -->
+  <section class="section pt-0" id="familia-origenes" aria-labelledby="titulo-origenes">
     <div class="container">
       <div class="d-flex align-items-baseline justify-content-between mb-3">
         <div>
-          <div class="category-kicker">Categoría</div>
-          <h2 class="h4 m-0">Mermeladas y untables</h2>
+          <div class="category-kicker">Familia</div>
+          <h2 class="h4 m-0 d-flex align-items-center gap-2" id="titulo-origenes">
+            <img src="img/Origenes_logo_principal.png" alt="" width="36" height="24" class="rounded" />
+            Orígenes
+          </h2>
         </div>
-        <a href="#" class="muted-link">Ver todos</a>
+        <a href="#familia-origenes" class="muted-link">Ver todos</a>
       </div>
 
       <div class="row g-4">
+        <!-- Re-ubicados desde "Mermeladas y untables" -->
         <article class="col-md-6 col-lg-3" itemscope itemtype="https://schema.org/Product">
           <div class="card h-100">
             <img src="img/productos/mermelada_fresa.jpg" alt="Mermelada de fresa" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
@@ -283,8 +297,7 @@
               <div class="meta mb-2">280 g • 60% fruta</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">65</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">65</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -301,8 +314,7 @@
               <div class="meta mb-2">280 g • 60% fruta</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">65</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">65</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -315,12 +327,11 @@
             <img src="img/productos/untable_cacahuate.jpg" alt="Mantequilla de cacahuate" class="card-img-top" width="480" height="360" loading="lazy" itemprop="image">
             <div class="card-body d-flex flex-column">
               <h3 class="h6 m-0" itemprop="name">Mantequilla de cacahuate</h3>
-              <p class="texto-informativo mt-2 mb-2" itemprop="description">Solo cacahuate tostado y una pizca de sal. Nada más.</p>
+              <p class="texto-informativo mt-2 mb-2" itemprop="description">Solo cacahuate tostado y una pizca de sal.</p>
               <div class="meta mb-2">300 g • 1 ingrediente</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">72</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">72</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -337,8 +348,7 @@
               <div class="meta mb-2">250 g • Sin aceite de palma</div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                  <meta itemprop="priceCurrency" content="MXN">
-                  <span itemprop="price">96</span> MXN
+                  <meta itemprop="priceCurrency" content="MXN"><span itemprop="price">96</span> MXN
                 </div>
                 <a href="contact.html" class="btn btn-outline-primary btn-sm">Solicitar</a>
               </div>
@@ -347,9 +357,8 @@
         </article>
       </div>
 
-      <!-- Nota ingredientes/alérgenos -->
       <div class="small-legal text-muted mt-3">
-        * Consulta ingredientes y posibles alérgenos al solicitar tu pedido. Lotes sujetos a disponibilidad de temporada.
+        * Consulta ingredientes y posibles alérgenos al solicitar tu pedido. Lotes sujetos a temporada.
       </div>
     </div>
   </section>
@@ -361,21 +370,20 @@
         <h2 class="h4 mb-2">¿Te ayudamos a armar tu pedido?</h2>
         <p class="texto-informativo mb-3">Podemos sugerirte combinaciones por temporada y consumo estimado.</p>
         <a href="contact.html" class="btn btn-outline-dark rounded-pill px-4">
-            <i class="bi bi-envelope me-1"></i> Escríbenos
-          </a>
+          <i class="bi bi-envelope me-1"></i> Escríbenos
+        </a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-   <footer class="footer section-dark mt-5 pt-5 pb-4">
+  <footer class="footer section-dark mt-5 pt-5 pb-4">
     <div class="container">
       <div class="row g-4">
         <div class="col-md-4">
           <div class="d-flex align-items-center gap-2 mb-2">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
               <img src="img/logo-header.png" alt="Logo" width="100">
-        
             </a>
             <span class="fw-semibold text-light-on-dark">Alimentos con Principios</span>
           </div>
@@ -390,7 +398,7 @@
 
         <div class="col-6 col-md-4">
           <h6 class="text-light-on-dark mb-3">Enlaces rápidos</h6>
-         <ul class="list-unstyled m-0">
+          <ul class="list-unstyled m-0">
             <li><a class="footer-link" href="about.html">Sobre Nosotros</a></li>
             <li><a class="footer-link" href="productos.html">Productos</a></li>
             <li><a class="footer-link" href="nuestros_procesos.html">Nuestros Procesos</a></li>
@@ -406,6 +414,21 @@
             <li><i class="bi bi-telephone me-2"></i> (123) 456-7890</li>
             <li><i class="bi bi-geo-alt me-2"></i> Calle Ejemplo #123, Guadalajara</li>
           </ul>
+
+          <!-- Logos de familias en el footer (links a categorías) -->
+          <div class="mt-3 pt-2 border-top border-light-subtle">
+            <div class="d-flex align-items-center justify-content-start gap-3 flex-wrap mt-3">
+              <a href="productos.html#familia-rey-panadero" aria-label="Rey Panadero">
+                <img src="img/Logotipo_ReyPanadero[14182].gif" alt="Rey Panadero" width="64" height="42" class="rounded">
+              </a>
+              <a href="productos.html#familia-eten" aria-label="Eten">
+                <img src="img/etenlogo.jpg" alt="Eten" width="64" height="42" class="rounded">
+              </a>
+              <a href="productos.html#familia-origenes" aria-label="Orígenes">
+                <img src="img/Origenes_logo_principal.png" alt="Orígenes" width="64" height="42" class="rounded">
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -413,17 +436,88 @@
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
         <p class="m-0 legal text-light-on-dark">© <span id="year"></span> Alimentos con Principios. Todos los derechos reservados.</p>
         <div class="d-flex gap-3">
-          <!-- Mantengo tu enlace de Aviso de Privacidad -->
           <a class="footer-link" href="privacy_notice.html">Aviso de Privacidad</a>
           <a class="footer-link" href="#top" aria-label="Volver arriba"><i class="bi bi-arrow-up"></i></a>
         </div>
       </div>
     </div>
   </footer>
-   <!-- Scripts (mismos que ya tenías) -->
+
+  <!-- Scripts -->
   <script>
+    // Año en footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Soporte de deep-linking: si llega con #familia-x, asegura enfoque correcto
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash && document.querySelector(hash)) {
+        // Opcional: compensar altura del navbar (si cubre el título)
+        const target = document.querySelector(hash);
+        const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+    
+    
   </script>
+  <script>
+(function () {
+  const nav = document.querySelector('.navbar');
+  const getOffset = () => (nav ? nav.offsetHeight + 20 : 100);
+
+  function scrollToHash(hash, push = false) {
+    const target = document.querySelector(hash);
+    if (!target) return;
+    const y = target.getBoundingClientRect().top + window.pageYOffset - getOffset();
+    if (push) history.replaceState(null, '', hash);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  // Reintentos escalonados para el caso "vengo de otra página con hash"
+  function settleAndScroll(hash) {
+    // Corre varias veces mientras termina de acomodarse el layout (imgs, fonts)
+    const delays = [0, 120, 240, 360, 520, 800]; // puedes ajustar
+    delays.forEach(d => setTimeout(() => scrollToHash(hash, false), d));
+
+    // Además, cuando acabe de cargar todo:
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', () => scrollToHash(hash, false), { once: true });
+    }
+  }
+
+  // 1) Si la página ya carga con #familia- (desde otra página)
+  window.addEventListener('DOMContentLoaded', () => {
+    if (location.hash && location.hash.startsWith('#familia-')) {
+      settleAndScroll(location.hash);
+    }
+  });
+
+  // 2) Si cambia el hash (historial, etc.)
+  window.addEventListener('hashchange', () => {
+    if (location.hash && location.hash.startsWith('#familia-')) {
+      scrollToHash(location.hash, false);
+    }
+  });
+
+  // 3) Intercepta cualquier enlace con #familia- (con o sin productos.html)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href*="#familia-"]');
+    if (!a) return;
+
+    const url = new URL(a.getAttribute('href'), location.href);
+    const sameDoc = url.pathname.replace(/\/+$/, '') === location.pathname.replace(/\/+$/, '');
+
+    if (sameDoc) {
+      // Misma página: scroll con offset y sin recargar
+      e.preventDefault();
+      scrollToHash(url.hash, true);
+    } // Si es otra página, dejamos navegar; settleAndScroll lo corrige al cargar
+  });
+})();
+</script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script>
