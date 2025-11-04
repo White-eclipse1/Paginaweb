@@ -2,7 +2,7 @@ backend:
   name: github
   branch: main
   repo: White-eclipse1/Paginaweb     # AJUSTA
-  base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net  # AJUSTA dominio
+  base_url: https://jolly-sand-06d352c0f.3.azurestaticapps.net/api  # AJUSTA dominio
   auth_endpoint: "auth"
   commit_messages:
     create: "chore(cms): crear {{collection}} “{{slug}}”"
