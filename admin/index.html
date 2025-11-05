@@ -6,8 +6,33 @@
   <title>Admin | Decap CMS</title>
 </head>
 <body>
+  <!-- 1) Carga Decap -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- (opcional) buster por si el navegador insiste en cachear -->
-  <script>window.CMS_CONFIG_PATH = "/admin/config.yml?v=2";</script>
+
+  <!-- 2) Puente: si el popup manda el token, lo guardamos donde Decap lo busca -->
+  <script>
+    (function () {
+      function handleAuthMessage(e) {
+        if (typeof e.data !== "string") return;
+
+        // Mensaje estándar que envía nuestro /api/callback:
+        // 'authorization:github:success:<token>'
+        if (e.data.startsWith("authorization:github:success:")) {
+          var token = e.data.split("authorization:github:success:")[1];
+          try {
+            localStorage.setItem(
+              "decap-cms-user",
+              JSON.stringify({ token: token, provider: "github" })
+            );
+          } catch (err) {
+            console.error("No pude guardar el token:", err);
+          }
+          // recarga para que Desaparezca el botón y carguen colecciones
+          location.reload();
+        }
+      }
+      window.addEventListener("message", handleAuthMessage, false);
+    })();
+  </script>
 </body>
 </html>
