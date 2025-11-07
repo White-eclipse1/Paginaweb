@@ -6,13 +6,13 @@
   <title>Admin | Decap CMS</title>
 </head>
 <body>
-  <!-- 1) Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- 2) Cargamos js-yaml para parsear config.yml -->
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
+  <!-- 0) Forzar init manual ANTES de cargar Decap -->
   <script>
-    // Puente: guarda el token que manda el popup de /api/callback
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
+  <!-- 1) Puente: guardar token que nos manda el popup del callback -->
+  <script>
     (function () {
       function handleAuthMessage(e) {
         if (typeof e.data !== "string") return;
@@ -26,27 +26,34 @@
       }
       window.addEventListener("message", handleAuthMessage, false);
     })();
+  </script>
 
-    // Evita que Decap busque config.yml por defecto
-    window.CMS_MANUAL_INIT = true;
+  <!-- 2) Carga Decap CMS (ahora NO auto-inicia) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    // Lee /admin/config.yml, lo parsea y arranca Decap
+  <!-- 3) Parser YAML -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+  <!-- 4) Lee config.yml, valida duplicados e inicia Decap -->
+  <script>
     (async function initCMS() {
       try {
-        const bust = Date.now(); // cache-busting
-        const res = await fetch(`/admin/config.yml?v=${bust}`, { cache: "no-store" });
+        const res = await fetch("/admin/config.yml?v=" + Date.now(), { cache: "no-store" });
         const txt = await res.text();
-        // Validaciones útiles
-        if (!txt || txt.trim().length < 20) {
-          console.error("config.yml vacío o muy corto:", txt);
+        const cfg = jsyaml.load(txt);
+
+        // Debug útil: ver colecciones y detectar duplicados
+        const names = (cfg.collections || []).map(c => c.name);
+        const dups = names.filter((n, i) => names.indexOf(n) !== i);
+        console.log("Colecciones:", names, "Duplicadas:", dups);
+        if (dups.length) {
+          throw new Error("Collections duplicadas en config.yml: " + dups.join(", "));
         }
-        const cfg = jsyaml.load(txt);   // <- convierte YAML a objeto
-        if (!cfg || !cfg.backend) {
-          console.error("config.yml sin backend válido:", cfg);
-        }
+
         CMS.init({ config: cfg });
       } catch (err) {
-        console.error("Error iniciando Decap con config.yml:", err);
+        console.error("Error iniciando Decap:", err);
+        alert("Error iniciando Decap: " + err.message);
       }
     })();
   </script>
