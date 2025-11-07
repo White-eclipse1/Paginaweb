@@ -6,10 +6,11 @@
   <title>Admin | Decap CMS</title>
 </head>
 <body>
+  <!-- Forzar init manual ANTES de cargar Decap -->
   <script>window.CMS_MANUAL_INIT = true;</script>
 
+  <!-- Puente: guarda token que manda /api/callback -->
   <script>
-    // Guarda token que manda /api/callback
     (function () {
       function handleAuthMessage(e) {
         if (typeof e.data !== "string") return;
@@ -23,21 +24,36 @@
     })();
   </script>
 
+  <!-- Decap + parser YAML -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
   <script>
     (async function initCMS() {
-      const res = await fetch("/admin/config.yml?v=" + Date.now(), { cache: "no-store" });
-      const txt = await res.text();
-      const cfg = jsyaml.load(txt);
+      try {
+        const res = await fetch("/admin/config.yml?v=" + Date.now(), { cache: "no-store" });
+        const txt = await res.text();
+        const cfg = jsyaml.load(txt);
 
-      // Debug para ver si hay duplicados en el YAML
-      const names = (cfg.collections || []).map(c => c.name);
-      const dups = names.filter((n, i) => names.indexOf(n) !== i);
-      console.log("Colecciones:", names, "Duplicadas:", dups);
+        // --- DEDUPE DEFENSIVO ---
+        const seen = new Set();
+        const cleaned = [];
+        (cfg.collections || []).forEach(c => {
+          const key = (c && c.name ? String(c.name) : "").trim().toLowerCase();
+          if (!key || seen.has(key)) return;
+          // normaliza el name (sin espacios accidentales)
+          c.name = (c.name || "").trim();
+          cleaned.push(c);
+          seen.add(key);
+        });
+        cfg.collections = cleaned;
 
-      CMS.init({ config: cfg });
+        console.log("Colecciones finales:", cfg.collections.map(c => c.name));
+        CMS.init({ config: cfg });
+      } catch (err) {
+        console.error("Error iniciando Decap:", err);
+        document.body.innerHTML = "<pre style='padding:16px'>No pude iniciar Decap.\n" + (err && err.message ? err.message : err) + "</pre>";
+      }
     })();
   </script>
 </body>
