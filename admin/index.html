@@ -1,37 +1,53 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Admin | Decap CMS</title>
 </head>
 <body>
-  <!-- 1) Carga Decap -->
+  <!-- 1) Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- 2) Cargamos js-yaml para parsear config.yml -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
-  <!-- 2) Puente: si el popup manda el token, lo guardamos donde Decap lo busca -->
   <script>
+    // Puente: guarda el token que manda el popup de /api/callback
     (function () {
       function handleAuthMessage(e) {
         if (typeof e.data !== "string") return;
-
-        // Mensaje estándar que envía nuestro /api/callback:
-        // 'authorization:github:success:<token>'
         if (e.data.startsWith("authorization:github:success:")) {
           var token = e.data.split("authorization:github:success:")[1];
           try {
-            localStorage.setItem(
-              "decap-cms-user",
-              JSON.stringify({ token: token, provider: "github" })
-            );
-          } catch (err) {
-            console.error("No pude guardar el token:", err);
-          }
-          // recarga para que Desaparezca el botón y carguen colecciones
+            localStorage.setItem("decap-cms-user", JSON.stringify({ token, provider: "github" }));
+          } catch (err) { console.error("No pude guardar el token:", err); }
           location.reload();
         }
       }
       window.addEventListener("message", handleAuthMessage, false);
+    })();
+
+    // Evita que Decap busque config.yml por defecto
+    window.CMS_MANUAL_INIT = true;
+
+    // Lee /admin/config.yml, lo parsea y arranca Decap
+    (async function initCMS() {
+      try {
+        const bust = Date.now(); // cache-busting
+        const res = await fetch(`/admin/config.yml?v=${bust}`, { cache: "no-store" });
+        const txt = await res.text();
+        // Validaciones útiles
+        if (!txt || txt.trim().length < 20) {
+          console.error("config.yml vacío o muy corto:", txt);
+        }
+        const cfg = jsyaml.load(txt);   // <- convierte YAML a objeto
+        if (!cfg || !cfg.backend) {
+          console.error("config.yml sin backend válido:", cfg);
+        }
+        CMS.init({ config: cfg });
+      } catch (err) {
+        console.error("Error iniciando Decap con config.yml:", err);
+      }
     })();
   </script>
 </body>
