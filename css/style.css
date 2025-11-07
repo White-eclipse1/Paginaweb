@@ -208,6 +208,8 @@ footer a:hover { color: var(--brand); }
 /* Cajas y separadores */
 .bg-soft { background: #f0e8cb !important; }
 .border-soft { border-color: var(--border) !important; }
+.bg-black {background: #504237 !important;}
+.bg-normal {background: #F7F2E8 !important;}
 
 /* =========================================================
    Formularios
