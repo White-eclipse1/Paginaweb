@@ -6,21 +6,16 @@
   <title>Admin | Decap CMS</title>
 </head>
 <body>
-  <!-- 0) Forzar init manual ANTES de cargar Decap -->
-  <script>
-    window.CMS_MANUAL_INIT = true;
-  </script>
+  <script>window.CMS_MANUAL_INIT = true;</script>
 
-  <!-- 1) Puente: guardar token que nos manda el popup del callback -->
   <script>
+    // Guarda token que manda /api/callback
     (function () {
       function handleAuthMessage(e) {
         if (typeof e.data !== "string") return;
         if (e.data.startsWith("authorization:github:success:")) {
           var token = e.data.split("authorization:github:success:")[1];
-          try {
-            localStorage.setItem("decap-cms-user", JSON.stringify({ token, provider: "github" }));
-          } catch (err) { console.error("No pude guardar el token:", err); }
+          localStorage.setItem("decap-cms-user", JSON.stringify({ token, provider: "github" }));
           location.reload();
         }
       }
@@ -28,33 +23,21 @@
     })();
   </script>
 
-  <!-- 2) Carga Decap CMS (ahora NO auto-inicia) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <!-- 3) Parser YAML -->
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
-  <!-- 4) Lee config.yml, valida duplicados e inicia Decap -->
   <script>
     (async function initCMS() {
-      try {
-        const res = await fetch("/admin/config.yml?v=" + Date.now(), { cache: "no-store" });
-        const txt = await res.text();
-        const cfg = jsyaml.load(txt);
+      const res = await fetch("/admin/config.yml?v=" + Date.now(), { cache: "no-store" });
+      const txt = await res.text();
+      const cfg = jsyaml.load(txt);
 
-        // Debug útil: ver colecciones y detectar duplicados
-        const names = (cfg.collections || []).map(c => c.name);
-        const dups = names.filter((n, i) => names.indexOf(n) !== i);
-        console.log("Colecciones:", names, "Duplicadas:", dups);
-        if (dups.length) {
-          throw new Error("Collections duplicadas en config.yml: " + dups.join(", "));
-        }
+      // Debug para ver si hay duplicados en el YAML
+      const names = (cfg.collections || []).map(c => c.name);
+      const dups = names.filter((n, i) => names.indexOf(n) !== i);
+      console.log("Colecciones:", names, "Duplicadas:", dups);
 
-        CMS.init({ config: cfg });
-      } catch (err) {
-        console.error("Error iniciando Decap:", err);
-        alert("Error iniciando Decap: " + err.message);
-      }
+      CMS.init({ config: cfg });
     })();
   </script>
 </body>
