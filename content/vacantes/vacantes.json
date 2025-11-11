@@ -1,26 +1,26 @@
 {
   "items": [
     {
-      "slug": "limpiador-3",
-      "titulo": "Limpiador 3",
-      "empresa": "eten",
+      "slug": "cto",
+      "titulo": "Cto",
+      "empresa": "Pan bueno",
       "ubicacion": "eten",
-      "tipo": "Prácticas",
-      "salario": "$15000",
-      "imagen": "/content/vacantes/imagenes/1762848142864-R.jpeg",
+      "tipo": "Tiempo completo",
+      "salario": "$150000",
+      "imagen": "/content/vacantes/imagenes/1762848405261-iae.png",
       "activo": true,
-      "date": "2025-11-11T08:02:24.379Z"
+      "date": "2025-11-11T08:06:46.623Z"
     },
     {
-      "slug": "limpiador",
-      "titulo": "Limpiador",
+      "slug": "limpiador-calle",
+      "titulo": "Limpiador calle",
       "empresa": "eten",
       "ubicacion": "eten",
-      "tipo": "Remoto",
+      "tipo": "Tiempo completo",
       "salario": "$15000",
-      "imagen": "/content/vacantes/imagenes/1762848067457-netflix_PNG23.png",
+      "imagen": "/content/vacantes/imagenes/1762848100398-reguser.png",
       "activo": true,
-      "date": "2025-11-11T08:01:09.260Z"
+      "date": "2025-11-11T08:01:41.430Z"
     }
   ]
 }
