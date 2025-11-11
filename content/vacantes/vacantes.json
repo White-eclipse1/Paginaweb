@@ -7,9 +7,20 @@
       "ubicacion": "eten",
       "tipo": "Tiempo completo",
       "salario": "$150000",
-      "imagen": "/content/vacantes/imagenes/1762850603979-reguser.png",
+      "imagen": "/content/vacantes/imagenes/1762850915509-Captura_de_pantalla_2025-09-22_231145.png",
       "activo": true,
-      "date": "2025-11-11T08:43:26.365Z"
+      "date": "2025-11-11T08:48:37.876Z"
+    },
+    {
+      "slug": "limpiador-3",
+      "titulo": "Limpiador 3",
+      "empresa": "Pan bueno",
+      "ubicacion": "s",
+      "tipo": "Medio tiempo",
+      "salario": "$150000",
+      "imagen": "/content/vacantes/imagenes/1762850147206-AMD.jpg",
+      "activo": true,
+      "date": "2025-11-11T08:35:50.422Z"
     }
   ]
 }
