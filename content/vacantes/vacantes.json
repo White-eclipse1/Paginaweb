@@ -1,6 +1,17 @@
 {
   "items": [
     {
+      "slug": "limpiador-1",
+      "titulo": "Limpiador 1",
+      "empresa": "eten",
+      "ubicacion": "zapopan",
+      "tipo": "Temporal",
+      "salario": "$1500",
+      "imagen": "/content/vacantes/imagenes/1762900744426-AFD_ACT_conversion.jpg",
+      "activo": true,
+      "date": "2025-11-11T22:39:07.410Z"
+    },
+    {
       "slug": "panadero",
       "titulo": "Panadero",
       "empresa": "reyes",
