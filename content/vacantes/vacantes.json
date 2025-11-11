@@ -1,15 +1,15 @@
 {
   "items": [
     {
-      "slug": "limpiador-2",
-      "titulo": "Limpiador 2",
-      "empresa": "eten",
-      "ubicacion": "eten",
-      "tipo": "Tiempo completo",
-      "salario": "$150000",
-      "imagen": "/content/vacantes/imagenes/1762852181765-netflix_PNG23.png",
+      "slug": "ceo",
+      "titulo": "Ceo",
+      "empresa": "reyes",
+      "ubicacion": "zapopan",
+      "tipo": "Remoto",
+      "salario": "",
+      "imagen": "",
       "activo": true,
-      "date": "2025-11-11T09:09:45.006Z"
+      "date": "2025-11-11T09:20:29.065Z"
     },
     {
       "slug": "cto",
