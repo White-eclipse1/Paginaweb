@@ -110,13 +110,26 @@ async function deleteFile(path, message){
   return res.json();
 }
 
-async function uploadImage(file){
-  const fd = new FormData();
-  fd.append("file", file);
-  const res = await fetch("/api/upload-image", { method: "POST", body: fd });
-  if(!res.ok) throw new Error(await res.text());
-  return res.json(); // { path }
+async function fileToBase64(file) {
+  const buf = await file.arrayBuffer();
+  let binary = "";
+  const bytes = new Uint8Array(buf);
+  const chunk = 0x8000;
+  for (let i=0; i<bytes.length; i+=chunk) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i+chunk));
+  }
+  return btoa(binary);
 }
+
+async function uploadImage(file){
+  // Guarda la imagen directamente con /api/commit (sin multipart)
+  const safeName = file.name.replace(/[^\w\.-]+/g, "_");
+  const savePath = `content/vacantes/imagenes/${Date.now()}-${safeName}`;
+  const contentBase64 = await fileToBase64(file);
+  await commitFile(savePath, contentBase64, `assets(job): ${safeName}`);
+  return { path: savePath };
+}
+
 
 async function save(e){
   e.preventDefault();
