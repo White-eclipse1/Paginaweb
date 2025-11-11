@@ -1,1 +1,15 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "slug": "limpiador",
+      "titulo": "Limpiador",
+      "empresa": "eten",
+      "ubicacion": "eten",
+      "tipo": "Remoto",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762848067457-netflix_PNG23.png",
+      "activo": true,
+      "date": "2025-11-11T08:01:09.260Z"
+    }
+  ]
+}
