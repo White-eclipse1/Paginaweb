@@ -19,6 +19,7 @@ jobs:
         with:
           submodules: true
           lfs: false
+      
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -28,8 +29,8 @@ jobs:
           action: "upload"
           app_location: "/"
           api_location: "api"
-          output_location: ""       # ← cámbialo a vacío, no "."
-          production_branch: "main" # ← asegúrate que coincide con tu rama
+          output_location: ""
+          production_branch: "main"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -40,5 +41,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_TREE_0DAF5201E }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "close"
