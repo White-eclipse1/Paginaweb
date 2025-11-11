@@ -1,3 +1,15 @@
 {
-  "items": []
+  "items": [
+    {
+      "slug": "limpiador-3",
+      "titulo": "Limpiador 3",
+      "empresa": "Pan bueno",
+      "ubicacion": "s",
+      "tipo": "Medio tiempo",
+      "salario": "$150000",
+      "imagen": "/content/vacantes/imagenes/1762850147206-AMD.jpg",
+      "activo": true,
+      "date": "2025-11-11T08:35:50.422Z"
+    }
+  ]
 }
