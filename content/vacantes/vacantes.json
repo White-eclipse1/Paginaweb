@@ -1,15 +1,15 @@
 {
   "items": [
     {
-      "slug": "limpiador",
-      "titulo": "Limpiador",
+      "slug": "limpiador-calle",
+      "titulo": "Limpiador calle",
       "empresa": "eten",
       "ubicacion": "eten",
-      "tipo": "Remoto",
+      "tipo": "Tiempo completo",
       "salario": "$15000",
-      "imagen": "/content/vacantes/imagenes/1762848067457-netflix_PNG23.png",
+      "imagen": "/content/vacantes/imagenes/1762848100398-reguser.png",
       "activo": true,
-      "date": "2025-11-11T08:01:09.260Z"
+      "date": "2025-11-11T08:01:41.430Z"
     }
   ]
 }
