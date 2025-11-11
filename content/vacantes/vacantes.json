@@ -1,6 +1,17 @@
 {
   "items": [
     {
+      "slug": "quimico",
+      "titulo": "QUIMICO",
+      "empresa": "alma de pan",
+      "ubicacion": "Guadalajara",
+      "tipo": "Temporal",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762903422435-Bohemian_Rhapsody.jpg",
+      "activo": true,
+      "date": "2025-11-11T23:23:45.629Z"
+    },
+    {
       "slug": "limpiador-1",
       "titulo": "Limpiador 1",
       "empresa": "eten",
