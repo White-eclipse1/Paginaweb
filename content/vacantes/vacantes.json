@@ -1,6 +1,17 @@
 {
   "items": [
     {
+      "slug": "cto",
+      "titulo": "Cto",
+      "empresa": "Pan bueno",
+      "ubicacion": "zapopan",
+      "tipo": "Tiempo completo",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762891565790-crepusculo-tarjetas-cumpleanios-para-imprimir.jpg",
+      "activo": true,
+      "date": "2025-11-11T20:06:09.405Z"
+    },
+    {
       "slug": "secretaria",
       "titulo": "secretaria",
       "empresa": "reyes",
