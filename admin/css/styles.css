@@ -1,0 +1,5 @@
+:root { --soft:#f7f7f7 }
+body { background:var(--soft) }
+.card { border-radius:1rem }
+.table td, .table th { vertical-align:middle }
+.d-none { display:none!important }

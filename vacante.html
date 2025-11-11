@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vacante</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar reutilizable -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo-header.png" width="230" height="120" class="me-2" alt="Logo">
+      </a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="container py-5">
+    <article id="vac"></article>
+  </main>
+
+  <!-- Footer reutilizable -->
+  <footer class="footer section-dark mt-5 pt-5 pb-4">
+    <div class="container">
+      <!-- Puedes copiar el footer de tus otras páginas aquí -->
+    </div>
+  </footer>
+
+  <!-- Script para cargar la vacante -->
+  <script>
+    (async function () {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get("slug");
+      if (!slug) {
+        document.getElementById("vac").innerHTML = "<p>Vacante no encontrada.</p>";
+        return;
+      }
+
+      const md = await fetch(`/content/vacantes/${slug}.md?${Date.now()}`).then(r => r.ok ? r.text() : null);
+      if (!md) {
+        document.getElementById("vac").innerHTML = "<p>Vacante no encontrada.</p>";
+        return;
+      }
+
+      const m = /---([\s\S]*?)---\s*([\s\S]*)/m.exec(md);
+      const meta = {};
+      const body = m ? m[2].trim() : md;
+      if (m) {
+        m[1].split("\n").forEach(line => {
+          const [k, ...rest] = line.split(":");
+          const v = rest.join(":").trim().replace(/^["']|["']$/g, "");
+          if (k === "title") meta.title = v;
+          if (k === "company") meta.company = v;
+          if (k === "location") meta.location = v;
+          if (k === "type") meta.type = v;
+          if (k === "salary") meta.salary = v;
+          if (k === "image") meta.image = v;
+        });
+      }
+
+      document.title = meta.title ? meta.title + " · Vacante" : "Vacante";
+      const img = meta.image ? `<img src="${meta.image}" class="img-fluid rounded mb-3" alt="">` : "";
+      document.getElementById("vac").innerHTML = `
+        <header class="mb-4">
+          <h1 class="h3">${meta.title || "Vacante"}</h1>
+          <div class="text-muted">${meta.company || ""} • ${meta.location || ""} • <span class="badge text-bg-light">${meta.type || ""}</span></div>
+          <div class="mt-1 fw-semibold">${meta.salary || ""}</div>
+        </header>
+        ${img}
+        <div class="mb-4" style="white-space:pre-line">${body}</div>
+        <a class="btn btn-outline-dark" href="bolsa-trabajo.html">← Volver a vacantes</a>
+      `;
+    })();
+  </script>
+</body>
+</html>

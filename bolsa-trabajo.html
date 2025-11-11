@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bolsa de trabajo</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head><body class="d-flex flex-column min-vh-100">
+  <!-- Reutiliza tu mismo navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo-header.png" alt="" width="230" height="120" class="me-2">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Quiénes Somos</a></li>
+          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="nuestros_procesos.html">Procesos</a></li>
+          <li class="nav-item"><a class="nav-link" href="testiminiosclientes.html">Testimonios</a></li>
+          <li class="nav-item"><a class="nav-link active" href="bolsa-trabajo.html">Empleos</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5 flex-grow-1">
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+      <h1 class="h3 m-0">Vacantes</h1>
+      <div class="d-flex gap-2">
+        <input id="q" class="form-control" placeholder="Buscar por título, empresa, ubicación">
+        <select id="fTipo" class="form-select">
+          <option value="">Tipo</option>
+          <option>Tiempo completo</option><option>Medio tiempo</option><option>Prácticas</option><option>Temporal</option><option>Remoto</option>
+        </select>
+      </div>
+    </div>
+    <div id="grid" class="row g-4"></div>
+    <div id="empty" class="text-center text-muted py-5 d-none">No hay vacantes.</div>
+  </main>
+
+  <!-- Reutiliza tu footer estándar -->
+  <footer class="footer section-dark mt-5 pt-5 pb-4">
+    <div class="container"><!-- ... (igual que tus páginas) --></div>
+  </footer>
+
+  <script src="js/bolsa-trabajo.js"></script>
+</body></html>
