@@ -1,15 +1,15 @@
 {
   "items": [
     {
-      "slug": "limpiador-3",
-      "titulo": "Limpiador 3",
+      "slug": "cto",
+      "titulo": "Cto",
       "empresa": "Pan bueno",
-      "ubicacion": "s",
-      "tipo": "Medio tiempo",
+      "ubicacion": "eten",
+      "tipo": "Tiempo completo",
       "salario": "$150000",
-      "imagen": "/content/vacantes/imagenes/1762850147206-AMD.jpg",
+      "imagen": "/content/vacantes/imagenes/1762850603979-reguser.png",
       "activo": true,
-      "date": "2025-11-11T08:35:50.422Z"
+      "date": "2025-11-11T08:43:26.365Z"
     }
   ]
 }
