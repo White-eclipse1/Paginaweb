@@ -5,12 +5,12 @@ location: "eten"
 type: "Tiempo completo"
 salary: "$150000"
 active: true
-date: "2025-11-11T08:06:46.537Z"
-image: "/content/vacantes/imagenes/1762848405261-iae.png"
+date: "2025-11-11T08:43:25.292Z"
+image: "/content/vacantes/imagenes/1762850603979-reguser.png"
 requirements:
-  - "ser crack"
+  - "1"
 benefits:
-  - "carro"
+  - "1"
 ---
 
-Cto
+1
