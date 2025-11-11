@@ -1,15 +1,26 @@
 {
   "items": [
     {
-      "slug": "limpiador-calle",
-      "titulo": "Limpiador calle",
+      "slug": "limpiador-3",
+      "titulo": "Limpiador 3",
       "empresa": "eten",
       "ubicacion": "eten",
-      "tipo": "Tiempo completo",
+      "tipo": "Prácticas",
       "salario": "$15000",
-      "imagen": "/content/vacantes/imagenes/1762848100398-reguser.png",
+      "imagen": "/content/vacantes/imagenes/1762848142864-R.jpeg",
       "activo": true,
-      "date": "2025-11-11T08:01:41.430Z"
+      "date": "2025-11-11T08:02:24.379Z"
+    },
+    {
+      "slug": "limpiador",
+      "titulo": "Limpiador",
+      "empresa": "eten",
+      "ubicacion": "eten",
+      "tipo": "Remoto",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762848067457-netflix_PNG23.png",
+      "activo": true,
+      "date": "2025-11-11T08:01:09.260Z"
     }
   ]
 }
