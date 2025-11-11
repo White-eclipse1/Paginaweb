@@ -1,16 +1,16 @@
 ---
 title: "Limpiador 3"
-company: "eten"
-location: "eten"
-type: "Prácticas"
-salary: "$15000"
+company: "Pan bueno"
+location: "s"
+type: "Medio tiempo"
+salary: "$150000"
 active: true
-date: "2025-11-11T08:02:24.314Z"
-image: "/content/vacantes/imagenes/1762848142864-R.jpeg"
+date: "2025-11-11T08:35:49.468Z"
+image: "/content/vacantes/imagenes/1762850147206-AMD.jpg"
 requirements:
-  - "0"
+  - "ser estudiante"
 benefits:
-  - "0"
+  - "ser crack"
 ---
 
-0
+holalalalaalalalalaa
