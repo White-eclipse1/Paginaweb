@@ -192,7 +192,7 @@ footer a:hover { color: var(--brand); }
   border: 1px solid var(--border);
   border-radius: var(--rounded);
   box-shadow: var(--shadow);
-  background: var(--white);
+  background: #f0e8cb;  
 }
 .card-img-top { border-top-left-radius: var(--rounded); border-top-right-radius: var(--rounded); }
 .card-body h3, .card-body .h5 { font-family: var(--font-display); color: var(--brown-dark); }
