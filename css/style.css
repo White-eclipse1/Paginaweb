@@ -10,6 +10,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap');
 
 /* =========================================================
+   ANIMACIONES GLOBALES - KEYFRAMES
+   ========================================================= */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* =========================================================
    Variables Globales
    ========================================================= */
 :root {
@@ -107,12 +192,166 @@ h6 { font-size: var(--fs-400); }
 .legal, .small-legal { font-family: var(--font-text); font-weight: 300; font-size: var(--fs-200); color: var(--muted); }
 
 /* =========================================================
-   Navbar y Footer
+   APLICACIÓN DE ANIMACIONES A ELEMENTOS GLOBALES
    ========================================================= */
+
+/* Navbar */
 .navbar {
   background: #f0e8cb !important;        
   border-bottom: 1px solid var(--border);
+  animation: fadeInDown 0.6s ease-out;
 }
+
+/* Carrusel */
+.carousel-item {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.carousel-item.active {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Tarjetas */
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+  background: #f0e8cb;
+  animation: fadeInUp 0.6s ease-out both;
+  transition: all 0.3s ease;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-img-top {
+  border-top-left-radius: var(--rounded);
+  border-top-right-radius: var(--rounded);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}
+
+/* Botones */
+.btn-primary, 
+.btn-outline-primary, 
+.btn-success, 
+.btn-outline-success,
+.btn-outline-dark {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover, 
+.btn-outline-primary:hover, 
+.btn-success:hover, 
+.btn-outline-success:hover,
+.btn-outline-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Títulos de sección */
+.section-title {
+  font-size: var(--fs-800);
+  animation: fadeInDown 0.6s ease-out both;
+}
+
+/* Párrafos principales */
+.lead {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+/* Main */
+main {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Scroll animation para elementos visibles */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Iconos */
+.bi {
+  transition: transform 0.3s ease;
+}
+
+a:hover .bi {
+  transform: translateY(-2px);
+}
+
+/* Carga de imágenes lazy */
+.card-img-top[loading="lazy"] {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Badges con pulse */
+.badge-soft,
+.product-badge {
+  animation: pulse 2s infinite;
+}
+
+/* =========================================================
+   CLASES ÚTILES DE ANIMACIÓN PARA USO RÁPIDO
+   ========================================================= */
+
+/* Fade In */
+.fade-in-down {
+  animation: fadeInDown 0.6s ease-out both;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+/* Slide In */
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out both;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s ease-out both;
+}
+
+/* Scale In */
+.scale-in {
+  animation: scaleIn 0.6s ease-out both;
+}
+
+/* Float */
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse */
+.pulse-animation {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* =========================================================
+   Navbar y Footer
+   ========================================================= */
 .navbar-brand {
   display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-display);
@@ -184,17 +423,8 @@ footer a:hover { color: var(--brand); }
 .hero { background: linear-gradient(180deg, var(--bg-soft), var(--white)); }
 .section { padding-block: clamp(2.5rem, 3vw, 4.5rem); }
 .section-head { margin-bottom: 1.25rem; }
-.section-title { font-size: var(--fs-800); }
 .section-subtitle { color: var(--muted); font-size: var(--fs-300); }
 
-/* Tarjetas */
-.card {
-  border: 1px solid var(--border);
-  border-radius: var(--rounded);
-  box-shadow: var(--shadow);
-  background: #f0e8cb;  
-}
-.card-img-top { border-top-left-radius: var(--rounded); border-top-right-radius: var(--rounded); }
 .card-body h3, .card-body .h5 { font-family: var(--font-display); color: var(--brown-dark); }
 .badge-soft {
   background: var(--bg-soft);
@@ -235,10 +465,10 @@ footer a:hover { color: var(--brand); }
 .carousel-img { height: 300px; object-fit: contain; }
 .muted-link { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 .muted-link:hover { color: var(--brown-dark); }
+
 /* =========================================================
    Carrusel
    ========================================================= */
-
 .carousel-item img {
   max-height: 500px;
   width: 100%;
@@ -248,7 +478,6 @@ footer a:hover { color: var(--brand); }
 
 .carousel-caption {
   text-shadow: 0 3px 15px rgba(0, 0, 0, 0.8);
-  animation: fadeInUp 1s ease-in-out;
 }
 
 .carousel-caption h1 {
@@ -258,17 +487,6 @@ footer a:hover { color: var(--brand); }
 
 .carousel-caption p {
   max-width: 700px;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* ====== Carrusel: texto 100% responsivo en móviles ====== */
@@ -309,12 +527,12 @@ footer a:hover { color: var(--brand); }
   }
 }
 
-
 /* =========================================================
    Responsivo
    ========================================================= */
 @media (max-width: 991.98px) { .navbar .nav-link { padding-block: .5rem; } }
 @media (max-width: 575.98px) { .tagline { font-size: var(--fs-600); } }
+
 /* ===== Productos Destacados: ajuste compacto en móviles ===== */
 @media (max-width: 575.98px) {
   /* 2 tarjetas por fila sin cambiar el HTML (col-md-4) */
@@ -365,10 +583,10 @@ footer a:hover { color: var(--brand); }
     object-fit: cover;
   }
 }
+
 /* =========================================================
    Página 404
    ========================================================= */
 .page-404 {
   min-height: 60vh; display: grid; place-items: center; text-align: center;
 }
-

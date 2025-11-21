@@ -6,8 +6,6 @@
   <title>Alimentos con Principios | Tienda de productos naturales</title>
   <link rel="icon" href="img/Origenes_logo_principal.png" type="image/x-icon">
 
-
-  <!-- Mantengo tus referencias originales (sin cambiar fuentes) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -16,12 +14,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-  <!-- NAVBAR (versión propuesta) -->
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height ="120" class="me-2">
-        
+        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height="120" class="me-2">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +34,6 @@
           <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
           <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
           <li class="nav-item"><a class="nav-link" href="bolsa-trabajo.html">Bolsa de Trabajo</a></li>
-
         </ul>
       </div>
     </div>
@@ -45,71 +41,49 @@
 
   <main class="flex-grow-1">
 
-    
-    <!-- HERO SLIDER / CARRUSEL MEJORADO -->
-<div id="carouselHome" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2"></button>
-    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="3"></button>
-  </div>
-
-  <div class="carousel-inner">
-    <!-- SLIDE 1 -->
-    <div class="carousel-item active position-relative">
-      <img src="img/etenlocal.jpg" class="d-block w-100 img-fluid" alt="Pan artesanal y alimentos frescos">
-      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
-        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
-        <p class="lead mb-4">Ingredientes naturales, procesos honestos y un toque de amor en cada plato.</p>
-        
+    <!-- HERO SLIDER / CARRUSEL -->
+    <div id="carouselHome" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="3"></button>
       </div>
-    </div>
 
-    <!-- SLIDE 2 -->
-    <div class="carousel-item position-relative">
-      <img src="img/Planta-AlmadePan.jpg" class="d-block w-100 img-fluid" alt="Elaboración artesanal">
-      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light ">
-        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
-        <p class="lead mb-4">Apoyamos productores locales y cuidamos cada detalle del proceso.</p>
-        
+      <div class="carousel-inner">
+        <!-- SLIDE 1 -->
+        <div class="carousel-item active position-relative">
+          <img src="img/etenlocal.jpg" class="d-block w-100 img-fluid" alt="Pan artesanal y alimentos frescos">
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="carousel-item position-relative">
+          <img src="img/Planta-AlmadePan.jpg" class="d-block w-100 img-fluid" alt="Elaboración artesanal">
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="carousel-item position-relative">
+          <img src="img/slide-3a1.jpg" class="d-block w-100 img-fluid" alt="Ingredientes frescos">
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="carousel-item position-relative">
+          <img src="img/img5.jpg" class="d-block w-100 img-fluid" alt="Cocina saludable">
+        </div>
       </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
     </div>
-
-    <!-- SLIDE 3 -->
-    <div class="carousel-item position-relative">
-      <img src="img/slide-3a1.jpg" class="d-block w-100 img-fluid" alt="Ingredientes frescos">
-      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
-        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
-        <p class="lead mb-4">Seleccionamos solo ingredientes reales, sin conservadores.</p>
-        
-      </div>
-    </div>
-
-    <!-- SLIDE 4 -->
-    <div class="carousel-item position-relative">
-      <img src="img/img5.jpg" class="d-block w-100 img-fluid" alt="Cocina saludable">
-      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100 text-light  ">
-        <h1 class="display-5 fw-bold mb-3">Ejemplo de Título</h1>
-        <p class="lead mb-4">Cada producto refleja nuestra pasión por la comida consciente.</p>
-        
-      </div>
-    </div>
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>
-
 
     <!-- SECCIÓN PRINCIPAL / CONTEXTO -->
-    <section class="py-5 text-center ">
+    <section class="py-5 text-center scroll-fade">
       <div class="container">
-        <h2 class="fw-bold mb-3">Para comer bien, y a tu gusto!</h2>
+        <h2 class="fw-bold mb-3 section-title">Para comer bien, y a tu gusto!</h2>
         <p class="lead mb-4">
           En <strong>Alimentos con Principios</strong> creemos en una alimentación honesta y saludable.
           Elegimos ingredientes de calidad y procesos responsables para ofrecerte productos que nutren y respetan el planeta tierra.
@@ -118,15 +92,15 @@
       </div>
     </section>
 
-    <!-- PRODUCTOS DESTACADOS (versión propuesta) -->
+    <!-- PRODUCTOS DESTACADOS -->
     <section class="container py-5">
       <div class="text-center mb-5">
-        <h3 class="fw-bold">Nuestros Productos Destacados</h3>
-        <p class="text-muted">Descubre nuestros alimentos naturales más populares.</p>
+        <h3 class="fw-bold section-title">Nuestros Productos Destacados</h3>
+        <p class="text-muted scroll-fade">Descubre nuestros alimentos naturales más populares.</p>
       </div>
       <div class="row g-4">
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm bg-white">
+          <div class="card h-100 shadow-sm bg-white scroll-fade">
             <img src="img/polloenmole.png" class="card-img-top" alt="Pan integral artesanal">
             <div class="card-body">
               <h5 class="card-title">Pollo en Mole Dulce</h5>
@@ -136,7 +110,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm bg-white">
+          <div class="card h-100 shadow-sm bg-white scroll-fade">
             <img src="img/Barbacoajalis.png" class="card-img-top" alt="Galletas veganas">
             <div class="card-body">
               <h5 class="card-title">Barbacoa Estilo Jalisco</h5>
@@ -146,7 +120,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card h-100 shadow bg-white">
+          <div class="card h-100 shadow bg-white scroll-fade">
             <img src="img/cochinitapibil.png" class="card-img-top" alt="Pastel de zanahoria natural">
             <div class="card-body">
               <h5 class="card-title">Cochinita Pibil</h5>
@@ -156,7 +130,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm bg-white">
+          <div class="card h-100 shadow-sm bg-white scroll-fade">
             <img src="img/cochinitapibil.png" class="card-img-top" alt="Pastel de zanahoria natural">
             <div class="card-body">
               <h5 class="card-title">Cochinita Pibil</h5>
@@ -209,7 +183,7 @@
             <li><i class="bi bi-geo-alt me-2"></i> Calle Ejemplo #123, Guadalajara</li>
           </ul>
 
-          <!-- Logos de familias en el footer (links a categorías) -->
+          <!-- Logos de familias en el footer -->
           <div class="mt-3 pt-2 border-top border-light-subtle">
             <div class="d-flex align-items-center justify-content-start gap-3 flex-wrap mt-3">
               <a href="productos.html#familia-rey-panadero" aria-label="Rey Panadero">
@@ -237,9 +211,29 @@
     </div>
   </footer>
 
-  <!-- Scripts (mismos que ya tenías) -->
+  <!-- Scripts -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Intersection Observer para animaciones al scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos con scroll-fade
+    document.querySelectorAll('.scroll-fade').forEach(el => {
+      observer.observe(el);
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
