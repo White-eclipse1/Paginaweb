@@ -589,4 +589,16 @@ footer a:hover { color: var(--brand); }
    ========================================================= */
 .page-404 {
   min-height: 60vh; display: grid; place-items: center; text-align: center;
+  .header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 251, 247, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  
+  /* ✅ Propiedades para el movimiento Smooth */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
 }
