@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administracion | CMS</title>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+    window.CMS_CONFIG_PATH = false;
+  </script>
+  <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
+</head>
+<body>
+  <script>
+    const siteOrigin = window.location.origin;
+
+    CMS.init({
+      load_config_file: false,
+      config: {
+        locale: "es",
+        site_url: siteOrigin,
+        display_url: siteOrigin,
+        backend: {
+          name: "github",
+          repo: "White-eclipse1/Paginaweb",
+          branch: "dev",
+          base_url: siteOrigin + "/api",
+          auth_endpoint: "auth"
+        },
+        media_folder: "img/uploads",
+        public_folder: "/img/uploads",
+        editorial_workflow: false,
+        collections: [
+          {
+            name: "ofertas",
+            label: "Ofertas de trabajo",
+            format: "json",
+            files: [
+              {
+                file: "data/ofertas.json",
+                label: "Listado de ofertas",
+                name: "ofertas_json",
+                fields: [
+                  {
+                    label: "Ofertas",
+                    name: "items",
+                    widget: "list",
+                    fields: [
+                      { label: "Puesto", name: "puesto", widget: "string" },
+                      { label: "Descripcion", name: "descripcion", widget: "text" },
+                      { label: "Ubicacion", name: "ubicacion", widget: "string" },
+                      { label: "Tipo", name: "tipo", widget: "select", options: ["Tiempo completo", "Medio tiempo", "Practicas"] },
+                      { label: "Sueldo (opcional)", name: "sueldo", widget: "string", required: false },
+                      { label: "Contacto o email", name: "contacto", widget: "string" },
+                      { label: "Publicacion", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", time_format: false },
+                      { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
+</body>
+</html>
