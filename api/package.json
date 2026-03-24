@@ -1,8 +1,9 @@
 {
-  "name": "decap-cms-oauth-swa",
+  "name": "api",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
+    "multiparty": "^4.2.3",
     "node-fetch": "^3.3.2"
   }
 }
