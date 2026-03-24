@@ -1,0 +1,81 @@
+{
+  "items": [
+    {
+      "slug": "quimico",
+      "titulo": "QUIMICO",
+      "empresa": "alma de pan",
+      "ubicacion": "Guadalajara",
+      "tipo": "Temporal",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762903422435-Bohemian_Rhapsody.jpg",
+      "activo": true,
+      "date": "2025-11-11T23:23:45.629Z"
+    },
+    {
+      "slug": "limpiador-1",
+      "titulo": "Limpiador 1",
+      "empresa": "eten",
+      "ubicacion": "zapopan",
+      "tipo": "Temporal",
+      "salario": "$1500",
+      "imagen": "/content/vacantes/imagenes/1762900744426-AFD_ACT_conversion.jpg",
+      "activo": true,
+      "date": "2025-11-11T22:39:07.410Z"
+    },
+    {
+      "slug": "panadero",
+      "titulo": "Panadero",
+      "empresa": "reyes",
+      "ubicacion": "zapopan",
+      "tipo": "Tiempo completo",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762893411721-1_afd.jpg",
+      "activo": true,
+      "date": "2025-11-11T20:36:54.140Z"
+    },
+    {
+      "slug": "cto",
+      "titulo": "Cto",
+      "empresa": "Pan bueno",
+      "ubicacion": "zapopan",
+      "tipo": "Tiempo completo",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762891565790-crepusculo-tarjetas-cumpleanios-para-imprimir.jpg",
+      "activo": true,
+      "date": "2025-11-11T20:06:09.405Z"
+    },
+    {
+      "slug": "secretaria",
+      "titulo": "secretaria",
+      "empresa": "reyes",
+      "ubicacion": "zapopan",
+      "tipo": "Tiempo completo",
+      "salario": "$15000",
+      "imagen": "/content/vacantes/imagenes/1762890171900-Tarea_2.png",
+      "activo": true,
+      "date": "2025-11-11T19:42:55.826Z"
+    },
+    {
+      "slug": "ceo",
+      "titulo": "Ceo",
+      "empresa": "reyes",
+      "ubicacion": "zapopan",
+      "tipo": "Remoto",
+      "salario": "",
+      "imagen": "",
+      "activo": true,
+      "date": "2025-11-11T09:20:29.065Z"
+    },
+    {
+      "slug": "limpiador-3",
+      "titulo": "Limpiador 3",
+      "empresa": "Pan bueno",
+      "ubicacion": "s",
+      "tipo": "Medio tiempo",
+      "salario": "$150000",
+      "imagen": "/content/vacantes/imagenes/1762850147206-AMD.jpg",
+      "activo": true,
+      "date": "2025-11-11T08:35:50.422Z"
+    }
+  ]
+}
