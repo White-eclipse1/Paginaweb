@@ -1,213 +1,246 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alimentos con Principios - Quiénes Somos</title>
-
-    <!-- Bootstrap & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- Tu CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alimentos con Principios | Quiénes Somos</title>
+  <link rel="icon" href="img/Origenes_logo_principal.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
-
-  <!-- NAVBAR (se mantiene igual) -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+<body class="d-flex flex-column min-vh-100" id="top">
+  <nav class="navbar navbar-expand-lg bakery-navbar shadow-sm sticky-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height="120" class="me-2">
-        
+      <a class="navbar-brand bakery-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="230" height="120" class="brand-logo me-2">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler bakery-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir navegación">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">Quiénes Somos</a></li>
-          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="nuestros_procesos.html">Procesos</a></li>
-          <li class="nav-item"><a class="nav-link" href="testiminiosclientes.html">Testimonios</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+        <ul class="navbar-nav ms-auto bakery-nav-list">
+          <li class="nav-item"><a class="nav-link bakery-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link active" href="about.html">Quiénes Somos</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="nuestros_procesos.html">Procesos</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="testiminiosclientes.html">Testimonios</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="contact.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="noticias.html">Noticias</a></li>
+          <li class="nav-item"><a class="nav-link bakery-link" href="bolsa-trabajo.html">Bolsa de Trabajo</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- VIDEO (se mantiene igual) -->
-  <div class="ratio ratio-16x9">
-    <iframe
-      src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fchilledmealsmexico%2Fvideos%2F1293865184316141%2F&show_text=false&width=560&t=0"
-      style="border:none;overflow:hidden"
-      scrolling="no"
-      frameborder="0"
-      allowfullscreen="true"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-    </iframe>
-  </div>
-
-    <!-- CONTENIDO ABOUT -->
-  <section class="py-5 bg-black">
-    <div class="container bg-soft">
-
-      <!-- Quiénes Somos -->
-      <div class="row g-4 align-items-center mb-4">
-        <div class="col-12 col-lg-7">
-          <h1 class="h2 fw-bold mb-3">Quiénes Somos</h1>
-          <p class="lead">
-            Somos una organización mexicana con más de dos décadas de experiencia en la industria alimentaria,
-            especializada en insumos para panificación. Operamos con plantas diseñadas para cumplir normas exigentes
-            y con personal altamente capacitado, lo que nos permite ofrecer productos y servicios confiables y de alta calidad.
-          </p>
-          <p class="mb-0">
-            Trabajamos con tecnología de vanguardia y bajo procesos estandarizados para asegurar satisfacción,
-            consistencia y mejora continua en beneficio de nuestros clientes.
-          </p>
-        </div>
-        <div class="col-12 col-lg-5">
-          <div class="p-4 bg-normal rounded-4 shadow-sm h-100">
-            <div class="d-flex align-items-start">
-              <i class="bi bi-building-check fs-2 me-3"></i>
-              <div>
-                <h3 class="h5 mb-2">Nuestra esencia</h3>
-                <ul class="mb-0 ps-3">
-                  <li>Más de 20 años de experiencia.</li>
-                  <li>Plantas con estándares de la industria.</li>
-                  <li>Equipo profesional y capacitado.</li>
-                </ul>
+  <main class="flex-grow-1">
+    <header class="section about-hero">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-12 col-lg-6">
+            <p class="producer-kicker mb-2">Quiénes Somos</p>
+            <h1 class="section-title mb-3">Tradición alimentaria con procesos confiables y visión de largo plazo.</h1>
+            <p class="lead mb-4">Somos una organización mexicana con más de dos décadas de experiencia en la industria alimentaria, especializada en insumos para panificación y desarrollo de soluciones consistentes para operación diaria.</p>
+            <div class="about-hero-actions d-flex flex-wrap gap-3">
+              <a href="productos.html" class="btn btn-primary">Ver productos</a>
+              <a href="contact.html" class="btn btn-outline-dark">Hablar con nosotros</a>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="about-video-shell shadow-soft">
+              <div class="ratio ratio-16x9">
+                <iframe
+                  src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fchilledmealsmexico%2Fvideos%2F1293865184316141%2F&show_text=false&width=560&t=0"
+                  style="border:none;overflow:hidden"
+                  scrolling="no"
+                  frameborder="0"
+                  allowfullscreen="true"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                </iframe>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Misión y Visión unificadas -->
-      <div class="mt-5">
-        <div class="p-4 p-md-5 bg-normal rounded-4 shadow-sm">
+        <div class="row g-3 about-metrics">
+          <div class="col-12 col-md-4">
+            <article class="about-metric-card">
+              <span class="about-metric-value">20+</span>
+              <p class="about-metric-label mb-0">Años de experiencia en la industria alimentaria</p>
+            </article>
+          </div>
+          <div class="col-12 col-md-4">
+            <article class="about-metric-card">
+              <span class="about-metric-value">100%</span>
+              <p class="about-metric-label mb-0">Enfoque en calidad, higiene y uniformidad</p>
+            </article>
+          </div>
+          <div class="col-12 col-md-4">
+            <article class="about-metric-card">
+              <span class="about-metric-value">1</span>
+              <p class="about-metric-label mb-0">Compromiso: hacerlo bien desde la primera vez</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="about-story-panel">
           <div class="row g-4 align-items-start">
-            <div class="col-12 col-lg-6">
-              <div class="d-flex align-items-center mb-3">
-                <i class="bi bi-bullseye fs-3 me-2 text-primary"></i>
-                <h2 class="h4 mb-0">Misión</h2>
-              </div>
-              <p>
-                Procesar frutas y materias primas con higiene impecable y alta tecnología,
-                para satisfacer a nuestros públicos clave:
-              </p>
-              <ul class="mb-0 ps-3">
+            <div class="col-12 col-lg-7">
+              <p class="producer-kicker mb-2">Nuestra Esencia</p>
+              <h2 class="h3 mb-3">Una operación construida sobre experiencia, consistencia y mejora continua.</h2>
+              <p class="texto-informativo">Operamos con plantas diseñadas para cumplir normas exigentes y con personal altamente capacitado, lo que nos permite ofrecer productos y servicios confiables, estables y alineados con las necesidades reales de nuestros clientes.</p>
+              <p class="texto-informativo mb-0">Trabajamos con tecnología de vanguardia y bajo procesos estandarizados para asegurar satisfacción, consistencia y mejora continua en cada etapa del trabajo.</p>
+            </div>
+            <div class="col-12 col-lg-5">
+              <article class="about-aside-card h-100">
+                <div class="d-flex align-items-start gap-3">
+                  <span class="about-icon"><i class="bi bi-building-check"></i></span>
+                  <div>
+                    <h3 class="h5 mb-2">Lo que nos define</h3>
+                    <ul class="about-check-list mb-0">
+                      <li>Más de dos décadas de trayectoria.</li>
+                      <li>Infraestructura orientada al cumplimiento.</li>
+                      <li>Equipos capacitados y operación disciplinada.</li>
+                      <li>Decisiones enfocadas en calidad sostenida.</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-12 col-lg-6">
+            <article class="about-focus-card h-100">
+              <p class="producer-kicker mb-2">Misión</p>
+              <h2 class="h3 mb-3">Procesar con higiene impecable, tecnología y responsabilidad.</h2>
+              <p class="texto-informativo">Procesamos frutas y materias primas con estándares altos para generar valor real a quienes se relacionan con la empresa.</p>
+              <ul class="about-pillars mb-0">
                 <li><strong>Clientes:</strong> sabor, presentación y precio acordes a sus expectativas.</li>
                 <li><strong>Colaboradores:</strong> empleo estable, justo y con desarrollo humano.</li>
                 <li><strong>Sociedad:</strong> valores en la comunidad, cumplimiento regulatorio y cuidado ambiental.</li>
                 <li><strong>Accionistas:</strong> generación de valor sostenible.</li>
               </ul>
+            </article>
+          </div>
+          <div class="col-12 col-lg-6">
+            <article class="about-focus-card h-100">
+              <p class="producer-kicker mb-2">Visión</p>
+              <h2 class="h3 mb-3">Ser una empresa de clase mundial, estructurada, productiva e innovadora.</h2>
+              <p class="texto-informativo mb-0">Buscamos una operación con procesos estandarizados y automatizados, canales propios de distribución, productos con valor agregado bajo una marca reconocida y crecimiento constante con márgenes sanos.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pt-0">
+      <div class="container">
+        <div class="about-quality-panel">
+          <div class="row g-4 align-items-start">
+            <div class="col-12 col-lg-5">
+              <p class="producer-kicker mb-2">Política de Calidad</p>
+              <h2 class="h3 mb-3">Hacemos que las cosas salgan bien desde la primera vez.</h2>
+              <p class="texto-informativo mb-0">La calidad no es un discurso separado de la operación: es la forma en que medimos, documentamos y mejoramos el trabajo para reducir fallas y sostener resultados.</p>
             </div>
-            <div class="col-12 col-lg-6">
-              <div class="d-flex align-items-center mb-3">
-                <i class="bi bi-binoculars fs-3 me-2 text-success"></i>
-                <h2 class="h4 mb-0">Visión</h2>
+            <div class="col-12 col-lg-7">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <article class="about-quality-item">
+                    <span class="about-icon about-icon-sm"><i class="bi bi-check2-circle"></i></span>
+                    <p class="mb-0">Superamos expectativas de clientes internos y externos.</p>
+                  </article>
+                </div>
+                <div class="col-12 col-md-6">
+                  <article class="about-quality-item">
+                    <span class="about-icon about-icon-sm"><i class="bi bi-check2-circle"></i></span>
+                    <p class="mb-0">Trabajamos con procesos higiénicos y confiables.</p>
+                  </article>
+                </div>
+                <div class="col-12 col-md-6">
+                  <article class="about-quality-item">
+                    <span class="about-icon about-icon-sm"><i class="bi bi-check2-circle"></i></span>
+                    <p class="mb-0">Entregamos productos y servicios con uniformidad.</p>
+                  </article>
+                </div>
+                <div class="col-12 col-md-6">
+                  <article class="about-quality-item">
+                    <span class="about-icon about-icon-sm"><i class="bi bi-check2-circle"></i></span>
+                    <p class="mb-0">Buscamos cero desperdicios con mejora continua.</p>
+                  </article>
+                </div>
+                <div class="col-12">
+                  <article class="about-quality-item">
+                    <span class="about-icon about-icon-sm"><i class="bi bi-check2-circle"></i></span>
+                    <p class="mb-0">Documentamos, medimos y ajustamos procesos para sostener desempeño en el tiempo.</p>
+                  </article>
+                </div>
               </div>
-              <p class="mb-0">
-                Ser una empresa de clase mundial: productiva, estructurada e innovadora,
-                con procesos estandarizados y automatizados; desarrollar canales propios de distribución,
-                ofrecer productos con valor agregado bajo una marca reconocida y crecer de forma constante con
-                márgenes sanos.
-              </p>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Política de Calidad -->
-      <div class="mt-5">
-        <div class="p-4 p-md-5 bg-normal rounded-4 shadow-sm">
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-shield-check fs-3 me-2 text-warning"></i>
-            <h2 class="h4 mb-0">Nuestra Política de Calidad</h2>
+    <section class="section pt-0">
+      <div class="container">
+        <div class="about-values-panel">
+          <div class="text-center mb-4">
+            <p class="producer-kicker mb-2">Nuestros Valores</p>
+            <h2 class="section-title mb-2">La cultura con la que operamos todos los días.</h2>
+            <p class="producer-meta mx-auto">Estos principios sostienen la relación con clientes, colaboradores, proveedores y comunidad.</p>
           </div>
-          <p class="mb-3">Hacemos que las cosas salgan bien desde la primera vez, por eso:</p>
           <div class="row g-3">
-            <div class="col-12 col-md-6">
-              <ul class="ps-3 mb-0">
-                <li>Superamos expectativas de clientes internos y externos.</li>
-                <li>Trabajamos con procesos higiénicos y confiables.</li>
-                <li>Entregamos productos y servicios con uniformidad.</li>
-              </ul>
-            </div>
-            <div class="col-12 col-md-6">
-              <ul class="ps-3 mb-0">
-                <li>Buscamos cero desperdicios.</li>
-                <li>Documentamos, medimos y mejoramos continuamente.</li>
-              </ul>
-            </div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Honradez e Integridad</strong><span>Actuar con justicia y rectitud en todo momento.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Trabajo en Equipo</strong><span>Cooperación y cohesión para lograr resultados consistentes.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Responsabilidad</strong><span>Asumir compromisos y responder con integridad.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Creatividad</strong><span>Aplicar la imaginación para innovar y resolver.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Austeridad</strong><span>Usar recursos con criterio y foco en lo esencial.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Actitud de Servicio</strong><span>Atención genuina y orientación constante al cliente.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Higiene y Limpieza</strong><span>Protección constante de personas y productos.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Capacidad</strong><span>Formación y recursos para cumplir objetivos.</span></article></div>
+            <div class="col-12 col-md-6 col-xl-4"><article class="about-value-card"><strong>Innovación y Confiabilidad</strong><span>Mejorar procesos sin perder consistencia en los resultados.</span></article></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Valores unificados -->
-      <div class="mt-5">
-        <div class="p-4 p-md-5 bg-normal rounded-4 shadow-sm">
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-stars fs-3 me-2 text-info"></i>
-            <h2 class="h4 mb-0">Nuestros Valores</h2>
+    <section class="section pt-0">
+      <div class="container">
+        <div class="about-cta-panel text-center">
+          <p class="producer-kicker mb-2">Siguiente Paso</p>
+          <h2 class="h3 mb-2">Si necesitas una solución alimentaria confiable, conversemos.</h2>
+          <p class="producer-meta mx-auto mb-4">Podemos ayudarte con productos, desarrollo y atención para operación diaria.</p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="contact.html" class="btn btn-primary px-4">Escríbenos</a>
+            <a href="productos.html" class="btn btn-outline-dark px-4">Explorar catálogo</a>
           </div>
-          <p class="mb-3">
-            En Alimentos con Principios trabajamos inspirados por valores que guían nuestro día a día, fortalecen nuestra cultura
-            y garantizan relaciones duraderas con clientes, colaboradores y comunidades:
-          </p>
-          <ul class="row list-unstyled ps-3">
-            <li class="col-md-6 mb-2"><strong>Honradez e Integridad:</strong> actuar con justicia y rectitud en todo momento.</li>
-            <li class="col-md-6 mb-2"><strong>Trabajo en Equipo:</strong> cooperación y cohesión para lograr resultados consistentes.</li>
-            <li class="col-md-6 mb-2"><strong>Responsabilidad:</strong> asumir compromisos y responder con integridad.</li>
-            <li class="col-md-6 mb-2"><strong>Creatividad:</strong> aplicar la imaginación para innovar y resolver.</li>
-            <li class="col-md-6 mb-2"><strong>Austeridad:</strong> uso eficiente de recursos, enfocándonos en lo esencial.</li>
-            <li class="col-md-6 mb-2"><strong>Actitud de Servicio:</strong> atención genuina y orientación al cliente.</li>
-            <li class="col-md-6 mb-2"><strong>Higiene y Limpieza:</strong> protección constante de personas y productos.</li>
-            <li class="col-md-6 mb-2"><strong>Capacidad:</strong> formación y recursos para cumplir nuestros objetivos.</li>
-            <li class="col-md-6 mb-2"><strong>Innovación:</strong> mejora continua de procesos y productos.</li>
-            <li class="col-md-6 mb-2"><strong>Confiabilidad:</strong> consistencia en nuestras decisiones y resultados.</li>
-          </ul>
         </div>
       </div>
+    </section>
+  </main>
 
-      <!-- CTA Contacto -->
-      <section class="section text-center mt-5">
-        <div class="container">
-          <div class="p-4 p-md-5 rounded-xl bg-soft shadow-soft">
-            <h3 class="h4 mb-2">¿Quieres saber más?</h3>
-            <p class="texto-informativo mb-3">
-              Escríbenos; nos encantará ayudarte con tus necesidades de insumos para panificación.
-            </p>
-            <a href="contact.html" class="btn btn-outline-dark rounded-pill px-4">
-              <i class="bi bi-envelope me-1"></i> Escríbenos
-            </a>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </section>
-
-
-    
-    
-
-    <!-- FOOTER -->
   <footer class="footer section-dark mt-5 pt-5 pb-4">
     <div class="container">
-      <div class="row g-4">
+      <div class="row g-4 align-items-start">
         <div class="col-md-4">
-          <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="d-flex align-items-center gap-2 mb-3">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-              <img src="img/logo-header.png" alt="Logo" width="100">
+              <img src="img/logo-header.png" alt="Logo Alimentos con Principios" width="110">
             </a>
             <span class="fw-semibold text-light-on-dark">Alimentos con Principios</span>
           </div>
-          <p class="mb-3 text-light-on-dark">Tu tienda de confianza para alimentos.</p>
-          <div class="d-flex gap-3">
+          <p class="mb-3 text-light-on-dark">Alimentos honestos y prácticos para cada día, con procesos responsables y sabor casero.</p>
+          <div class="d-flex gap-2 flex-wrap">
             <a class="social-link" href="https://www.facebook.com/chilledmealsmexico/?locale=es_LA" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
             <a class="social-link" href="https://www.instagram.com/danifernaandezz?utm_source=ig_web_button_share_sheet&igsh=MTY5c2Z4bTlkbGFmOQ==" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
             <a class="social-link" href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
@@ -217,8 +250,8 @@
 
         <div class="col-6 col-md-4">
           <h6 class="text-light-on-dark mb-3">Enlaces rápidos</h6>
-          <ul class="list-unstyled m-0">
-            <li><a class="footer-link" href="about.html">Sobre Nosotros</a></li>
+          <ul class="list-unstyled m-0 footer-links-list">
+            <li><a class="footer-link" href="about.html">Quiénes Somos</a></li>
             <li><a class="footer-link" href="productos.html">Productos</a></li>
             <li><a class="footer-link" href="nuestros_procesos.html">Nuestros Procesos</a></li>
             <li><a class="footer-link" href="desarrollosmedida.html">Desarrollos a la medida</a></li>
@@ -228,26 +261,11 @@
 
         <div class="col-6 col-md-4">
           <h6 class="text-light-on-dark mb-3">Contacto</h6>
-          <ul class="list-unstyled m-0 text-light-on-dark">
+          <ul class="list-unstyled m-0 text-light-on-dark footer-contact-list">
             <li><i class="bi bi-envelope me-2"></i> info@MermeladasLaCasita.com</li>
             <li><i class="bi bi-telephone me-2"></i> (123) 456-7890</li>
             <li><i class="bi bi-geo-alt me-2"></i> Calle Ejemplo #123, Guadalajara</li>
           </ul>
-
-          <!-- Logos de familias en el footer (links a categorías) -->
-          <div class="mt-3 pt-2 border-top border-light-subtle">
-            <div class="d-flex align-items-center justify-content-start gap-3 flex-wrap mt-3">
-              <a href="productos.html#familia-rey-panadero" aria-label="Rey Panadero">
-                <img src="img/Logotipo_ReyPanadero[14182].gif" alt="Rey Panadero" width="64" height="42" class="rounded">
-              </a>
-              <a href="productos.html#familia-eten" aria-label="Eten">
-                <img src="img/etenlogo.jpg" alt="Eten" width="64" height="42" class="rounded">
-              </a>
-              <a href="productos.html#familia-origenes" aria-label="Orígenes">
-                <img src="img/Origenes_logo_principal.png" alt="Orígenes" width="64" height="42" class="rounded">
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -262,9 +280,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
